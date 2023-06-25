@@ -1,4 +1,4 @@
-package bg.tuvarna.outspread;
+package bg.tuvarna.outspread; 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
