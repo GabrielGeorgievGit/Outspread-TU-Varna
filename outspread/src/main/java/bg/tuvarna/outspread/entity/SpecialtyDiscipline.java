@@ -1,6 +1,7 @@
 package bg.tuvarna.outspread.entity;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class SpecialtyDiscipline {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "specialty_discipline_id")
 	private int id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

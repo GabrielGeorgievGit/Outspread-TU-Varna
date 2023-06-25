@@ -2,15 +2,14 @@ package bg.tuvarna.outspread.entity;
 
 import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToOne;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,17 +17,17 @@ import jakarta.persistence.Table;
 public class Exercise {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "exercise_id")
 	private int id;
 	
-	@JoinColumn(name = "owner_id")
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "owner_id")
 	private User owner;
 	
 	private String title;
 	
-	@JoinColumn(name = "discipline_id")
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "discipline_id")
 	private Discipline discipline; 
 	
 	private String info;

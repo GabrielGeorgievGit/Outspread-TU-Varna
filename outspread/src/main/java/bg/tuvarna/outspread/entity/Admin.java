@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Admin {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="admin_id")
 	private int id;
 	private String username;
 	private String password;
