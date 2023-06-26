@@ -13,8 +13,6 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Override
 	public User findUser(String username) {
-		String kus = em.createQuery("SELECT u from User u").getResultList().toString();
-		System.out.println(kus);
 		User user = em.createQuery(
 				  "SELECT u from User u WHERE u.username = :username", User.class).
 				  setParameter("username", username).getSingleResult();

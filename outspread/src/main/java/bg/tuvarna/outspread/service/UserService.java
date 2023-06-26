@@ -1,5 +1,8 @@
 package bg.tuvarna.outspread.service;
 
+import bg.tuvarna.outspread.dto.LoginDto;
+import bg.tuvarna.outspread.entity.User;
+
 public interface UserService {
-	boolean authenticate(String username, String password);
+	User authenticate(LoginDto user);
 }

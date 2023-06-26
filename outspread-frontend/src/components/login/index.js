@@ -1,9 +1,85 @@
+import { useEffect, useState } from "react";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { errorHelper } from "../../utils/tools";
+
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+import { loginUser } from "../../store/actions/users";
+
 const Login = () => {
-    return(
-        <>
+
+    // const [register, setRegister] = useState(true);
+    //redux
+    const users = useSelector((state)=>state.users);
+    const dispatch = useDispatch();
+
+    const formik = useFormik({
+        initialValues: {username: '', password: ''},
+        validationSchema: Yup.object({
+            username: Yup.string()
+            .required('The username field is required'),
+            password: Yup.string()
+            .required('The password field is required')
+            .min(3)
+            .max(10)
             
-        </>
+        }),
+        onSubmit: (values)=> {
+            handleSubmit(values)
+        }
+    })
+
+    const handleSubmit = (values) => {
+        console.log(values, " in login ")
+        dispatch(loginUser(values))
+    }
+
+    return (
+        <div className="auth_container">
+            <h1>Login</h1>
+            <Box
+                sx={{
+                    '& .MuiTextField-root': { width: '100%', marginTop: '20px' },
+                }}
+                component="form"
+                onSubmit={formik.handleSubmit}
+            >
+
+                <TextField
+                    name="username"
+                    label="Enter your username"
+                    variant='outlined'
+                    {...formik.getFieldProps('username')}
+                    {...errorHelper(formik, 'username')}
+                />
+
+                <TextField
+                    name="password"
+                    label="Enter you password"
+                    type="password"
+                    variant='outlined'
+                    {...formik.getFieldProps('password')}
+                    {...errorHelper(formik, 'password')}
+                />
+
+                <div className="mt-2">
+                    <Button variant="contained" color="primary" type="submit"
+                    size="large" disabled={!formik.isValid}>
+                        {/* { register ? 'Register' : 'Login' } */'Login'}
+                    </Button>
+                    <Button className="mt-3" variant="outlined" color="secondary" size="small">
+                        Want to register ?
+                    </Button>
+                </div>
+
+            </Box>
+        </div>
     )
 }
 
-export default Login
+export default Login;
