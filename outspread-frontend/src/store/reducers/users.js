@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { 
-    loginUser 
+    loginUser,
+    isAuth
 } from '../actions/users'
 let DEFAULT_USER_STATE = {
     loading: false,
@@ -34,6 +35,14 @@ export const usersSlice = createSlice({
             state.auth = action.payload.auth;
         })
         .addCase(loginUser.rejected, (state)=> { state.loading = false })
+        // is auth
+        .addCase(isAuth.pending, (state)=>{ state.loading = true })
+        .addCase(isAuth.fulfilled, (state, action)=>{
+            state.loading = false;
+            state.data = { ...state.data, ...action.payload.data }
+            state.auth = action.payload.auth;
+        })
+        .addCase(isAuth.rejected, (state)=> { state.loading = false })
     }
 })
 
