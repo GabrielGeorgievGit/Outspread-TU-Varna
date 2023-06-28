@@ -7,10 +7,10 @@ export const loginUser = createAsyncThunk(
     'user/login',
     async({username, password}, {dispatch})=>{
         try {
-            const request = await axios.post(`/login`, {
+            const request = await axios.post(`/login`,{},{ auth: {
                 username: username,
                 password: password
-            })
+            }})
             dispatch(successGlobal('Welcome!!'))
 
             return { data: request.data, auth: true}
@@ -25,9 +25,11 @@ export const isAuth = createAsyncThunk(
     'user/isAuth',
     async()=>{
         try {
-            const request = await axios.get('/api/auth/isauth', getAuthHeader());
+            const request = await axios.get('/login', getAuthHeader());
+            console.log("this")
             return { data: request.data, auth: true }
         } catch(error) {
+            console.log("here ou")
             return { data: {}, auth: false }
         }
     }

@@ -5,6 +5,7 @@ import { clearNotifications } from "../../store/reducers/notifications";
 import { showToast } from "../../utils/tools";
 
 const Header = () => {
+    const users = useSelector(state => state.users)
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch();
 

@@ -2,13 +2,10 @@ package bg.tuvarna.outspread;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-import bg.tuvarna.outspread.config.RsaKeyProperties;
-
-@EnableConfigurationProperties(RsaKeyProperties.class)
-@SpringBootApplication
+@SpringBootApplication(exclude = {ReactiveSecurityAutoConfiguration.class, ReactiveSecurityAutoConfiguration.class })
 @ComponentScan
 public class OutspreadApplication {
 
