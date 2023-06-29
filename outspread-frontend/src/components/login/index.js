@@ -13,13 +13,15 @@ import { loginUser } from "../../store/actions/users";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-
+    
     // const [register, setRegister] = useState(true);
     let navigate = useNavigate()
     //redux
     const users = useSelector(state => state.users);
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch();
+
+    // dispatch(loginGet())
 
     const formik = useFormik({
         initialValues: {username: 'ivan', password: 'ivan'},

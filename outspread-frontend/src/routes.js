@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isAuth } from './store/actions/users';
+// import { isAuth } from './store/actions/users';
 import { Loader } from './utils/tools';
 
 import MainLayout from './hoc/mainLayout';
@@ -8,12 +8,13 @@ import Header from './components/navigation/header';
 import Home from './components/home';
 import Login from './components/login';
 import { useEffect, useState } from 'react';
+import { homeExcercises } from './store/actions/home';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const users = useSelector(state => state.users)
-
+    /*
     useEffect(()=> {
         dispatch(isAuth())
     },[])
@@ -23,12 +24,14 @@ const Router = () => {
             setLoading(false)
         }
     },[users])
+    */
+    useEffect(()=> {
+        dispatch(homeExcercises)
+    },[dispatch])
 
     return (
         <BrowserRouter>
-            { loading ? 
-                <Loader/>
-            :    
+            
             <>
                 <Header/>
                 <MainLayout>
@@ -38,8 +41,9 @@ const Router = () => {
                     </Routes>
                 </MainLayout>
             </>
-            }
+            
         </BrowserRouter>
+        
     )
 }
 

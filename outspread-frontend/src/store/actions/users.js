@@ -2,16 +2,19 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { errorGlobal, successGlobal } from '../reducers/notifications'
 import axios from 'axios'
 import { getAuthHeader } from '../../utils/tools'
+import cookie from 'react-cookies'
 
 export const loginUser = createAsyncThunk(
     'user/login',
     async({username, password}, {dispatch})=>{
         try {
-            const request = await axios.post(`/login`,{},{ auth: {
+            const request = await axios.post(`http://localhost:8080/login`, {
                 username: username,
                 password: password
-            }})
+            })
             dispatch(successGlobal('Welcome!!'))
+            const jwtToken = request.headers["authorization"];
+            cookie.save("final-access-token", jwtToken);
 
             return { data: request.data, auth: true}
         } catch(error) {
@@ -20,7 +23,6 @@ export const loginUser = createAsyncThunk(
         }
     }
 )
-
 export const isAuth = createAsyncThunk(
     'user/isAuth',
     async()=>{
@@ -34,3 +36,20 @@ export const isAuth = createAsyncThunk(
         }
     }
 )
+
+/*
+export const loginGet = createAsyncThunk(
+    'get/login',
+    async()=>{
+        try {
+            const request = await axios.get(`http://localhost:8080/login`)
+            // dispatch(successGlobal('Welcome!!'))
+            console.log("you made get request in login")
+            console.log( request.data)
+        } catch(error) {
+            // dispatch(errorGlobal(error.response.data.message))
+            throw error;
+        }
+    }
+)*/
+

@@ -26,10 +26,8 @@ public class Discipline {
 	@OneToMany(mappedBy = "discipline")
 	private List<SpecialtyDiscipline> specialtyDisciplines;
 	
-	public Discipline(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	public Discipline() {
+
 	}
 	public int getId() {
 		return id;

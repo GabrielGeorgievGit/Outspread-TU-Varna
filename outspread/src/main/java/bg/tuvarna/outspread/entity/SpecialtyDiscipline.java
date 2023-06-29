@@ -29,12 +29,8 @@ public class SpecialtyDiscipline {
 	
 	private char semester;
 
-	public SpecialtyDiscipline(int id, Specialty specialty, Discipline discipline, char semester) {
-		super();
-		this.id = id;
-		this.specialty = specialty;
-		this.discipline = discipline;
-		this.semester = semester;
+	public SpecialtyDiscipline() {
+		
 	}
 
 	public int getId() {

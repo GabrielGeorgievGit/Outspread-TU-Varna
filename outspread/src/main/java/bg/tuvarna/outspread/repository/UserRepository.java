@@ -1,7 +1,9 @@
 package bg.tuvarna.outspread.repository;
 
+import java.util.Optional;
+
 import bg.tuvarna.outspread.entity.User;
 
 public interface UserRepository {
-	User findUser(String username);
+	Optional<User> findUser(String username);
 }

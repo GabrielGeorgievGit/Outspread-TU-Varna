@@ -43,6 +43,7 @@ export const usersSlice = createSlice({
             state.auth = action.payload.auth;
         })
         .addCase(isAuth.rejected, (state)=> { state.loading = false })
+        
     }
 })
 

@@ -19,12 +19,7 @@ public class Admin {
 	private boolean prime;
 	
 	
-	public Admin(int id, String username, String password, boolean prime) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.prime = prime;
+	public Admin() {
 	}
 	public int getId() {
 		return id;

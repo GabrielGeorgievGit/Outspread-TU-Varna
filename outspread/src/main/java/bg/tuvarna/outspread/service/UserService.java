@@ -1,8 +1,7 @@
 package bg.tuvarna.outspread.service;
 
-import bg.tuvarna.outspread.dto.LoginDto;
-import bg.tuvarna.outspread.entity.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
-	User authenticate(LoginDto user);
+public interface UserService extends UserDetailsService {
+//	LoginResponseDto authenticate(LoginDto user);
 }
