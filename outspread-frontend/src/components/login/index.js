@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { errorHelper, getTokenCookie, Loader } from "../../utils/tools";
+import { errorHelper, getTokenCookie, Loader, removeTokenCookie } from "../../utils/tools";
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -21,7 +21,6 @@ const Login = () => {
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch();
 
-    // dispatch(loginGet())
 
     const formik = useFormik({
         initialValues: {username: 'ivan', password: 'ivan'},
@@ -48,7 +47,7 @@ const Login = () => {
         if(notifications && notifications.global.success) {
             navigate('/')
         }
-    },[notifications])
+    },[notifications, navigate])
 
     return (
         <div className="auth_container">

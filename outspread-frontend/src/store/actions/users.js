@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { errorGlobal, successGlobal } from '../reducers/notifications'
 import axios from 'axios'
-import { getAuthHeader } from '../../utils/tools'
+import { getAuthHeader, removeTokenCookie } from '../../utils/tools'
 import cookie from 'react-cookies'
 import { useNavigate } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
             dispatch(successGlobal('Welcome!!'))
             const jwtToken = request.headers["authorization"];
             cookie.save("final-access-token", jwtToken);
-
+            
             return { data: request.data, auth: true}
         } catch(error) {
             dispatch(errorGlobal(error.response.data.message))
@@ -31,7 +31,7 @@ export const isAuth = createAsyncThunk(
     async()=>{
         try {
             const request = await axios.get('/login', getAuthHeader());
-            console.log("this")
+            
             return { data: request.data, auth: true }
         } catch(error) {
             return { data: {}, auth: false }
