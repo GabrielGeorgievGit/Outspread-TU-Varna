@@ -3,6 +3,9 @@ import { errorGlobal, successGlobal } from '../reducers/notifications'
 import axios from 'axios'
 import { getAuthHeader } from '../../utils/tools'
 import cookie from 'react-cookies'
+import { useNavigate } from 'react-router-dom'
+
+
 
 export const loginUser = createAsyncThunk(
     'user/login',
@@ -31,7 +34,6 @@ export const isAuth = createAsyncThunk(
             console.log("this")
             return { data: request.data, auth: true }
         } catch(error) {
-            console.log("here ou")
             return { data: {}, auth: false }
         }
     }

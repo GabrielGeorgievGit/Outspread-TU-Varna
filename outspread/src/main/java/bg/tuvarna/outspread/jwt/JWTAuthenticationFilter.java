@@ -33,19 +33,30 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-
-        String authHeader = request.getHeader("Authorization");
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+//    	System.out.println("in do filter chain\nreqest headers:");
+//    	System.out.println(Arrays.asList(request.getCookies()).get(0).getName());
+//    	System.out.println("cookie value:");
+//    	System.out.println(WebUtils.getCookie(request, "final-access-token").getValue());
+//    	Cookie[] cookies = request.headers;
+//    	System.out.println("cookies");
+    	String authHeader = request.getHeader("Authorization");
+//    	System.out.println(request.get);
+//    	if(cookies != null ) {
+//    		Optional<Cookie> cookie = Arrays.asList(cookies).stream().filter(cooki -> cooki.getName().equals("final-access-token")).findFirst();
+//    		authHeader = Optional.ofNullable(cookie == null ? null : cookie.get().getValue()).orElse(null);
+//    	}
+        if (authHeader == null || !authHeader.startsWith("Bearer ") || authHeader.length() < 20) {
             filterChain.doFilter(request, response);
             return;
         }
-
+        
+        System.out.println("auth header: " + authHeader);
         String jwt = authHeader.substring(7);
         String subject = jwtUtil.getSubject(jwt);
 
         if (subject != null &&
                 SecurityContextHolder.getContext().getAuthentication() == null) {
+        	System.out.println("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\nsdafasdfsdaf\nsdafasdf");
             UserDetails userDetails = userService.loadUserByUsername(subject);
             if (jwtUtil.isTokenValid(jwt, userDetails.getUsername())) {
                 UsernamePasswordAuthenticationToken authenticationToken =
@@ -58,6 +69,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
+        
         filterChain.doFilter(request, response);
 
     }

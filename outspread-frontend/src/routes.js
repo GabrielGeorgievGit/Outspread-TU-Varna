@@ -9,29 +9,30 @@ import Home from './components/home';
 import Login from './components/login';
 import { useEffect, useState } from 'react';
 import { homeExcercises } from './store/actions/home';
+import { isAuth } from './store/actions/users';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const users = useSelector(state => state.users)
-    /*
-    useEffect(()=> {
-        dispatch(isAuth())
-    },[])
+    
+    // useEffect(()=> {
+    //     dispatch(isAuth())
+    // },[dispatch])
 
     useEffect(()=> {
         if(users.auth !== null) {
             setLoading(false)
         }
     },[users])
-    */
+    
     useEffect(()=> {
         dispatch(homeExcercises)
     },[dispatch])
 
     return (
         <BrowserRouter>
-            
+        
             <>
                 <Header/>
                 <MainLayout>
@@ -41,7 +42,7 @@ const Router = () => {
                     </Routes>
                 </MainLayout>
             </>
-            
+        
         </BrowserRouter>
         
     )
