@@ -1,6 +1,6 @@
 package bg.tuvarna.outspread.entity;
 
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,31 +20,45 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user")
-public class User implements UserDetails{
-	
+@Table(name = "user")
+public class User implements UserDetails {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	private int id;
 	private String username;
 	private String password;
 	private String fullname;
 	private String fn;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "specialty_id")
 	private Specialty specialty;
-	
+
 	private Character semester;
 	private String role;
-	
+
 	@OneToMany(mappedBy = "owner")
 	private List<Exercise> exercisesOwned;
-	
+
 	public User() {
-		
+
 	}
+
+	public User(String username, String password, String fullname, String fn, Specialty specialty,
+			Character semester, String role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.fn = fn;
+		this.specialty = specialty;
+		this.semester = semester;
+		this.role = role;
+		this.exercisesOwned = new ArrayList<>();
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -87,8 +101,6 @@ public class User implements UserDetails{
 		this.fn = fn;
 	}
 
-	
-
 	public Specialty getSpecialty() {
 		return specialty;
 	}
@@ -112,26 +124,30 @@ public class User implements UserDetails{
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority("USER"));
 	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
+
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
+
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
+
 	@Override
 	public boolean isEnabled() {
 		return true;
 	}
-	
-	
+
 }

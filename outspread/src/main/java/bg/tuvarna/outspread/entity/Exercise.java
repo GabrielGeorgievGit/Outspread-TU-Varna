@@ -1,5 +1,6 @@
 package bg.tuvarna.outspread.entity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import jakarta.persistence.CascadeType;
@@ -31,13 +32,30 @@ public class Exercise {
 	private Discipline discipline;
 
 	private String info;
-	private LocalTime time;
+	private LocalDate time;
 	private LocalTime duration;
 	private String room;
 	private int signed;
 
 	public Exercise() {
 	}
+	
+	
+
+	public Exercise(User owner, String title, Discipline discipline, String info, LocalDate time,
+			LocalTime duration, String room, int signed) {
+		super();
+		this.owner = owner;
+		this.title = title;
+		this.discipline = discipline;
+		this.info = info;
+		this.time = time;
+		this.duration = duration;
+		this.room = room;
+		this.signed = signed;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -79,11 +97,11 @@ public class Exercise {
 		this.info = info;
 	}
 
-	public LocalTime getTime() {
+	public LocalDate getTime() {
 		return time;
 	}
 
-	public void setTime(LocalTime time) {
+	public void setTime(LocalDate time) {
 		this.time = time;
 	}
 
