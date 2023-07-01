@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import bg.tuvarna.outspread.dto.UserDto;
+import bg.tuvarna.outspread.dto.UserEditDto;
 import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.repository.AdminRepository;
 import bg.tuvarna.outspread.repository.UserRepository;
@@ -31,6 +32,11 @@ public class UserServiceImpl implements UserService  {
 	@Override
 	public User createUser(UserDto user) {
 		return ur.createUser(user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialtyId(), user.getSemester(), user.getRole()).get();
+	}
+	
+	@Override
+	public User editUser(UserEditDto user) {
+		return ur.editUser(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialtyId(), user.getSemester(), user.getRole()).get();
 	}
 	
 	@Override

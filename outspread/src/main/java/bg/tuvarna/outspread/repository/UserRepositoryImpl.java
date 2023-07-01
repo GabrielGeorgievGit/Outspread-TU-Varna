@@ -42,6 +42,25 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	
 	@Override
+	@Transactional
+	public Optional<User> editUser(int id, String username, String password, String fullname, String fn, int specialtyId, Character semester, String role) {
+		User user = em.find(User.class, id);
+		Specialty specialty = em.find(Specialty.class, specialtyId);
+		
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setFullname(fullname);
+		user.setFn(fn);
+		user.setSpecialty(specialty);
+		user.setSemester(semester);
+		user.setRole(role);
+		
+		em.persist(user);
+		
+		return Optional.of(user);
+	}
+	
+	@Override
 	@Transactional 
 	public void deleteUser(int id) {
 		User user = em.find(User.class, id);

@@ -39,6 +39,9 @@ public class SecurityFilterChainConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
                 .requestMatchers(
+                        HttpMethod.PUT, "/user/edit"
+                ).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                .requestMatchers(
                         HttpMethod.DELETE, "/user/delete"
                 ).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 .requestMatchers(
