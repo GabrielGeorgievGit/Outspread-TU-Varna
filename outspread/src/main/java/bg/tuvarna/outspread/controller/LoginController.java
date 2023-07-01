@@ -11,18 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import bg.tuvarna.outspread.dto.LoginDto;
 import bg.tuvarna.outspread.dto.LoginResponseDto;
 import bg.tuvarna.outspread.security.AuthenticationService;
-import bg.tuvarna.outspread.service.AdminService;
+
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000/login")
 public class LoginController {
 	
 	@Autowired
 	private AuthenticationService authenticationService;
 	
-	@Autowired
-	private AdminService as;
-	
-
 	@GetMapping("/login")
 	public String home() {
 		System.out.println("login page opened");

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import bg.tuvarna.outspread.entity.Admin;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 @Repository
 public class AdminRepositoryImpl implements AdminRepository {
@@ -24,6 +25,37 @@ public class AdminRepositoryImpl implements AdminRepository {
 		 admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		 
 		return Optional.of(admin);
+	}
+
+	@Override
+	@Transactional
+	public Optional<Admin> createAdmin(String username, String password) {
+		Admin admin = new Admin(username, password);
+		
+		em.persist(admin);
+		
+		return Optional.of(admin);
+	}
+	
+	@Override
+	@Transactional
+	public Optional<Admin> editAdmin(int id, String username, String password) {
+		Admin admin = em.find(Admin.class, id);
+		admin.setUsername(username);
+		admin.setPassword(password);
+		admin.setPrime(false);
+		
+		em.persist(admin);
+		
+		return Optional.of(admin);
+	}
+	
+	@Override
+	@Transactional
+	public void deleteAdmin(int id) {
+		Admin admin = em.find(Admin.class, id);
+		
+		em.remove(admin);
 	}
 	
 }

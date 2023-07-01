@@ -39,25 +39,43 @@ public class SecurityFilterChainConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
                 .requestMatchers(
+                		HttpMethod.POST, "/login"
+                		).permitAll()
+                .requestMatchers(
+                		HttpMethod.POST, "/admin/login"
+                		).permitAll()
+                //admin
+                .requestMatchers(
+                		HttpMethod.POST, "/admin/**"
+                		).hasAnyRole("ADMIN_PRIME")
+                .requestMatchers(
+                		HttpMethod.PUT, "/admin/**"
+                		).hasAnyRole("ADMIN_PRIME")
+                .requestMatchers(
+                		HttpMethod.DELETE, "/admin/**"
+                		).hasAnyRole("ADMIN_PRIME")
+                //user
+                .requestMatchers(
+                		HttpMethod.POST, "/user/create"
+                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                .requestMatchers(
                         HttpMethod.PUT, "/user/edit"
                 ).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 .requestMatchers(
                         HttpMethod.DELETE, "/user/delete"
                 ).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                //specialty
                 .requestMatchers(
-                        HttpMethod.POST, "/user/create"
+                        HttpMethod.POST, "/specialty/create"
                 ).hasAnyRole("ADMIN_PRIME", "ADMIN")
-//                .permitAll()
                 .requestMatchers(
                         HttpMethod.GET, "/**"
                 )
                 .permitAll()
-                .requestMatchers(
-                        HttpMethod.POST, "/**"
-                )
+//                .requestMatchers(
+//                        HttpMethod.POST, "/**"
+//                )
 //                .permitAll()
-//                .requestMatchers(HttpMethod.POST, "/**")
-                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -14,7 +14,6 @@ import bg.tuvarna.outspread.dto.UserDto;
 import bg.tuvarna.outspread.dto.UserEditDto;
 import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.service.UserService;
-import jakarta.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/user")
@@ -23,7 +22,6 @@ public class UserController {
 	@Autowired
 	private UserService us;
 	
-	@RolesAllowed("ADMIN")
 	@PostMapping("/create")
 	public ResponseEntity<?> createUser(@RequestBody UserDto request) {
 		System.out.println("request:specialtyid: " + request.getSpecialtyId());

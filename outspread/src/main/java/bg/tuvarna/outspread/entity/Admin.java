@@ -28,6 +28,16 @@ public class Admin implements UserDetails {
 	
 	public Admin() {
 	}
+	
+	
+	public Admin(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.prime = false;
+	}
+
+
 	public int getId() {
 		return id;
 	}
