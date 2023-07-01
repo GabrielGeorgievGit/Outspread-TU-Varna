@@ -14,7 +14,7 @@ let DEFAULT_USER_STATE = {
         specialty: null,
         semester: null,
         role: null,
-        exercisesOned: []
+        exercisesOwned: []
     },
     auth: null
 }

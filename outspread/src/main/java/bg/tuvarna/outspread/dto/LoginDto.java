@@ -1,7 +1,16 @@
 package bg.tuvarna.outspread.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class LoginDto {
-	private String username, password;
+	@NotNull
+	@Size(min=3, max=30)
+	private String username;
+	
+	@NotNull
+	@Size(min=3, max=50)
+	private String password;
 
 	public LoginDto(String username, String password) {
 		super();

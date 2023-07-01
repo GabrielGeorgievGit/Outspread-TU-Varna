@@ -1,8 +1,22 @@
 package bg.tuvarna.outspread.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class AdminEditDto {
+	
+	@NotNull
+	@Positive
 	private int id;
-	private String username, password;
+	
+	@NotNull
+	@Size(min=3, max=30)
+	private String username;
+	
+	@NotNull
+	@Size(min=3, max=50)
+	private String password;
 
 	public AdminEditDto(int id, String username, String password) {
 		super();

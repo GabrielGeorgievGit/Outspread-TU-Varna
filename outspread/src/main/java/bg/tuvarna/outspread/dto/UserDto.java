@@ -1,12 +1,37 @@
 package bg.tuvarna.outspread.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class UserDto {
-	private String username, password, fullname, fn;
-	private int specialtyId;
+	
+	@NotNull
+	@Size(min=3, max=30)
+	private String username;
+	
+	@NotNull
+	@Size(min=3, max=50)
+	private String password;
+	
+	@NotNull
+	@Size(min=8, max=50)
+	private String fullname;
+	
+	@Size(min=8, max=8)
+	private String fn;
+	
+	@Positive
+	private Integer specialtyId;
+	
 	private Character semester;
+	
+	@NotNull
+	@Max(15)
 	private String role;
 
-	public UserDto(String username, String password, String fullname, String fn, int specialtyId, Character semester,
+	public UserDto(String username, String password, String fullname, String fn, Integer specialtyId, Character semester,
 			String role) {
 		super();
 		this.username = username;
@@ -50,11 +75,11 @@ public class UserDto {
 		this.fn = fn;
 	}
 
-	public int getSpecialtyId() {
+	public Integer getSpecialtyId() {
 		return specialtyId;
 	}
 
-	public void setSpecialtyId(int specialtyId) {
+	public void setSpecialtyId(Integer specialtyId) {
 		this.specialtyId = specialtyId;
 	}
 
