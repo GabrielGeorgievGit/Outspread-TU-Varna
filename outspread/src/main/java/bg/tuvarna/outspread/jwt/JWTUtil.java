@@ -1,5 +1,5 @@
 package bg.tuvarna.outspread.jwt;
-import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
 
 import java.security.Key;
 import java.time.Instant;
@@ -45,7 +45,7 @@ public class JWTUtil {
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(
                         Date.from(
-                                Instant.now().plus(15, DAYS)
+                                Instant.now().plus(1, HOURS)
                         )
                 )
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)

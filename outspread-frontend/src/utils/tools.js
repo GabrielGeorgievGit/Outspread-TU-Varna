@@ -32,7 +32,7 @@ export const showToast = (type, msg) => {
 }
 
 export const getTokenCookie = () => cookie.load('final-access-token');
-export const removeTokenCookie = () => cookie.remove('final-access-token', { path:'/login' });
+export const removeTokenCookie = () => cookie.remove('final-access-token', { path:'*' });
 export const getAuthHeader = () => {
     return { headers: {'Authorization' : `Bearer ${getTokenCookie()}`}}
 }

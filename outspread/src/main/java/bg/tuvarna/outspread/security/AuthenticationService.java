@@ -22,6 +22,14 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
+    
+    public User login(Authentication authentication) {
+    	Object obj = authentication.getPrincipal();
+    	if(obj instanceof User) {
+    		return (User) obj;
+    	}
+    	else return null;
+    }
 
     public LoginResponseDto login(LoginDto request) {
         Authentication authentication = authenticationManager.authenticate(

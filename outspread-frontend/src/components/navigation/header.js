@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { clearNotifications } from "../../store/reducers/notifications";
 import { showToast } from "../../utils/tools";
+import { signOut } from "../../store/actions/users";
+
 
 const Header = () => {
     const users = useSelector(state => state.users)
@@ -23,11 +25,16 @@ const Header = () => {
         }
     },[dispatch, notifications])
 
+    const signOutUser = () => {
+        dispatch(signOut())
+    }
+
     return (
         <nav className='navbar fixed-top'>
             <Link to="/" className="navbar-brand d-flex align-items-center fredoka_ff">
                 TU Varna
             </Link>
+            <button onClick={()=>signOutUser()}>sign out</button>
         </nav>
     )
 }
