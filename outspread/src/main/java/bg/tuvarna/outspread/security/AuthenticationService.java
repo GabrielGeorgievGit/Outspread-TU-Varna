@@ -1,5 +1,6 @@
 package bg.tuvarna.outspread.security;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,12 +24,24 @@ public class AuthenticationService {
         this.jwtUtil = jwtUtil;
     }
     
-    public User login(Authentication authentication) {
-    	Object obj = authentication.getPrincipal();
-    	if(obj instanceof User) {
-    		return (User) obj;
+    public User loginUser(Authentication authentication) throws NotFoundException {
+    	try {
+    		Object obj = authentication.getPrincipal();
+    		if(obj != null && obj instanceof User) {
+    			return (User) obj;
+    		}    		
+    		else return null;
+    	} catch(Exception e) {
+    		return null;
     	}
-    	else return null;
+    }
+    
+    public Admin loginAdmin(Authentication authentication) throws NotFoundException {
+    	Object obj = authentication.getPrincipal();
+    	if(obj != null && obj instanceof Admin) {
+    		return (Admin) obj;
+    	}
+    	else throw new NotFoundException();
     }
 
     public LoginResponseDto login(LoginDto request) {
@@ -38,7 +51,13 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        User user = (User) authentication.getPrincipal();
+        User user = null;
+        try {
+        	user = (User) authentication.getPrincipal();
+        	
+        } catch(ClassCastException e) {
+        	return null;
+        }
         String token = jwtUtil.issueToken(user.getUsername(), user.getRole());
         return new LoginResponseDto(token, user);
     }
@@ -50,7 +69,13 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        Admin admin = (Admin) authentication.getPrincipal();
+        
+        Admin admin = null;
+        try {
+        	admin = (Admin) authentication.getPrincipal();
+        } catch(ClassCastException e) {
+        	return null;
+        }
         String token = jwtUtil.issueToken(admin.getUsername(), admin.isPrime() ? "ROLE_ADMIN_PRIME" : "ROLE_AMDIN");
         return new LoginResponseDto(token, admin);
     }

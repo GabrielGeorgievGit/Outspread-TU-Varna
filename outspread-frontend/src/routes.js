@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter, Redirect, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // import { isAuth } from './store/actions/users';
 import { Loader } from './utils/tools';
@@ -11,11 +11,15 @@ import { useEffect, useState } from 'react';
 import { homeExcercises } from './store/actions/home';
 import { isAuth } from './store/actions/users';
 import AuthGuard from './hoc/authGuard';
+import { adminIsAuth } from './store/actions/admins';
+import AdminHome from './components/admin';
+import AdminLogin from './components/login/adminLogin';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const users = useSelector(state => state.users)
+    const admins = useSelector(state => state.admins)
     
     useEffect(()=> {
         dispatch(isAuth())
@@ -25,7 +29,7 @@ const Router = () => {
         if(users.auth !== null) {
             setLoading(false)
         }
-    },[users])
+    },[users, admins])
     
     useEffect(()=> {
         dispatch(homeExcercises)
@@ -33,9 +37,6 @@ const Router = () => {
 
     return (
         <BrowserRouter>
-        <>
-           
-        </>
             {
                 loading ?
                 <Loader/>
@@ -46,7 +47,13 @@ const Router = () => {
                 <MainLayout>
                     <Routes>
                         <Route path='/login' element={<Login/>}/>
+                        <Route path='/admin/login' element={<AdminLogin/>}/>
                         <Route path='/' element= {<AuthGuard><Home/></AuthGuard>} />
+                        <Route path='/admin' element= {<AdminHome/>}>
+                            <Route path='profiles'/>
+                            <Route path='exercises'/>
+                            <Route path='specialties'/>
+                        </Route>
                     </Routes>
                 </MainLayout>
             </>

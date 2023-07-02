@@ -17,7 +17,7 @@ let DEFAULT_USER_STATE = {
         role: null,
         exercisesOwned: []
     },
-    auth: null
+    auth: false
 }
 
 export const usersSlice = createSlice({

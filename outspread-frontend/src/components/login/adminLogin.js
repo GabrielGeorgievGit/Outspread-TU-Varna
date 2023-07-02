@@ -14,7 +14,7 @@ import SignGuard from "../../hoc/signGuard";
 import { useNavigate } from "react-router-dom";
 import { loginAdmin } from "../../store/actions/admins";
 
-const Login = () => {
+const AdminLogin = () => {
     
     // const [register, setRegister] = useState(true);
     let navigate = useNavigate()
@@ -24,7 +24,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const formik = useFormik({
-        initialValues: {username: 'ivan', password: 'ivan'},
+        initialValues: {username: 'pesho', password: 'pesho'},
         validationSchema: Yup.object({
             username: Yup.string()
             .required('The username field is required'),
@@ -40,12 +40,12 @@ const Login = () => {
     })
 
     const handleSubmit = (values) => {
-         dispatch(loginUser(values))
+        dispatch(loginAdmin(values))
     }
 
     useEffect(()=>{
         if(notifications && notifications.global.success) {
-            navigate('/')
+            navigate('/admin')
         }
     },[notifications, navigate])
 
@@ -95,4 +95,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default AdminLogin;

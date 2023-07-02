@@ -45,6 +45,9 @@ public class SecurityFilterChainConfig {
                 		HttpMethod.POST, "/login"
                 		).permitAll()
                 .requestMatchers(
+                		HttpMethod.GET, "/admin/login"
+                		).permitAll()
+                .requestMatchers(
                 		HttpMethod.POST, "/admin/login"
                 		).permitAll()
                 //admin

@@ -21,7 +21,7 @@ export const loginUser = createAsyncThunk(
             
             return { data: request.data, auth: true}
         } catch(error) {
-            dispatch(errorGlobal(error.response.data.message))
+            dispatch(errorGlobal("Wrong username or password"))
             throw error;
         }
     }
@@ -41,7 +41,7 @@ export const isAuth = createAsyncThunk(
 
 
 export const signOut = createAsyncThunk(
-    'user/signOut',
+    'signOut',
     async()=>{
        removeTokenCookie();
     }
