@@ -10,6 +10,7 @@ import Login from './components/login';
 import { useEffect, useState } from 'react';
 import { homeExcercises } from './store/actions/home';
 import { isAuth } from './store/actions/users';
+import AuthGuard from './hoc/authGuard';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
@@ -45,7 +46,7 @@ const Router = () => {
                 <MainLayout>
                     <Routes>
                         <Route path='/login' element={<Login/>}/>
-                        <Route path='/' element= {<Home/>} />
+                        <Route path='/' element= {<AuthGuard><Home/></AuthGuard>} />
                     </Routes>
                 </MainLayout>
             </>
