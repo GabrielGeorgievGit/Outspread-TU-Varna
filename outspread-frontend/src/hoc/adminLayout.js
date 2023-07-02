@@ -6,20 +6,24 @@ const AdminLayout = (props) => {
     return (
         <>
             <div className="row adminLayout">
-                <nav className="col-md-2 d-nono d-md-block sidebar">
+                <nav className="col-md-2 d-none d-md-block sidebar">
                     <div>
                         <List>
-                            <ListItemButton componnet={RouterLink} to="/admin/profiles">
+                            <ListItemButton component={RouterLink} to="/admin/profiles">
                                 <ListItemText primary="Profiles"/>
                             </ListItemButton>
 
-                            <ListItemButton componnet={RouterLink} to="/admin/exercises">
+                            <ListItemButton component={RouterLink} to="/admin/exercises">
                                 <ListItemText primary="Exercises"/>
+                            </ListItemButton>
+
+                            <ListItemButton component={RouterLink} to="/admin/specialties">
+                                <ListItemText primary="Specialties"/>
                             </ListItemButton>
                         </List>
                     </div>
                 </nav>
-                <main reole="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <main role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                     {props.children}
                 </main>
             </div>

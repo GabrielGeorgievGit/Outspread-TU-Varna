@@ -36,3 +36,9 @@ export const removeTokenCookie = () => cookie.remove('final-access-token', { pat
 export const getAuthHeader = () => {
     return { headers: {'Authorization' : `Bearer ${getTokenCookie()}`}}
 }
+
+export const AdminTitle = ({title}) => (
+    <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom'>
+        <h1 className='h2'>{title}</h1>
+    </div>
+)
