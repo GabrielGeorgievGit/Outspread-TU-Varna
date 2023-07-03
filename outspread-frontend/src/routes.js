@@ -25,6 +25,8 @@ const Router = () => {
     const dispatch = useDispatch();
     const users = useSelector(state => state.users)
     const admins = useSelector(state => state.admins)
+    const usersGet = useSelector(state => state.usersGet)
+    const specialties = useSelector(state => state.specialties)
     
     useEffect(()=> {
         dispatch(isAuth())
@@ -34,10 +36,10 @@ const Router = () => {
         if(users.auth !== null) {
             setLoading(false)
         }
-    },[users, admins])
+    },[users, admins, usersGet, specialties])
     
     useEffect(()=> {
-        dispatch(homeExcercises)
+        dispatch(homeExcercises())
     },[dispatch])
 
     return (

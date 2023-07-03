@@ -15,6 +15,7 @@ export const loginUser = createAsyncThunk(
                 username: username,
                 password: password
             })
+            removeTokenCookie()
             dispatch(successGlobal('Welcome!!'))
             const jwtToken = request.headers["authorization"];
             cookie.save("final-access-token", jwtToken);
@@ -44,6 +45,25 @@ export const signOut = createAsyncThunk(
     'signOut',
     async()=>{
        removeTokenCookie();
+    }
+)
+
+export const getUserSemester = createAsyncThunk(
+    'user/findSemester',
+    async(semester, {dispatch})=>{
+        let sem = {semester: 1}
+        console.log("semester",semester);
+        try {
+
+            
+            const request = await axios.post('http://localhost:8080/user/findSemester', sem, getAuthHeader);
+            console.log(request);
+            dispatch("nice")
+            return request.data
+        } catch(error) {
+            
+            throw error
+        }
     }
 )
 

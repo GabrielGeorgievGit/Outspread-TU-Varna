@@ -6,7 +6,7 @@ import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.entity.Exercise;
 
 public interface ExerciseService {
-	List<Exercise> getAllExercises();
-	Exercise findExercise(int id);
+	List<ExerciseDto> getAllExercises();
+	ExerciseDto findExercise(int id);
 	Exercise createExercise(ExerciseDto dto);
 }

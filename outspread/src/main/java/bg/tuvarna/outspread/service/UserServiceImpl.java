@@ -1,5 +1,6 @@
 package bg.tuvarna.outspread.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import bg.tuvarna.outspread.dto.UserDto;
 import bg.tuvarna.outspread.dto.UserEditDto;
 import bg.tuvarna.outspread.entity.User;
+import bg.tuvarna.outspread.mapper.UserMapper;
 import bg.tuvarna.outspread.repository.AdminRepository;
 import bg.tuvarna.outspread.repository.UserRepository;
 
@@ -42,5 +44,23 @@ public class UserServiceImpl implements UserService  {
 	@Override
 	public void deleteUser(int id) {
 		ur.deleteUser(id);
+	} 
+	
+	@Override
+	public List<UserMapper> findAllUsersSpecialty(int specialtyId) {
+		return UserMapper.userMapper(ur.findAllUsersSpecialty(specialtyId));
+		
+	}
+	
+	@Override
+	public
+	List<UserMapper> findAllUsersSemester(char semester) {
+		return UserMapper.userMapper(ur.findAllUsersSemester(semester));
+	}
+
+	@Override
+	public UserMapper findUser(String username) {
+		Optional<User> user = ur.findUser(username); 
+		return UserMapper.userMapper(user.get());
 	}
 }

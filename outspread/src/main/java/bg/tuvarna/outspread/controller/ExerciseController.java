@@ -1,5 +1,7 @@
 package bg.tuvarna.outspread.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,12 @@ public class ExerciseController {
 	
 	@GetMapping("/find")
 	public ResponseEntity<?> findExercise(int id) {
-		return ResponseEntity.ok().body(es.findExercise(id));
+		return new ResponseEntity<ExerciseDto>(es.findExercise(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/find/all")
+	public ResponseEntity<?> getAllExercises() {
+		return new ResponseEntity<List<ExerciseDto>>(es.getAllExercises(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/create")
@@ -30,4 +37,10 @@ public class ExerciseController {
 		System.out.println("id: " + request.getDisciplineId());
 		return new ResponseEntity<Exercise>(es.createExercise(request), HttpStatus.CREATED);
 	}
+	
+	
+//	@PostMaping("paginate")
+//	public ResponseEntity<?> paginateExercise(@RequestBody PaginateDto request) {
+//		return new ResponseEntity<Exercise>(es.createExercise(request), HttpStatus.CREATED);
+//	}
 }

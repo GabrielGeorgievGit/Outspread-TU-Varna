@@ -1,5 +1,6 @@
 package bg.tuvarna.outspread.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
 		try {
 			user = em.createQuery("SELECT u from User u WHERE u.username = :username", User.class).
 				  setParameter("username", username).getSingleResult();
+			
 		 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		 user.setPassword(passwordEncoder.encode(user.getPassword()));
 		} catch(Exception e) {
@@ -66,5 +68,18 @@ public class UserRepositoryImpl implements UserRepository {
 		User user = em.find(User.class, id);
 		user.setSpecialty(null);
 		em.remove(user);
+	}
+
+	@Override
+	public List<User> findAllUsersSpecialty(int specialtyId) {
+		Specialty specialty = em.find(Specialty.class, specialtyId);
+		
+		return specialty.getUsers();
+	}
+
+	@Override
+	public List<User> findAllUsersSemester(char semester) {
+		return em.createQuery("SELECT u from User u WHERE u.semester = :semester", User.class).
+		  setParameter("semester", semester).getResultList();
 	}
 }

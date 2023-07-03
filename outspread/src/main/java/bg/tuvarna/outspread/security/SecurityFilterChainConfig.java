@@ -33,7 +33,7 @@ public class SecurityFilterChainConfig {
     
     
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
         http
                 .csrf().disable()
                 .cors(Customizer.withDefaults())
@@ -60,6 +60,15 @@ public class SecurityFilterChainConfig {
                 .requestMatchers(
                 		HttpMethod.DELETE, "/admin/**"
                 		).hasAnyRole("ADMIN_PRIME")
+                .requestMatchers(
+                		HttpMethod.POST, "/user/**"
+                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                .requestMatchers(
+                		HttpMethod.POST, "/user/findSemester"
+                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+//                .requestMatchers(
+//                		HttpMethod.GET, "/user/findSemester"
+//                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 //user
                 .requestMatchers(
                 		HttpMethod.POST, "/user/create"

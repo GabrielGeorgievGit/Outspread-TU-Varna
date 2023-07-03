@@ -6,11 +6,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import bg.tuvarna.outspread.dto.LoginAdminResponseDto;
 import bg.tuvarna.outspread.dto.LoginDto;
-import bg.tuvarna.outspread.dto.LoginResponseDto;
+import bg.tuvarna.outspread.dto.LoginUserResponseDto;
 import bg.tuvarna.outspread.entity.Admin;
 import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.jwt.JWTUtil;
+import bg.tuvarna.outspread.mapper.UserMapper;
 
 @Service
 public class AuthenticationService {
@@ -44,7 +46,7 @@ public class AuthenticationService {
     	else throw new NotFoundException();
     }
 
-    public LoginResponseDto login(LoginDto request) {
+    public LoginUserResponseDto login(LoginDto request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -59,10 +61,10 @@ public class AuthenticationService {
         	return null;
         }
         String token = jwtUtil.issueToken(user.getUsername(), user.getRole());
-        return new LoginResponseDto(token, user);
+        return new LoginUserResponseDto(token, UserMapper.userMapper(user));
     }
     
-    public LoginResponseDto loginAdmin(LoginDto request) {
+    public LoginAdminResponseDto loginAdmin(LoginDto request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -77,7 +79,7 @@ public class AuthenticationService {
         	return null;
         }
         String token = jwtUtil.issueToken(admin.getUsername(), admin.isPrime() ? "ROLE_ADMIN_PRIME" : "ROLE_AMDIN");
-        return new LoginResponseDto(token, admin);
+        return new LoginAdminResponseDto(token, admin);
     }
 
 }

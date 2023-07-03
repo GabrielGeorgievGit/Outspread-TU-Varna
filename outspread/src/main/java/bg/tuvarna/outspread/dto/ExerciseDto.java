@@ -1,15 +1,18 @@
 package bg.tuvarna.outspread.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ExerciseDto {
-
+	
+	private int id;
 	private int ownerId;
+	private String owner;
 	private String title;
 	private int disciplineId;
+	private String discipline;
 	private String info;
-	private LocalDate time;
+	private LocalDateTime time;
 	private LocalTime duration;
 	private String room;
 	private int signed;
@@ -18,17 +21,28 @@ public class ExerciseDto {
 
 	}
 
-	public ExerciseDto(int ownerId, String title, int disciplineId, String info, LocalDate time, LocalTime duration,
-			String room, int signed) {
+	public ExerciseDto(int id, int ownerId, String owner, String title, int disciplineId, String discipline,
+			String info, LocalDateTime time, LocalTime duration, String room, int signed) {
 		super();
+		this.id = id;
 		this.ownerId = ownerId;
+		this.owner = owner;
 		this.title = title;
 		this.disciplineId = disciplineId;
+		this.discipline = discipline;
 		this.info = info;
 		this.time = time;
 		this.duration = duration;
 		this.room = room;
 		this.signed = signed;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getOwnerId() {
@@ -37,6 +51,14 @@ public class ExerciseDto {
 
 	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	public String getTitle() {
@@ -55,6 +77,14 @@ public class ExerciseDto {
 		this.disciplineId = disciplineId;
 	}
 
+	public String getDiscipline() {
+		return discipline;
+	}
+
+	public void setDiscipline(String discipline) {
+		this.discipline = discipline;
+	}
+
 	public String getInfo() {
 		return info;
 	}
@@ -63,11 +93,11 @@ public class ExerciseDto {
 		this.info = info;
 	}
 
-	public LocalDate getTime() {
+	public LocalDateTime getTime() {
 		return time;
 	}
 
-	public void setTime(LocalDate time) {
+	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
 
@@ -94,5 +124,5 @@ public class ExerciseDto {
 	public void setSigned(int signed) {
 		this.signed = signed;
 	}
-
+	
 }

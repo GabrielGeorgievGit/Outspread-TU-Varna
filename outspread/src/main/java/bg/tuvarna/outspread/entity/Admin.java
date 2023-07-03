@@ -17,6 +17,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "admin")
 public class Admin implements UserDetails {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7212922269005222158L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="admin_id")

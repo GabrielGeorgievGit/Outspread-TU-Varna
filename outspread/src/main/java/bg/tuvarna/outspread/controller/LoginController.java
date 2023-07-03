@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import bg.tuvarna.outspread.dto.LoginAdminResponseDto;
 import bg.tuvarna.outspread.dto.LoginDto;
-import bg.tuvarna.outspread.dto.LoginResponseDto;
+import bg.tuvarna.outspread.dto.LoginUserResponseDto;
 import bg.tuvarna.outspread.entity.Admin;
 import bg.tuvarna.outspread.security.AuthenticationService;
 import jakarta.validation.constraints.NotNull;
@@ -31,10 +32,12 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginDto request) {
-		LoginResponseDto response = authenticationService.login(request);
+		
+		LoginUserResponseDto response = authenticationService.login(request);
 		if(response == null) {
 			return ResponseEntity.notFound().build();
 		}
+		
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, response.getToken())
                 .body(response);
@@ -53,7 +56,7 @@ public class LoginController {
 	
 	@PostMapping("/admin/login")
 	public ResponseEntity<?> adminLogin(@RequestBody LoginDto request) {
-		LoginResponseDto response = authenticationService.loginAdmin(request);
+		LoginAdminResponseDto response = authenticationService.loginAdmin(request);
 		if(response == null) {
 			return ResponseEntity.notFound().build();
 		}

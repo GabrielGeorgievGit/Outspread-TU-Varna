@@ -1,9 +1,11 @@
 package bg.tuvarna.outspread.dto;
 
-public class LoginResponseDto {
+import bg.tuvarna.outspread.mapper.UserMapper;
+
+public class LoginUserResponseDto {
 	private String token;
-	private Object user;
-	public LoginResponseDto(String token, Object user) {
+	private UserMapper user;
+	public LoginUserResponseDto(String token, UserMapper user) {
 		super();
 		this.token = token;
 		this.user = user;
@@ -14,13 +16,10 @@ public class LoginResponseDto {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public Object getUser() {
+	public UserMapper getUser() {
 		return user;
 	}
-	public void setUser(Object user) {
+	public void setUser(UserMapper user) {
 		this.user = user;
 	}
-	
-	
-	
 }

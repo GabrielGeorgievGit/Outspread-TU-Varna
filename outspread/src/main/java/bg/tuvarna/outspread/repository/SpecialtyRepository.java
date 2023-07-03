@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import bg.tuvarna.outspread.entity.Discipline;
 import bg.tuvarna.outspread.entity.Specialty;
+import bg.tuvarna.outspread.entity.SpecialtyDiscipline;
 
 public interface SpecialtyRepository {
 	Optional<Specialty> createSpecialty(String name);
@@ -15,4 +16,6 @@ public interface SpecialtyRepository {
 	Optional<Discipline> createDiscipline(String name);
 	Optional<Discipline> editDiscipline(int id, String name);
 	void deleteDiscipline(int id);
+	
+	List<SpecialtyDiscipline> getAllSpecialtiesDisciplines();
 }

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { errorGlobal, successGlobal } from '../reducers/notifications'
 import axios from 'axios'
 import cookie from 'react-cookies'
-import { getAuthHeader } from '../../utils/tools'
+import { getAuthHeader, removeTokenCookie } from '../../utils/tools'
 
 export const loginAdmin = createAsyncThunk(
     'admin/login',
@@ -13,6 +13,7 @@ export const loginAdmin = createAsyncThunk(
                 username: username,
                 password: password
             })
+            removeTokenCookie()
             dispatch(successGlobal('Welcome!!'))
             const jwtToken = request.headers["authorization"];
             cookie.save("final-access-token", jwtToken);

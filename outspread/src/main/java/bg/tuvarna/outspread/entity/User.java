@@ -23,6 +23,10 @@ import jakarta.persistence.Table;
 @Table(name = "user")
 public class User implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4422872008000333258L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")

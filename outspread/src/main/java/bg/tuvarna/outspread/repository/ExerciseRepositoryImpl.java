@@ -1,6 +1,6 @@
 package bg.tuvarna.outspread.repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 	
 	@Override
 	@Transactional
-	public Optional<Exercise> createExercise(int ownerId, String title, int disciplineId, String info, LocalDate time, LocalTime duration, String room, int signed) {
+	public Optional<Exercise> createExercise(int ownerId, String title, int disciplineId, String info, LocalDateTime time, LocalTime duration, String room, int signed) {
 		
 		User owner = em.find(User.class, ownerId);
 		System.out.println("here\n\n\n\n\n\n" + disciplineId);
