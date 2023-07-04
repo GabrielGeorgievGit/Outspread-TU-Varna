@@ -35,7 +35,7 @@ const AdminSpecialties = () => {
             <div className="exercises_table">
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
-                        <LinkContainer to='/admin/exercises/add'>
+                        <LinkContainer to='/admin/specialties/add'>
                             <Button variant="secondary">Add Specialty</Button>
                         </LinkContainer>
                         

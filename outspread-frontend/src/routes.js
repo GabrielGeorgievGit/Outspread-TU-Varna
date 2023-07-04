@@ -19,6 +19,7 @@ import AdminProfiles from './components/admin/profiles';
 import AdminExercises from './components/admin/exercises';
 import AdminSpecialties from './components/admin/specialties';
 import AddExercise from './components/admin/exercises/edit_add/add';
+import AddSpecialty from './components/admin/specialties/edit_add/add';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
@@ -64,6 +65,7 @@ const Router = () => {
                             <Route path='exercises' element={<AdminExercises/>}/>
                             <Route path='exercises/add' element={<AddExercise/>}/>
                             <Route path='specialties' element={<AdminSpecialties/>}/>
+                            <Route path='specialties/add' element={<AddSpecialty/>}/>
                         </Route>
                     </Routes>
                 </MainLayout>

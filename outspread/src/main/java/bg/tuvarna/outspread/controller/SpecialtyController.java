@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bg.tuvarna.outspread.dto.SpecialtyDto;
+import bg.tuvarna.outspread.dto.StringDto;
 import bg.tuvarna.outspread.entity.Specialty;
 import bg.tuvarna.outspread.service.SpecialtyService;
 
@@ -20,9 +22,9 @@ public class SpecialtyController {
 	@Autowired
 	private SpecialtyService ss;
 	
-	@PostMapping("/create")
-	public ResponseEntity<?> createSpecialty(String name) {
-		return new ResponseEntity<Specialty>(ss.createSpecialty(name), HttpStatus.CREATED);
+	@PostMapping("/add")
+	public ResponseEntity<?> createSpecialty(@RequestBody StringDto name) {
+		return new ResponseEntity<Specialty>(ss.createSpecialty(name.getName()), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/all")

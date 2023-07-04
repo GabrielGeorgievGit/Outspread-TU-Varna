@@ -66,6 +66,9 @@ public class SecurityFilterChainConfig {
                 .requestMatchers(
                 		HttpMethod.POST, "/user/findSemester"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                .requestMatchers(
+                		HttpMethod.POST, "/specialty/add"
+                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
 //                .requestMatchers(
 //                		HttpMethod.GET, "/user/findSemester"
 //                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
