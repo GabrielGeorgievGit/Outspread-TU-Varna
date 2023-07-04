@@ -5,7 +5,7 @@ import { getAuthHeader } from "../../utils/tools";
 
 export const getAllSpecialties = createAsyncThunk(
     'specialties/getAllSpecialties',
-    async(exercise, {dispatch})=>{
+    async()=>{
         try{
             const request = await axios.get(`/specialty/all`, getAuthHeader());
             

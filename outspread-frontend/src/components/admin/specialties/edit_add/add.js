@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,6 @@ import Chip from '@mui/material/Chip'
 import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
-import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -24,35 +23,75 @@ import InputLabel from '@mui/material/InputLabel';
 import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
 import { addExercise } from "../../../../store/actions/exercises";
-import { addSpecialty } from "../../../../store/actions/specialties";
+import { addSpecialty, getAllSpecialties } from "../../../../store/actions/specialties";
+import { Dropdown, Form } from "react-bootstrap";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+// import makeAnimated from 'react-select/animated';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 const AddSpecialty = () => {
 
     const dispatch = useDispatch();
+    const specialties = useSelector(state=>state.specialties)
 
+    const animatedComponents = makeAnimated();
+
+    
+    useEffect(()=>{
+        dispatch(getAllSpecialties())
+    },[dispatch])
+    
     const specialtyAddFormik = useFormik({
         enableReinitialize: true,
         initialValues: {name: ''},
         validationSchema: Yup.object({
-                name: Yup.string()
-                .required('The specialty name field is required')
-                .min(2, "Specialty name should be minimum 2 characters")
-                .max(100, "Specialty name can't exceed 100 characters")
+            name: Yup.string()
+            .required('The specialty name field is required')
+            .min(2, "Specialty name should be minimum 2 characters")
+            .max(100, "Specialty name can't exceed 100 characters")
         }),
         onSubmit: (values) => {
             dispatch(addSpecialty(values))
         }
     })
-
-    const formik = useFormik({
+    
+    const specialtyEditFormik = useFormik({
         enableReinitialize: true,
-        initialValues: formValues,
-        validationSchema: validation,
+        initialValues: {specialty: '', specialtyName: '', disciplines: []},
+        validationSchema: Yup.object({
+            specialtyName: Yup.string()
+            .required('The specialty name field is required')
+            .min(2, "Specialty name should be minimum 2 characters")
+            .max(100, "Specialty name can't exceed 100 characters")
+        }),
         onSubmit: (values) => {
-
+            
         }
     })
+    
+    const editSpecialtyChanged = event => {
+        specialtyEditFormik.setFieldValue("specialtyName", event.target.value)
+    }
 
+    function disciplineNames(arr) {
+        let res = arr.map(item => item.name);
+        console.log(res);
+        return res;
+    }
+
+    function allDisciplines() {
+        console.log("here")
+        let res = specialties.data.map(item=>item.disciplines)
+        res = res.filter(item=>item.length > 0)
+        
+        console.log(res);
+
+        // res = res.map(disc => disc.map(item=>item.name ? item.name : "kus"))
+        console.log(res);
+        return res
+    }
+    
     return (
         <>
             <AdminTitle title="Add new specialty"/>
@@ -78,9 +117,50 @@ const AddSpecialty = () => {
                 </div>
 
             </form>
-                {/*
+                
             <AdminTitle title="Edit specialty"/>
+            <Form
+                className="m5-3 article_form"
+                onSubmit={specialtyEditFormik.handleSubmit}>
+                <div className="form-group">
+                    <Form.Select size="lg" name="specialty" onChange={editSpecialtyChanged}>
+                       { specialties.data.map(item=>(
+                           <option key={item.specialtyId}>{item.specialtyName}</option>
+                       ))}
+                    </Form.Select>
+                    <TextField
+                        style={{width: '50%'}}
+                        name="specialtyName"
+                        label="Edit specialty name"
+                        variant="outlined"
+                        {...specialtyEditFormik.getFieldProps('specialtyName')}
+                        {...errorHelper(specialtyEditFormik, 'specialtyName')}
+                    />
 
+                    <Select
+                        closeMenuOnSelect={false}
+                        // components={animatedComponents}
+                        // defaultValue={disciplineNames(specialties.data[1].disciplines)}
+                        isMulti
+                        options={allDisciplines()}
+                    >
+                        {/* { allDisciplines().map(item=>(
+                            <option key={item.id}>{item.name}</option>
+                        ))} */}
+                    </Select>
+                    
+
+                    <div className="mt-2">
+                        <Button variant="contained" color="primary" type="submit"
+                        size="large" disabled={!specialtyEditFormik.isValid}>
+                            Change specialty
+                        </Button>
+                    </div>
+                </div>
+
+            </Form>
+            {
+            /*
             <AdminTitle title="Add discipline"/>
 
             <form className="m5-3 article_form" onSubmit={formik.handleSubmit}>
