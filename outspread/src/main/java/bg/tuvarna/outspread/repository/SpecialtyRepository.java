@@ -17,5 +17,5 @@ public interface SpecialtyRepository {
 	Optional<Discipline> editDiscipline(int id, String name);
 	void deleteDiscipline(int id);
 	
-	List<SpecialtyDiscipline> getAllSpecialtiesDisciplines();
+//	List<SpecialtyDiscipline> getAllSpecialtiesDisciplines();
 }

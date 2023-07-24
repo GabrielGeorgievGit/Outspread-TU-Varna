@@ -34,7 +34,20 @@ export const showToast = (type, msg) => {
 export const getTokenCookie = () => cookie.load('final-access-token');
 export const removeTokenCookie = () => cookie.remove('final-access-token', { path:'*' });
 export const getAuthHeader = () => {
-    return { headers: {'Authorization' : `Bearer ${getTokenCookie()}`}}
+    // IMB: If there is no authentication token (the user is not logged in)
+    // there is no need to have an Athorization header added with 'undefined' token
+    // Previously, when not logged in, the Authorization header looked like: 'Bearer undefined' because 
+    // the function accessToken() is not finding an authorization cookie from which to take out the token
+    // Changed this to:
+    // -- Now we "try" to get the token.
+    // -- We check wheter we have a token >> if (accessToken)
+    // -- If we have token we build the heareds, if not we send empty object
+    const accessToken = getTokenCookie();
+    let headers = {};
+    if (accessToken) {
+        headers = { headers: {'Authorization' : `Bearer ${accessToken}`}};
+    }
+    return headers;
 }
 
 export const AdminTitle = ({title}) => (

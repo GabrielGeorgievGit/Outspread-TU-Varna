@@ -60,7 +60,7 @@ public class AuthenticationService {
         } catch(ClassCastException e) {
         	return null;
         }
-        String token = jwtUtil.issueToken(user.getUsername(), user.getRole());
+        String token = jwtUtil.issueToken(user.getUsername(), user.getRole().toString());
         return new LoginUserResponseDto(token, UserMapper.userMapper(user));
     }
     
@@ -78,7 +78,7 @@ public class AuthenticationService {
         } catch(ClassCastException e) {
         	return null;
         }
-        String token = jwtUtil.issueToken(admin.getUsername(), admin.isPrime() ? "ROLE_ADMIN_PRIME" : "ROLE_AMDIN");
+        String token = jwtUtil.issueToken(admin.getUsername(), admin.isPrime() ? "ROLE_ADMIN_PRIME" : "ROLE_ADMIN");
         return new LoginAdminResponseDto(token, admin);
     }
 

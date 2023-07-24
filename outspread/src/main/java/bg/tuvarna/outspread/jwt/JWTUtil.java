@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
@@ -20,27 +21,11 @@ public class JWTUtil {
     private static final String SECRET_KEY =
             "foobar_123456789_foobar_123456789_foobar_123456789_foobar_123456789";
 
-
-    public String issueToken(String subject) {
-        return issueToken(subject, Map.of());
-    }
-
-    public String issueToken(String subject, String ...scopes) {
-        return issueToken(subject, Map.of("scopes", scopes));
-    }
-
-    public String issueToken(String subject, List<String> scopes) {
-        return issueToken(subject, Map.of("scopes", scopes));
-    }
-
-
-    public String issueToken(
-            String subject,
-            Map<String, Object> claims) {
+    public String issueToken(String userName, String role) {
         String token = Jwts
                 .builder()
-                .setClaims(claims)
-                .setSubject(subject)
+                .claim("role", role)
+                .setSubject(userName)
                 .setIssuer("https://localhost:3000")
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(
@@ -57,7 +42,7 @@ public class JWTUtil {
         return getClaims(token).getSubject();
     }
 
-    private Claims getClaims(String token) {
+    public Claims getClaims(String token) {
         Claims claims = Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -69,6 +54,22 @@ public class JWTUtil {
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    }
+
+    // IMB: Added function to validate the token
+    public boolean validateAccessToken(String token) {
+        try {
+            getClaims(token);
+
+            return true;
+        } catch (Exception ex) {
+            // Typically here is the place where you will implement some logging mechanism
+            // or logic to handle invalid tokens
+            System.out.println("Token is not valid!");
+            System.out.println(ex.getMessage());
+        }
+
+        return false;
     }
 
     public boolean isTokenValid(String jwt, String username) {
