@@ -1,7 +1,9 @@
 import { Button, Pagination, Table } from "react-bootstrap";
 import { Loader } from "../../../utils/tools";
+import { getSpecialty } from "../../../store/actions/specialties";
 const PaginateProfile = ({
     users,
+    specialtiesMap,
     goToPrevPage,
     goToNextPage,
     goToEdit,
@@ -9,9 +11,9 @@ const PaginateProfile = ({
     handleShow
 }) => {
 
-
+    
     return(
-        <> {console.log(users)}
+        <> 
             { users  ?
                 <>
                     <Table striped bordered hover >
@@ -25,11 +27,11 @@ const PaginateProfile = ({
                             </tr>
                         </thead>
                         <tbody>
-                            { users.users.map(item=>(
+                            { users.data.map(item=>(
                                 <tr key={item.id}>
                                     <td>{item.fullname}</td>
                                     <td>{item.fn ? item.fn : "none"}</td>
-                                    <td>{item.specialty}</td>
+                                    <td>{specialtiesMap.get(item.specialtyId)}</td>
                                     <td>{item.semester}</td>
                                     <td>{String(item.role).toLowerCase()}</td>
 

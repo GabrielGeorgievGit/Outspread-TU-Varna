@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import bg.tuvarna.outspread.dto.SemesterDto;
+import bg.tuvarna.outspread.dto.IntDto;
 import bg.tuvarna.outspread.dto.UserDto;
 import bg.tuvarna.outspread.dto.UserEditDto;
 import bg.tuvarna.outspread.entity.User;
@@ -55,8 +55,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/findSemester")
-	public ResponseEntity<?> findAllUsersSemester(@RequestBody SemesterDto specialty) {
-		System.out.println("hereeeeeeeeeeee"+ specialty.getSemester());
+//	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"}) 
+	public ResponseEntity<?> findAllUsersSemester(@RequestBody IntDto specialty) {
+		System.out.println("hereeeeeeeeeeee"+ specialty.getValue());
 		return new ResponseEntity<List<UserMapper>>(us.findAllUsersSemester('1'), HttpStatus.OK);
 	}
 }

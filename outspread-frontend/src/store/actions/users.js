@@ -51,14 +51,9 @@ export const signOut = createAsyncThunk(
 export const getUserSemester = createAsyncThunk(
     'user/findSemester',
     async(semester, {dispatch})=>{
-        let sem = {semester: 1}
-        console.log("semester",semester);
         try {
-
+            const request = await axios.post('http://localhost:8080/user/findSemester', {semester: semester}, getAuthHeader());
             
-            const request = await axios.post('http://localhost:8080/user/findSemester', sem, getAuthHeader);
-            console.log(request);
-            dispatch("nice")
             return request.data
         } catch(error) {
             

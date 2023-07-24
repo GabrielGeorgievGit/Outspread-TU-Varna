@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -54,6 +53,11 @@ public class SecurityFilterChainConfig {
                 .requestMatchers(
                 		HttpMethod.POST, "/admin/login"
                 		).permitAll()
+                .requestMatchers(
+                		HttpMethod.POST, "/**"
+                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                
+                /*
                 //admin
                 .requestMatchers(
                 		HttpMethod.POST, "/admin/**"
@@ -68,7 +72,7 @@ public class SecurityFilterChainConfig {
                 		HttpMethod.POST, "/user/**"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 .requestMatchers(
-                		HttpMethod.POST, "/user/findSemester"
+                		HttpMethod.POST, "/user/*"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 .requestMatchers(
                 		HttpMethod.POST, "/specialty/add"
@@ -94,6 +98,7 @@ public class SecurityFilterChainConfig {
                         HttpMethod.GET, "/**"
                 )
                 .permitAll()
+                */
 //                .requestMatchers(
 //                        HttpMethod.POST, "/**"
 //                )

@@ -32,4 +32,9 @@ public class SpecialtyController {
 		return new ResponseEntity<List<SpecialtyDto>>(ss.getAllSpecialties(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> getSpecialty(int id) {
+		System.out.println(id);
+		return new ResponseEntity<SpecialtyDto>(ss.getSpecialty(id), HttpStatus.OK);
+	}
 }

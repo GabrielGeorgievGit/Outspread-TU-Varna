@@ -10,4 +10,5 @@ public interface SpecialtyService {
 	Specialty createSpecialty(String name);
 	Discipline createDiscipline(String name);
 	List<SpecialtyDto> getAllSpecialties();
+	SpecialtyDto getSpecialty(int id);
 }	

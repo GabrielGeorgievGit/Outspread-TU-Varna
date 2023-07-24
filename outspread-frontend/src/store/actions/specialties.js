@@ -16,6 +16,19 @@ export const getAllSpecialties = createAsyncThunk(
     }
 )
 
+export const getSpecialty = createAsyncThunk(
+    'specialties/getSpecialty',
+    async(specialty)=>{
+        try{
+            const request = await axios.get(`/specialty/get`, specialty, getAuthHeader());
+            
+            return request.data;
+        }catch(error){
+            throw error
+        }
+    }
+)
+
 export const addSpecialty = createAsyncThunk(
     'specialties/add',
     async(specialty, {dispatch})=>{

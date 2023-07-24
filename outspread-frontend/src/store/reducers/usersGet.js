@@ -13,10 +13,9 @@ export const usersGetSlice = createSlice({
     },
     extraReducers:(builder)=>{
         builder
-        //login
         .addCase(getUserSemester.pending, (state)=>{ state.loading = true })
         .addCase(getUserSemester.fulfilled, (state, action)=>{
-            state.data = action.payload.data;
+            state.data = action.payload;
         })
     }
 })

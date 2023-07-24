@@ -27,6 +27,12 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
 	}
 	
 	@Override
+	public Specialty getSpecialty(int id) {
+		Specialty s = em.find(Specialty.class, id);
+		return s;
+	}
+	
+	@Override
 	@Transactional
 	public Optional<Specialty> createSpecialty(String name) {
 		Specialty specialty = new Specialty();
@@ -75,5 +81,4 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
 		Discipline discipline = em.find(Discipline.class, id);
 		em.remove(discipline);
 	}
-
 }

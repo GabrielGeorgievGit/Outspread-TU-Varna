@@ -16,16 +16,25 @@ import {
 import { LinkContainer } from 'react-router-bootstrap'
 import { getUserSemester } from "../../../store/actions/users";
 import PaginateProfile from "./paginate";
+import { getAllSpecialties } from "../../../store/actions/specialties";
 
 const AdminProfiles = () => {
 
     const usersGet = useSelector(state=>state.usersGet)
+    const specialties = useSelector(state=>state.specialties)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(()=>{
         dispatch(getUserSemester('1'))
+        dispatch(getAllSpecialties())
     },[dispatch])
+
+    const getSpecialtiesMap = () => {
+        const specialtiesMap = new Map();
+        specialties.data.forEach(s => specialtiesMap.set(s.specialtyId, s.specialtyName));
+        return specialtiesMap;
+    }
 
     return (
         <>
@@ -64,7 +73,7 @@ const AdminProfiles = () => {
                 </ButtonToolbar>
                 
                 <>
-                    <PaginateProfile users={usersGet}/>
+                    <PaginateProfile users={usersGet} specialtiesMap={getSpecialtiesMap()}/>
                 </>
             </div>
         </>

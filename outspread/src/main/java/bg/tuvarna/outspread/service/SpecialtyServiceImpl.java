@@ -32,4 +32,9 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 		return SpecialtyDisciplineMapper.mapSpecialties(sr.getAllSpecialties());
 	}
 
+	@Override
+	public SpecialtyDto getSpecialty(int id) {
+		return SpecialtyDisciplineMapper.mapSpecialty(sr.getSpecialty(id));
+	}
+
 }
