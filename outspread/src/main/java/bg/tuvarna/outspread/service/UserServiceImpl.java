@@ -44,7 +44,11 @@ public class UserServiceImpl implements UserService  {
 	@Override
 	public void deleteUser(int id) {
 		ur.deleteUser(id);
-	} 
+	}
+	@Override
+	public List<UserMapper> findUsersSpecialtySemester(int specialtyId, char semester) {
+		return UserMapper.userMapper(ur.findUsersSpecialtySemester(specialtyId, semester));
+	}
 	
 	@Override
 	public List<UserMapper> findAllUsersSpecialty(int specialtyId) {
@@ -62,5 +66,11 @@ public class UserServiceImpl implements UserService  {
 	public UserMapper findUser(String username) {
 		Optional<User> user = ur.findUser(username); 
 		return UserMapper.userMapper(user.get());
+	}
+
+	@Override
+	public List<UserMapper> findAllUsers() {
+		List<User> user = ur.findAllUsers(); 
+		return UserMapper.userMapper(user);
 	}
 }

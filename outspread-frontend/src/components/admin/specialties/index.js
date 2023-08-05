@@ -1,5 +1,5 @@
 import { AdminTitle } from "../../../utils/tools"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,13 +19,7 @@ import { getAllSpecialties } from "../../../store/actions/specialties";
 
 const AdminSpecialties = () => {
 
-    const specialties = useSelector(state=>state.specialties)
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    useEffect(()=>{
-        dispatch(getAllSpecialties())
-    },[dispatch])
 
     return (
         <>
@@ -65,7 +59,7 @@ const AdminSpecialties = () => {
                 </ButtonToolbar>
                 
                 <>
-                    <PaginateSpecialty specialties={specialties}/>
+                    <PaginateSpecialty/>
                 </>
             </div>
         </>

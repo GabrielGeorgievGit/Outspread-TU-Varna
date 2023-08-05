@@ -15,7 +15,9 @@ public interface UserService extends UserDetailsService {
 	User editUser(UserEditDto user);
 	void deleteUser(int id);
 	UserMapper findUser(String username);
+	List<UserMapper> findAllUsers();
 	
+	List<UserMapper> findUsersSpecialtySemester(int specialtyId, char semester);
 	List<UserMapper> findAllUsersSpecialty(int specialtyId);
 	List<UserMapper> findAllUsersSemester(char semester);
 }

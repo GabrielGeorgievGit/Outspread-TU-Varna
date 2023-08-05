@@ -9,6 +9,10 @@ import bg.tuvarna.outspread.entity.Specialty;
 public interface SpecialtyService {
 	Specialty createSpecialty(String name);
 	Discipline createDiscipline(String name);
+	
 	List<SpecialtyDto> getAllSpecialties();
+	List<SpecialtyDto> getSpecialtiesSemester(int specialtyId, char semester);
+	List<SpecialtyDto> getAllSpecialtiesSemester(char semester);
+	
 	SpecialtyDto getSpecialty(int id);
 }	

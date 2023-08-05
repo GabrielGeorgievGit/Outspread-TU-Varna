@@ -5,8 +5,6 @@ import { getAuthHeader, removeTokenCookie } from '../../utils/tools'
 import cookie from 'react-cookies'
 import { useNavigate } from 'react-router-dom'
 
-
-
 export const loginUser = createAsyncThunk(
     'user/login',
     async({username, password}, {dispatch})=>{
@@ -52,11 +50,69 @@ export const getUserSemester = createAsyncThunk(
     'user/findSemester',
     async(semester, {dispatch})=>{
         try {
-            const request = await axios.post('http://localhost:8080/user/findSemester', {semester: semester}, getAuthHeader());
+            const request = await axios.post('http://localhost:8080/user/findAllSemester', {value: semester}, getAuthHeader());
             
             return request.data
         } catch(error) {
             
+            throw error
+        }
+    }
+)
+
+
+export const getUserSpecialtiesSemester = createAsyncThunk(
+    'user/getUserSpecialtiesSemester',
+    async(specialtySemester, {dispatch})=>{
+        try {
+            const request = await axios.post('http://localhost:8080/user/find/specialty/semester', {specialty: specialtySemester.specialty, semester: specialtySemester.semester}, getAuthHeader());
+            
+            return request.data
+        } catch(error) {
+            
+            throw error
+        }
+    }
+)
+
+export const getUserSpecialties = createAsyncThunk(
+    'user/findSpecialties',
+    async(specialty, {dispatch})=>{
+        try {
+            const request = await axios.post('http://localhost:8080/user/find/specialty', {value: specialty}, getAuthHeader());
+            
+            return request.data
+        } catch(error) {
+            
+            throw error
+        }
+    }
+)
+
+export const getAllUsers = createAsyncThunk(
+    'user/findAll',
+    async()=>{
+        console.log("hellooooooooosaoso")
+        try {
+            const request = await axios.get('http://localhost:8080/user/findAll', getAuthHeader());
+            
+            return request.data
+        } catch(error) {
+            
+            throw error
+        }
+    }
+)
+
+export const addUser = createAsyncThunk(
+    'profiles/addUser',
+    async(user, {dispatch})=>{
+        try{
+            console.log(user)
+            const request = await axios.post(`/user/create`, user, getAuthHeader());
+            
+            return request.data;
+        }catch(error){
             throw error
         }
     }

@@ -11,6 +11,9 @@ public interface SpecialtyRepository {
 	Optional<Specialty> editSpecialty(int id, String name);
 	void deleteSpecialty(int id);
 	List<Specialty> getAllSpecialties();
+	List<Specialty> getSpecialtiesSemester(int specialtyId, char semester);
+	List<Specialty> getAllSpecialtiesSemester(char semester);
+	
 	Specialty getSpecialty(int id);
 	
 	Optional<Discipline> createDiscipline(String name);

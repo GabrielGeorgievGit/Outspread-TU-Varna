@@ -1,4 +1,4 @@
-package bg.tuvarna.outspread.repository;
+ package bg.tuvarna.outspread.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +68,18 @@ public class UserRepositoryImpl implements UserRepository {
 		User user = em.find(User.class, id);
 		user.setSpecialty(null);
 		em.remove(user);
+	}
+
+	@Override
+	public List<User> findAllUsers() {
+		return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+	}
+	
+	@Override
+	public List<User> findUsersSpecialtySemester(int specialtyId, char semester) {
+		return em.createQuery("SELECT u from User u WHERE u.specialty.id = :specialtyId AND u.semester = :semester ORDER BY u.specialty.id", User.class)
+				.setParameter("specialtyId", specialtyId)
+				.setParameter("semester", semester).getResultList();
 	}
 
 	@Override

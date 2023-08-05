@@ -11,14 +11,16 @@ public class UserMapper {
 	private String fullname;
 	private String fn;
 	
-	private int specialtyId;
+	private Integer specialtyId;
 
 	private Character semester;
 	private String role;
 	
+	public UserMapper() {
+		
+	}
 	
-	
-	public UserMapper(int id, String username, String password, String fullname, String fn, int specialty,
+	public UserMapper(int id, String username, String password, String fullname, String fn, Integer specialty,
 			Character semester, String role) {
 		super();
 		this.id = id;
@@ -34,11 +36,12 @@ public class UserMapper {
 
 
 	public static List<UserMapper> userMapper(List<User> users) {
-		return users.stream().map(user -> new UserMapper(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialty().getId(), user.getSemester(), user.getRole())).toList();
+		List<UserMapper> u = users.stream().map(user -> new UserMapper(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialty() == null ? null :  user.getSpecialty().getId(), user.getSemester(), user.getRole())).toList();
+		return u;
 	}
 	
 	public static UserMapper userMapper(User user) {
-		return new UserMapper(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialty().getId(), user.getSemester(), user.getRole());
+		return new UserMapper(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialty() == null ? null : user.getSpecialty().getId(), user.getSemester(), user.getRole());
 	}
 
 
@@ -103,13 +106,13 @@ public class UserMapper {
 
 
 
-	public int getSpecialtyId() {
+	public Integer getSpecialtyId() {
 		return specialtyId;
 	}
 
 
 
-	public void setSpecialtyId(int specialtyId) {
+	public void setSpecialtyId(Integer specialtyId) {
 		this.specialtyId = specialtyId;
 	}
 

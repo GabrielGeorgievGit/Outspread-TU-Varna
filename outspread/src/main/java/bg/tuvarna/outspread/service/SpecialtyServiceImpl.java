@@ -31,10 +31,20 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 	public List<SpecialtyDto> getAllSpecialties() {
 		return SpecialtyDisciplineMapper.mapSpecialties(sr.getAllSpecialties());
 	}
+	
+	@Override
+	public List<SpecialtyDto> getSpecialtiesSemester(int specialtyId, char semester) {
+		return SpecialtyDisciplineMapper.mapSpecialties(sr.getSpecialtiesSemester(specialtyId, semester));
+	}
+	
+	@Override
+	public List<SpecialtyDto> getAllSpecialtiesSemester(char semester) {
+		return SpecialtyDisciplineMapper.mapSpecialties(sr.getAllSpecialtiesSemester(semester));
+	}
+
 
 	@Override
 	public SpecialtyDto getSpecialty(int id) {
 		return SpecialtyDisciplineMapper.mapSpecialty(sr.getSpecialty(id));
 	}
-
 }

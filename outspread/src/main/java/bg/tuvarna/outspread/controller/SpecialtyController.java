@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import bg.tuvarna.outspread.dto.CharDto;
 import bg.tuvarna.outspread.dto.SpecialtyDto;
+import bg.tuvarna.outspread.dto.SpecialtySemesterDto;
 import bg.tuvarna.outspread.dto.StringDto;
 import bg.tuvarna.outspread.entity.Specialty;
 import bg.tuvarna.outspread.service.SpecialtyService;
@@ -30,6 +32,16 @@ public class SpecialtyController {
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllSpecialties() {
 		return new ResponseEntity<List<SpecialtyDto>>(ss.getAllSpecialties(), HttpStatus.OK);
+	}
+	
+	@PostMapping("/all/semester")
+	public ResponseEntity<?> getAllSpecialtiesSemester(@RequestBody CharDto semester) {
+		return new ResponseEntity<List<SpecialtyDto>>(ss.getAllSpecialtiesSemester(semester.getValue()), HttpStatus.OK);
+	}
+	
+	@PostMapping("/semester")
+	public ResponseEntity<?> getSpecialtiesSemester(@RequestBody SpecialtySemesterDto request) {
+		return new ResponseEntity<List<SpecialtyDto>>(ss.getSpecialtiesSemester(request.getSpecialty(), request.getSemester()), HttpStatus.OK);
 	}
 	
 	@GetMapping("/get")

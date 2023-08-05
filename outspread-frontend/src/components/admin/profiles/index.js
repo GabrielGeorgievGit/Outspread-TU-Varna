@@ -1,5 +1,5 @@
 import { AdminTitle } from "../../../utils/tools"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,21 +14,23 @@ import {
     Dropdown
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
-import { getUserSemester } from "../../../store/actions/users";
+import { getAllUsers, getUserSemester } from "../../../store/actions/users";
 import PaginateProfile from "./paginate";
 import { getAllSpecialties } from "../../../store/actions/specialties";
+import { InputLabel, MenuItem, Select } from "@mui/material";
 
 const AdminProfiles = () => {
 
-    const usersGet = useSelector(state=>state.usersGet)
+   
     const specialties = useSelector(state=>state.specialties)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
 
     useEffect(()=>{
-        dispatch(getUserSemester('1'))
         dispatch(getAllSpecialties())
     },[dispatch])
+
 
     const getSpecialtiesMap = () => {
         const specialtiesMap = new Map();
@@ -43,8 +45,8 @@ const AdminProfiles = () => {
             <div className="exercises_table">
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
-                        <LinkContainer to='/admin/exercises/add'>
-                            <Button variant="secondary">Add exercise</Button>
+                        <LinkContainer to='/admin/profiles/add'>
+                            <Button variant="secondary">Add profile</Button>
                         </LinkContainer>
                         
                         <Dropdown className="">
@@ -59,6 +61,7 @@ const AdminProfiles = () => {
                         </Dropdown.Menu>
                         </Dropdown>
                     </ButtonGroup>
+                    
                     <form>
                         <InputGroup>
                             <InputGroup.Text id="btngrp1">@</InputGroup.Text>
@@ -73,7 +76,7 @@ const AdminProfiles = () => {
                 </ButtonToolbar>
                 
                 <>
-                    <PaginateProfile users={usersGet} specialtiesMap={getSpecialtiesMap()}/>
+                    <PaginateProfile specialtiesMap={getSpecialtiesMap()}/>
                 </>
             </div>
         </>

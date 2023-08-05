@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import bg.tuvarna.outspread.dto.CharDto;
 import bg.tuvarna.outspread.dto.IntDto;
+import bg.tuvarna.outspread.dto.SpecialtySemesterDto;
 import bg.tuvarna.outspread.dto.UserDto;
 import bg.tuvarna.outspread.dto.UserEditDto;
 import bg.tuvarna.outspread.entity.User;
@@ -30,6 +32,13 @@ public class UserController {
 	@GetMapping("/find")
 	public ResponseEntity<?> findUser(String username) {
 		return new ResponseEntity<UserMapper>(us.findUser(username), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findAll")
+	public ResponseEntity<?> findAllUsers() {
+		List<UserMapper> users = us.findAllUsers();
+		System.out.println("im here");
+		return new ResponseEntity<List<UserMapper>>(users, HttpStatus.OK);
 	}
 	
 	@PostMapping("/create")
@@ -49,15 +58,20 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PostMapping("/find/specialty")
-	public ResponseEntity<?> findAllUsersSpecialty(int specialtyId) {
-		return new ResponseEntity<List<UserMapper>>(us.findAllUsersSpecialty(specialtyId), HttpStatus.OK);
+	@PostMapping("/find/specialty/semester")
+	public ResponseEntity<?> findUsersSpecialtySemester(@RequestBody SpecialtySemesterDto request) {
+		List<UserMapper> users = us.findUsersSpecialtySemester(request.getSpecialty(), request.getSemester());
+		return new ResponseEntity<List<UserMapper>>(users, HttpStatus.OK);
 	}
 	
-	@PostMapping("/findSemester")
-//	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"}) 
-	public ResponseEntity<?> findAllUsersSemester(@RequestBody IntDto specialty) {
-		System.out.println("hereeeeeeeeeeee"+ specialty.getValue());
-		return new ResponseEntity<List<UserMapper>>(us.findAllUsersSemester('1'), HttpStatus.OK);
+	@PostMapping("/find/specialty")
+	public ResponseEntity<?> findAllUsersSpecialty(@RequestBody IntDto specialtyId) {
+		List<UserMapper> users = us.findAllUsersSpecialty(specialtyId.getValue());
+		return new ResponseEntity<List<UserMapper>>(users, HttpStatus.OK);
+	}
+	
+	@PostMapping("/findAllSemester")
+	public ResponseEntity<?> findAllUsersSemester(@RequestBody CharDto semester) {
+		return new ResponseEntity<List<UserMapper>>(us.findAllUsersSemester(semester.getValue()), HttpStatus.OK);
 	}
 }

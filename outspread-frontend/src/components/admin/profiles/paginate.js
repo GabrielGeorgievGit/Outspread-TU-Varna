@@ -1,8 +1,11 @@
 import { Button, Pagination, Table } from "react-bootstrap";
 import { Loader } from "../../../utils/tools";
-import { getSpecialty } from "../../../store/actions/specialties";
+import { getAllSpecialties, getSpecialty } from "../../../store/actions/specialties";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import { useEffect, useState } from "react";
+import { getUserSemester, getUserSpecialties, getUserSpecialtiesSemester } from "../../../store/actions/users";
+import { useDispatch, useSelector } from "react-redux";
 const PaginateProfile = ({
-    users,
     specialtiesMap,
     goToPrevPage,
     goToNextPage,
@@ -10,11 +13,50 @@ const PaginateProfile = ({
     handleStatusChange,
     handleShow
 }) => {
+    const dispatch = useDispatch();
+    // const [getUsers, setGetUsers] = useState(users);
+    const specialties = useSelector(state=>state.specialties)
+    const usersGet = useSelector(state=>state.usersGet)
 
+    const [specialtySemester, setSpecialtySemester] = useState({specialty: 1, semester: '1'})
     
+    useEffect(()=>{
+        dispatch(getAllSpecialties())
+        dispatch(getUserSpecialtiesSemester(specialtySemester))
+    },[dispatch, specialtySemester])
+
     return(
         <> 
-            { users  ?
+            <div>
+                <InputLabel>Specialty</InputLabel>
+                <Select defaultValue="1" onChange={(event) =>  setSpecialtySemester({...specialtySemester, specialty: event.target.value})}
+                name="specialty"
+                label="specialty"
+                >
+                    {
+                        specialties.data.map(item=>(
+                            <MenuItem key={item.specialtyId} value={item.specialtyId}>{item.specialtyName}</MenuItem>
+                        ))
+                    }
+                    
+                </Select>
+
+                <InputLabel>Semester</InputLabel>
+                <Select defaultValue="1" onChange={(event) => setSpecialtySemester({...specialtySemester, semester: event.target.value})}
+                name="semester"
+                label="semester"
+                >
+                    <MenuItem value="1">1</MenuItem>
+                    <MenuItem value="2">2</MenuItem>
+                    <MenuItem value="3">3</MenuItem>
+                    <MenuItem value="4">4</MenuItem>
+                    <MenuItem value="5">5</MenuItem>
+                    <MenuItem value="6">6</MenuItem>
+                    <MenuItem value="7">7</MenuItem>
+                    <MenuItem value="8">8</MenuItem>
+                </Select>
+            </div>
+            { usersGet  ?
                 <>
                     <Table striped bordered hover >
                         <thead>
@@ -27,7 +69,7 @@ const PaginateProfile = ({
                             </tr>
                         </thead>
                         <tbody>
-                            { users.data.map(item=>(
+                            { usersGet.data.map(item=>(
                                 <tr key={item.id}>
                                     <td>{item.fullname}</td>
                                     <td>{item.fn ? item.fn : "none"}</td>

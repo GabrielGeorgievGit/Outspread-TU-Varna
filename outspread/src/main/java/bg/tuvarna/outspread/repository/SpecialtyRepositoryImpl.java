@@ -21,7 +21,28 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
 	@Override
 	public List<Specialty> getAllSpecialties() {
 		List<Specialty> specialties = new ArrayList<>();
-		specialties.addAll(em.createQuery("SELECT s from Specialty s", Specialty.class).getResultList());
+		specialties.addAll(em.createQuery("SELECT s from Specialty s ORDER BY s.id", Specialty.class).getResultList());
+		
+		return specialties;
+	}
+	
+	@Override
+	public List<Specialty> getAllSpecialtiesSemester(char semester) {
+		List<Specialty> specialties = new ArrayList<>();
+		specialties.addAll(em.createQuery("SELECT s from Specialty s INNER JOIN SpecialtyDiscipline sd on s.id = sd.specialty.id WHERE sd.semester = :semester ORDER BY s.id, sd.discipline.id", Specialty.class)
+				.setParameter("semester", semester)
+				.getResultList());
+		
+		return specialties;
+	}
+	
+	@Override
+	public List<Specialty> getSpecialtiesSemester(int specialtyId, char semester) {
+		List<Specialty> specialties = new ArrayList<>();
+		specialties.addAll(em.createQuery("SELECT s from Specialty s INNER JOIN SpecialtyDiscipline sd on s.id = sd.specialty.id WHERE s.id = :specialtyId AND sd.semester = :semester ORDER BY s.id, sd.discipline.id", Specialty.class)
+				.setParameter("specialtyId", specialtyId)
+				.setParameter("semester", semester)
+				.getResultList());
 		
 		return specialties;
 	}

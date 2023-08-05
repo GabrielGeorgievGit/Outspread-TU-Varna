@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { 
     loginUser,
     isAuth,
-    signOut
+    signOut,
+    getAllUsers
 } from '../actions/users'
 let DEFAULT_USER_STATE = {
     loading: false,
@@ -49,6 +50,7 @@ export const usersSlice = createSlice({
             state.data = DEFAULT_USER_STATE.data
             state.auth = false;
         })
+       
     }
 })
 
