@@ -31,7 +31,7 @@ export const validation = () => (
         semester:Yup.number()
         .required('Semester is required')
         .max(1, "The semester starts from 1")
-        .max(8, "The semester can't exceed 8"),
+        .max(8, "The semester can't exceed 8")
         /*
         score: Yup.number()
         .required('Sorry the score is required')

@@ -108,7 +108,6 @@ export const addUser = createAsyncThunk(
     'profiles/addUser',
     async(user, {dispatch})=>{
         try{
-            console.log(user)
             const request = await axios.post(`/user/create`, user, getAuthHeader());
             
             return request.data;

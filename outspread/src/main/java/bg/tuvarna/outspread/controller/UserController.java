@@ -43,8 +43,9 @@ public class UserController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> createUser(@RequestBody UserDto request) {
-		System.out.println("request:specialtyid: " + request.getSpecialtyId());
-		return new ResponseEntity<User>(us.createUser(request), HttpStatus.CREATED);
+		us.createUser(request);
+		return null;
+//		return new ResponseEntity<User>(us.createUser(request), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/edit")

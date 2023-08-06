@@ -66,8 +66,8 @@ const PaginateSpecialty = ({
                             </tr>
                         </thead>
                         <tbody>
-                            { specialties.data.map(item => 
-                                item.disciplines.map(discipline => (
+                            { specialties.data.map(item => {if(item.specialtyId == specialty) 
+                                return item.disciplines.map(discipline => (
                                     <tr key={item.id}>
                                         <td>{item.specialtyName}</td>
 
@@ -91,7 +91,7 @@ const PaginateSpecialty = ({
                                             {item.status}
                                         </td> */}
                                     </tr>
-                            )))}
+                            ))})}
                         </tbody>
                     </Table>{/*
                     <Pagination>

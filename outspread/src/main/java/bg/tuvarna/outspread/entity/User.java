@@ -41,6 +41,7 @@ public class User implements UserDetails {
 	private Specialty specialty;
 
 	private Character semester;
+	@Column(name = "role")
 	private String role;
 
 	@OneToMany(mappedBy = "owner")

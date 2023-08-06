@@ -45,7 +45,7 @@ const AddProfile = () => {
         initialValues: formValues,
         validationSchema: validation,
         onSubmit: (values) => {
-            dispatch(addUser(values))
+            dispatch(addUser({...values, role}))
             .unwrap()
             .then(()=>{
                 navigate('/admin/profiles')
@@ -53,22 +53,16 @@ const AddProfile = () => {
         }
     })
 
-    let role = "STUDENT";
-
-    const selectRole = event => {
-        role = event.target.value
-        
-    }
+    const [role, setRole] = useState("STUDENT");
 
     return (
         <>
             <AdminTitle title="Add profile"/>
             <FormControl fullWidth>
                 <InputLabel>Select user type</InputLabel>
-                <Select defaultValue="student" onSelect={selectRole}
+                <Select defaultValue="student" onChange={(event) => setRole(event.target.value)}
                 name="profile"
                 label="Select profile"
-                {...formik.getFieldProps('director')}
                 error={formik.errors.status && formik.touched.status ? true : false}
                 >
                     <MenuItem value="student">Student</MenuItem>
@@ -133,7 +127,7 @@ const AddProfile = () => {
                         {...formik.getFieldProps('specialtyId')}
                         error={formik.errors.status && formik.touched.status ? true : false}
                         >
-                            {specialties.data.map(specialty => (
+                            {specialties.all.map(specialty => (
                                 <MenuItem key={specialty.specialtyId} value={specialty.specialtyId}>{specialty.specialtyName}</MenuItem>
                                 ))}
                             
@@ -157,14 +151,6 @@ const AddProfile = () => {
                         {...formik.getFieldProps('semester')}
                         {...errorHelper(formik, 'semester')}/>
                 </div>
-
-                <TextField 
-                    style={{width: '30%'}}
-                    name="role"
-                    label="Enter role"
-                    variant="outlined"
-                    value={role}
-                    />
 
                 <div className="mt-2">
                         <Button variant="contained" color="primary" type="submit"

@@ -14,6 +14,7 @@ import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.mapper.UserMapper;
 import bg.tuvarna.outspread.repository.AdminRepository;
 import bg.tuvarna.outspread.repository.UserRepository;
+import bg.tuvarna.outspread.service.validation.UserValidation;
 
 @Service
 public class UserServiceImpl implements UserService  {
@@ -32,7 +33,8 @@ public class UserServiceImpl implements UserService  {
 	}
 	
 	@Override
-	public User createUser(UserDto user) {
+	public User createUser(UserDto dto) {
+		UserDto user = UserValidation.validateUserDto(dto);
 		return ur.createUser(user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(), user.getSpecialtyId(), user.getSemester(), user.getRole()).get();
 	}
 	

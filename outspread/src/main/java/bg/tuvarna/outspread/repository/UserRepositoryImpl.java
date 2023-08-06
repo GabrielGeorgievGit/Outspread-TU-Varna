@@ -35,6 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	@Transactional
 	public Optional<User> createUser(String username, String password, String fullname, String fn, int specialtyId, Character semester, String role) {
+		System.out.println("roel::::: " + role);
 		Specialty specialty = em.find(Specialty.class, specialtyId);
 		User user = new User(username, password, fullname, fn, specialty, semester, role);
 		
