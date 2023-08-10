@@ -63,6 +63,7 @@ const PaginateSpecialty = ({
                                 <th>Specialty</th>
                                 <th>Discipline</th>
                                 <th>Semester</th>
+                                <th colSpan={2}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -56,6 +56,8 @@ public class SecurityFilterChainConfig {
                 .requestMatchers(
                 		HttpMethod.POST, "/**"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/specialty/change"
+                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 
                 /*
                 //admin

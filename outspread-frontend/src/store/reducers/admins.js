@@ -44,3 +44,5 @@ export const adminsSlice = createSlice({
         })
     }
 })
+
+export default adminsSlice.reducer

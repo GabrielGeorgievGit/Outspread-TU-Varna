@@ -5,9 +5,11 @@ import NotificationsReducer from './reducers/notifications'
 import SiteReducer from './reducers/site'
 import UsersGetReducer from './reducers/usersGet'
 import SpecialtiesReducer from './reducers/specialties'
+import AdminReducer from './reducers/admins'
 
 export const store = configureStore({
     reducer:{
+        admins: AdminReducer,
         users: UserReducer,
         exercises: ExercisesReducer,
         notifications: NotificationsReducer,

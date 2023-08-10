@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAuthHeader } from "../../utils/tools";
-
+import { errorGlobal, successGlobal } from '../reducers/notifications'
 
 export const getAllSpecialties = createAsyncThunk(
     'specialties/getAllSpecialties',
@@ -72,9 +72,36 @@ export const addSpecialty = createAsyncThunk(
     'specialties/add',
     async(specialty, {dispatch})=>{
         try{
-            console.log(specialty);
             const request = await axios.post(`/specialty/add`, specialty, getAuthHeader());
-            console.log(request.data);
+            
+            dispatch(successGlobal("Specialty " + specialty.name + " added"))
+            
+            return request.data;
+        }catch(error){
+            dispatch(errorGlobal("This specialty already exists"))
+        }
+    }
+)
+
+export const getAllDisciplines = createAsyncThunk(
+    'disciplines/getAllDisciplines',
+    async()=>{
+        try{
+            const request = await axios.get(`/specialty/disciplines/all`, getAuthHeader());
+            
+            return request.data;
+        }catch(error){
+            throw error
+        }
+    }
+)
+
+export const changeSpecialty = createAsyncThunk(
+    'specialty/change',
+    async(specialty)=>{
+        try{
+            const request = await axios.put(`/specialty/change`, {id: specialty.specialty, name: specialty.specialtyName, semester: specialty.semester, disciplines: specialty.disciplines}, getAuthHeader());
+            
             return request.data;
         }catch(error){
             throw error

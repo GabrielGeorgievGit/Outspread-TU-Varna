@@ -33,6 +33,14 @@ public class SpecialtyDiscipline {
 		
 	}
 
+	public SpecialtyDiscipline(Specialty specialty, Discipline discipline, char semester) {
+		super();
+		this.specialty = specialty;
+		this.discipline = discipline;
+		this.semester = semester;
+	}
+
+
 	public int getId() {
 		return id;
 	}

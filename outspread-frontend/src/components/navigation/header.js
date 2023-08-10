@@ -3,8 +3,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { clearNotifications } from "../../store/reducers/notifications";
 import { showToast } from "../../utils/tools";
-import { signOut } from "../../store/actions/users";
+import { isAuth, signOut } from "../../store/actions/users";
 import { setLayout } from "../../store/reducers/site";
+import { adminIsAuth } from "../../store/actions/admins";
 
 const Header = () => {
     const users = useSelector(state => state.users);
@@ -13,6 +14,7 @@ const Header = () => {
     const dispatch = useDispatch();
     let navigate = useNavigate();
     let location = useLocation();
+    const admins = useSelector(state => state.admins)
 
     useEffect(() => {
         let pathname = location.pathname.split('/')
@@ -37,17 +39,34 @@ const Header = () => {
         }
     },[dispatch, notifications])
 
+    useEffect(() => {
+        dispatch(isAuth());
+        dispatch(adminIsAuth());
+
+    },[dispatch])
+
     const signOutUser = () => {
         dispatch(signOut())
         navigate('/login')
     }
 
+    let username = "";
+
     return (
         <nav className={`navbar fixed-top ${site.layout}`}>
-            <Link to="/" className="navbar-brand d-flex align-items-center fredoka_ff">
+            <Link to={admins.auth ? "/admin" : "/"} className="navbar-brand d-flex align-items-center fredoka_ff">
                 TU Varna
             </Link>
-            <button onClick={()=>signOutUser()}>sign out</button>
+
+            <h3 style={{marginRight: '1px'}}>{username}</h3>
+            { users.auth || admins.auth ? 
+                <>
+                    <h3 style={{marginRight: '1px'}}>{users.data.fullname}</h3>
+                    <button onClick={()=>signOutUser()}>sign out</button>
+                </>
+                :
+                null
+            }
         </nav>
     )
 }

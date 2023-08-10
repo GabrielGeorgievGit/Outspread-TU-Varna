@@ -7,7 +7,6 @@ import { getAuthHeader, removeTokenCookie } from '../../utils/tools'
 export const loginAdmin = createAsyncThunk(
     'admin/login',
     async({username, password}, {dispatch})=>{
-        console.log("login admin")
         try {
             const request = await axios.post(`http://localhost:8080/admin/login`, {
                 username: username,

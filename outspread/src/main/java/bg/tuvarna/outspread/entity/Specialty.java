@@ -61,6 +61,4 @@ public class Specialty {
 	public void setSpecialtyDisciplines(List<SpecialtyDiscipline> specialtyDisciplines) {
 		this.specialtyDisciplines = specialtyDisciplines;
 	}
-	
-	
 }

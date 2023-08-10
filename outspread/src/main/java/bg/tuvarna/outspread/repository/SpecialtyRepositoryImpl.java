@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bg.tuvarna.outspread.dto.DisciplineShortDto;
 import bg.tuvarna.outspread.entity.Discipline;
 import bg.tuvarna.outspread.entity.Specialty;
+import bg.tuvarna.outspread.entity.SpecialtyDiscipline;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
@@ -24,6 +26,14 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
 		specialties.addAll(em.createQuery("SELECT s from Specialty s ORDER BY s.id", Specialty.class).getResultList());
 		
 		return specialties;
+	}
+	
+	@Override
+	public List<Discipline> getAllDisciplines() {
+		List<Discipline> disciplines = new ArrayList<>();
+		disciplines.addAll(em.createQuery("SELECT d from Discipline d ORDER BY d.id", Discipline.class).getResultList());
+		
+		return disciplines;
 	}
 	
 	@Override
@@ -101,5 +111,19 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
 	public void deleteDiscipline(int id) {
 		Discipline discipline = em.find(Discipline.class, id);
 		em.remove(discipline);
+	}
+	
+	@Override
+	@Transactional
+	public void changeNameDisciplines(int specialtyId, String specialtyName, char semester, List<DisciplineShortDto> disciplines) {
+		Specialty specialty = em.find(Specialty.class, specialtyId);
+		specialty.setName(specialtyName);
+		
+		em.createQuery("DELETE from SpecialtyDiscipline sd WHERE sd.specialty.id = :specialtyId and sd.semester = :semester")
+		.setParameter("specialtyId", specialtyId)
+		.setParameter("semester", semester).executeUpdate();
+		
+		List<Discipline> disc = disciplines.stream().map(d -> em.find(Discipline.class, d.getId())).toList();
+		disc.forEach(d -> em.persist(new SpecialtyDiscipline(specialty, d, semester)));
 	}
 }

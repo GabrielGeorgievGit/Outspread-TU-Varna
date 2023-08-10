@@ -3,6 +3,7 @@ package bg.tuvarna.outspread.repository;
 import java.util.List;
 import java.util.Optional;
 
+import bg.tuvarna.outspread.dto.DisciplineShortDto;
 import bg.tuvarna.outspread.entity.Discipline;
 import bg.tuvarna.outspread.entity.Specialty;
 
@@ -16,9 +17,12 @@ public interface SpecialtyRepository {
 	
 	Specialty getSpecialty(int id);
 	
+	List<Discipline> getAllDisciplines();
 	Optional<Discipline> createDiscipline(String name);
 	Optional<Discipline> editDiscipline(int id, String name);
 	void deleteDiscipline(int id);
+	
+	void changeNameDisciplines(int specialtyId, String specialtyName, char semester, List<DisciplineShortDto> disciplines);
 	
 //	List<SpecialtyDiscipline> getAllSpecialtiesDisciplines();
 }

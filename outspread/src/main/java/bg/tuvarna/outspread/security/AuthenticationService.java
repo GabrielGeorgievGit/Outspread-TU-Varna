@@ -26,11 +26,11 @@ public class AuthenticationService {
         this.jwtUtil = jwtUtil;
     }
     
-    public User loginUser(Authentication authentication) throws NotFoundException {
+    public UserMapper loginUser(Authentication authentication) throws NotFoundException {
     	try {
     		Object obj = authentication.getPrincipal();
     		if(obj != null && obj instanceof User) {
-    			return (User) obj;
+    			return UserMapper.userMapper((User) obj);
     		}    		
     		else return null;
     	} catch(Exception e) {

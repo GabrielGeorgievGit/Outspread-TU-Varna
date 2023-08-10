@@ -14,6 +14,7 @@ import bg.tuvarna.outspread.dto.LoginAdminResponseDto;
 import bg.tuvarna.outspread.dto.LoginDto;
 import bg.tuvarna.outspread.dto.LoginUserResponseDto;
 import bg.tuvarna.outspread.entity.Admin;
+import bg.tuvarna.outspread.mapper.UserMapper;
 import bg.tuvarna.outspread.security.AuthenticationService;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,9 +25,13 @@ public class LoginController {
 	private AuthenticationService authenticationService;
 	
 	@GetMapping("/login")
-	public ResponseEntity<?> home(@NotNull Authentication authentication) throws NotFoundException{
+	public ResponseEntity<?> home(@NotNull Authentication authentication) throws NotFoundException {
 		if(authentication == null)
 			return ResponseEntity.notFound().build();
+		UserMapper user = authenticationService.loginUser(authentication);
+		if(user == null) {
+			return ResponseEntity.notFound().build();
+		}
 		return ResponseEntity.ok().body(authenticationService.loginUser(authentication));
 	} 
 	

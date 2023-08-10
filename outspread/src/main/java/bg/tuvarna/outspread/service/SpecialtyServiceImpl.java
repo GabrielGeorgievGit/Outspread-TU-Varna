@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bg.tuvarna.outspread.dto.DisciplineShortDto;
+import bg.tuvarna.outspread.dto.SpecialtyChangeDto;
 import bg.tuvarna.outspread.dto.SpecialtyDto;
 import bg.tuvarna.outspread.entity.Discipline;
 import bg.tuvarna.outspread.entity.Specialty;
@@ -19,7 +21,13 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 	
 	@Override
 	public Specialty createSpecialty(String name) {
-		return sr.createSpecialty(name).get();
+		Specialty s = null;
+		try {
+			s = sr.createSpecialty(name).get();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return s;
 	}
 	
 	@Override
@@ -46,5 +54,15 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 	@Override
 	public SpecialtyDto getSpecialty(int id) {
 		return SpecialtyDisciplineMapper.mapSpecialty(sr.getSpecialty(id));
+	}
+	
+	@Override
+	public List<DisciplineShortDto> getAllDisciplines() {
+		return SpecialtyDisciplineMapper.mapDisciplines(sr.getAllDisciplines()); 
+	}
+	
+	@Override
+	public void changeNameDisciplines(SpecialtyChangeDto dto) {
+		sr.changeNameDisciplines(dto.getId(), dto.getName(), dto.getSemester(), dto.getDisciplines());
 	}
 }

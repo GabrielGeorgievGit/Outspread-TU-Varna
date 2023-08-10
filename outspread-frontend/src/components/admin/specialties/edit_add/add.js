@@ -23,25 +23,34 @@ import InputLabel from '@mui/material/InputLabel';
 import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
 import { addExercise } from "../../../../store/actions/exercises";
-import { addSpecialty, getAllSpecialties } from "../../../../store/actions/specialties";
-import { Dropdown, Form } from "react-bootstrap";
+import { addSpecialty, changeSpecialty, getAllDisciplines, getAllSpecialties } from "../../../../store/actions/specialties";
+import { Dropdown, Form, InputGroup } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 // import makeAnimated from 'react-select/animated';
-import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { Autocomplete, Select } from "@mui/material";
 
 const AddSpecialty = () => {
 
     const dispatch = useDispatch();
     const specialties = useSelector(state=>state.specialties)
 
+    const [specialty, setSpecialty] = useState({id: 0, name: '', disciplines: []});
+    const [semester, setSemester] = useState('1');
     const animatedComponents = makeAnimated();
-
+    
+    const [selectedDisciplines, setSelectedDisciplines] = useState([]);
+    
     
     useEffect(()=>{
         dispatch(getAllSpecialties())
+        dispatch(getAllDisciplines())
     },[dispatch])
     
+    useEffect(()=> {
+        setDisciplines(specialty, semester)
+    }, [specialty, semester])
+
     const specialtyAddFormik = useFormik({
         enableReinitialize: true,
         initialValues: {name: ''},
@@ -51,14 +60,15 @@ const AddSpecialty = () => {
             .min(2, "Specialty name should be minimum 2 characters")
             .max(100, "Specialty name can't exceed 100 characters")
         }),
-        onSubmit: (values) => {
-            dispatch(addSpecialty(values))
+        onSubmit: (value) => {
+            dispatch(addSpecialty(value))
+            dispatch(getAllSpecialties())
         }
     })
     
     const specialtyEditFormik = useFormik({
         enableReinitialize: true,
-        initialValues: {specialty: '', specialtyName: '', disciplines: []},
+        initialValues: {specialty: specialty.id, specialtyName: specialty.name, semester: semester, disciplines: selectedDisciplines},
         validationSchema: Yup.object({
             specialtyName: Yup.string()
             .required('The specialty name field is required')
@@ -66,9 +76,18 @@ const AddSpecialty = () => {
             .max(100, "Specialty name can't exceed 100 characters")
         }),
         onSubmit: (values) => {
-            
+            dispatch(changeSpecialty(values))
         }
     })
+
+    function selectSpecialty(specialty) {
+        setSpecialty(specialty)
+        setDisciplines(specialty, semester)
+    }
+
+    function setDisciplines(specialty, semester) {
+        setSelectedDisciplines(specialty.disciplines.filter(item => item.semester === semester).map(item => item = {id: item.id, name: item.name}))
+    }
     
     const editSpecialtyChanged = event => {
         specialtyEditFormik.setFieldValue("specialtyName", event.target.value)
@@ -80,16 +99,19 @@ const AddSpecialty = () => {
         return res;
     }
 
-    function allDisciplines() {
-        console.log("here")
-        let res = specialties.data.map(item=>item.disciplines)
-        res = res.filter(item=>item.length > 0)
-        
-        console.log(res);
+    function allDisciplinesSemester() {
+        return specialty.disciplines.filter(item => item.semester === semester)
+        // return specialties.all.map(specialty => specialty.specialtyName === specialty ? 
+        //     specialty.disciplines.map(discipline => discipline.semester === semester ? {id: discipline.id, label: discipline.name} : null) : null)//.filter(item => item != null)
+    }
 
-        // res = res.map(disc => disc.map(item=>item.name ? item.name : "kus"))
-        console.log(res);
-        return res
+    function getSpecialty(specialty) {
+        return specialties.all.map(specialty => specialty.specialtyName === specialty)
+    }
+
+    function allSpecialties() {
+        return specialties.all.map(item=>({id: item.specialtyId, name: item.specialtyName, disciplines: item.disciplines}   
+        ))
     }
     
     return (
@@ -117,38 +139,68 @@ const AddSpecialty = () => {
                 </div>
 
             </form>
-                
             <AdminTitle title="Edit specialty"/>
-            <Form
-                className="m5-3 article_form"
-                onSubmit={specialtyEditFormik.handleSubmit}>
-                <div className="form-group">
-                    <Form.Select size="lg" name="specialty" onChange={editSpecialtyChanged}>
-                       { specialties.data.map(item=>(
-                           <option key={item.specialtyId}>{item.specialtyName}</option>
-                       ))}
-                    </Form.Select>
+                <form
+                 className="m5-3 article_form"
+                 onSubmit={specialtyEditFormik.handleSubmit}
+                >
+                    <div>
+                        <Autocomplete
+                            onChange={(event, value) => selectSpecialty({id: value.id, name: value.name, disciplines: value.disciplines})}
+                            getOptionLabel={(option) => option.name}
+                            disablePortal
+                            options={allSpecialties()}
+                            isOptionEqualToValue={(option, value)=> option.name === value.name}
+                            renderInput={(params) => <TextField {...params} label="Specialty" />}
+                            
+                        />
+                    </div>
+
                     <TextField
                         style={{width: '50%'}}
                         name="specialtyName"
                         label="Edit specialty name"
                         variant="outlined"
+                        value={specialty.name}
                         {...specialtyEditFormik.getFieldProps('specialtyName')}
                         {...errorHelper(specialtyEditFormik, 'specialtyName')}
                     />
-
-                    <Select
-                        closeMenuOnSelect={false}
-                        // components={animatedComponents}
-                        // defaultValue={disciplineNames(specialties.data[1].disciplines)}
-                        isMulti
-                        options={allDisciplines()}
-                    >
-                        {/* { allDisciplines().map(item=>(
-                            <option key={item.id}>{item.name}</option>
-                        ))} */}
-                    </Select>
                     
+                    <InputLabel>Semester</InputLabel>
+                    <Select defaultValue="1" onChange={(event) => setSemester(event.target.value)}
+                    name="semester"
+                    label="semester"
+                    >
+                        <MenuItem value="1">1</MenuItem>
+                        <MenuItem value="2">2</MenuItem>
+                        <MenuItem value="3">3</MenuItem>
+                        <MenuItem value="4">4</MenuItem>
+                        <MenuItem value="5">5</MenuItem>
+                        <MenuItem value="6">6</MenuItem>
+                        <MenuItem value="7">7</MenuItem>
+                        <MenuItem value="8">8</MenuItem>
+                    </Select>
+
+                    <InputLabel>Disciplines</InputLabel>
+                   <Autocomplete
+                        multiple
+                        disableCloseOnSelect
+                        // id="tags-outlined"
+                        options={specialties.disciplines}
+                        getOptionLabel={(option) => option.name}
+                        value={selectedDisciplines}
+                        // defaultValue={specialty.disciplines.filter(item => item.semester === semester)}
+                        filterSelectedOptions
+                        onChange={(event, values)=> setSelectedDisciplines(values)}
+                        isOptionEqualToValue={(option, value)=> option.name === value.name}
+                        renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            // label="filterSelectedOptions"
+                            // placeholder="Favorites"
+                        />
+                        )}
+                    />
 
                     <div className="mt-2">
                         <Button variant="contained" color="primary" type="submit"
@@ -156,80 +208,8 @@ const AddSpecialty = () => {
                             Change specialty
                         </Button>
                     </div>
-                </div>
+                </form>
 
-            </Form>
-            {
-            /*
-            <AdminTitle title="Add discipline"/>
-
-            <form className="m5-3 article_form" onSubmit={formik.handleSubmit}>
-                <div className="form-group">
-                    <TextField
-                        style={{width: '30%'}}
-                        name="title"
-                        label="Enter a title"
-                        variant="outlined"
-                        {...formik.getFieldProps('title')}
-                        {...errorHelper(formik, 'title')}/>
-                </div>
-
-                <div className="form-group">
-                    WSSS
-                </div>
-
-                <div className="form-group">
-                    <TextField
-                        style={{width: '100%'}}
-                        name="discipline"
-                        label="Enter a discipline"
-                        variant="outlined"
-                        {...formik.getFieldProps('discipline')}
-                        {...errorHelper(formik, 'discipline')}
-                        multiline
-                        rows={4}
-                        />
-                    
-                    <Divider className="mt-3 mb-3"/>
-
-                    <div className="form-group">
-                        <TextField
-                            style={{width: '100%'}}
-                            name="teacher"
-                            label="Enter a teacher"
-                            variant="outlined"
-                            {...formik.getFieldProps('teacher')}
-                            {...errorHelper(formik, 'teacher')}/>
-                    </div>
-
-                    <div className="form-group">
-                        Actors
-                    </div>
-
-                    <FormControl fullWidth>
-                        <InputLabel>Select status</InputLabel>
-                        <Select 
-                        name="status"
-                        label="Select status"
-                        {...formik.getFieldProps('director')}
-                        error={formik.errors.status && formik.touched.status ? true : false}
-                        >
-                            <MenuItem value=""><em>None</em></MenuItem>
-                            <MenuItem value="draft">Draft</MenuItem>
-                            <MenuItem value="public">Public</MenuItem>
-                        </Select>
-                        {formik.errors.status && formik.touched.status ?
-                        
-                        <FormHelperText error="true">
-                            { formik.errors.status }
-                        </FormHelperText>
-                        :null}
-
-                    </FormControl>
-                </div>
-
-            </form>
-                        */}
         </>
     )
 }

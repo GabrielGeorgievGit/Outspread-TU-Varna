@@ -3,12 +3,12 @@ import {
 
     getUserSemester
 } from '../actions/users'
-import { getAllAllSpecialties, getAllSpecialties, getAllSpecialtiesSemester, getSpecialtiesSemester } from "../actions/specialties";
+import { getAllAllSpecialties, getAllDisciplines, getAllSpecialties, getAllSpecialtiesSemester, getSpecialtiesSemester } from "../actions/specialties";
 
 
 export const specialtiesSlice = createSlice({
     name:'specialties',
-    initialState: {data: [], all: []},
+    initialState: {data: [], all: [], disciplines: []},
     reducers: {
 
     },
@@ -31,6 +31,10 @@ export const specialtiesSlice = createSlice({
         .addCase(getAllAllSpecialties.pending, (state)=>{ state.loading = true })
         .addCase(getAllAllSpecialties.fulfilled, (state, action)=>{
             state.all = action.payload
+        })
+        .addCase(getAllDisciplines.pending, (state)=>{ state.loading = true })
+        .addCase(getAllDisciplines.fulfilled, (state, action)=>{
+            state.disciplines = action.payload
         })
     }
 })

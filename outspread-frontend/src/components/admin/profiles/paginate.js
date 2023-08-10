@@ -34,7 +34,7 @@ const PaginateProfile = ({
                 label="specialty"
                 >
                     {
-                        specialties.data.map(item=>(
+                        specialties.all.map(item=>(
                             <MenuItem key={item.specialtyId} value={item.specialtyId}>{item.specialtyName}</MenuItem>
                         ))
                     }
@@ -66,6 +66,7 @@ const PaginateProfile = ({
                                 <th>Specialty</th>
                                 <th>Semester</th>
                                 <th>User type</th>
+                                <th colSpan={2}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,10 +78,6 @@ const PaginateProfile = ({
                                     <td>{item.semester}</td>
                                     <td>{String(item.role).toLowerCase()}</td>
 
-                                    <td className='bg-info text-white'
-                                        onClick={()=> goToEdit(item.id)}
-                                    >View
-                                    </td>
                                     <td className='bg-success text-white'
                                         onClick={()=> goToEdit(item.id)}
                                     >
@@ -88,15 +85,15 @@ const PaginateProfile = ({
                                     </td>
                                     <td
                                         className="bg-danger text-white"
-                                        onClick={()=> alert(item.id) }
+                                        onClick={()=> alert("Do you want to remove user " + item.username + item.id) }
                                     >
                                         Remove
                                     </td>
-                                    <td className='action_btn status_btn'
+                                    {/* <td className='action_btn status_btn'
                                         onClick={()=> handleStatusChange(item.status,item.id)}
                                     >
                                         {item.status}
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>

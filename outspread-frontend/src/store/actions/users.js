@@ -38,7 +38,6 @@ export const isAuth = createAsyncThunk(
     }
 )
 
-
 export const signOut = createAsyncThunk(
     'signOut',
     async()=>{
