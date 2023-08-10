@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { clearNotifications } from "../../store/reducers/notifications";
-import { showToast } from "../../utils/tools";
+import { removeTokenCookie, showToast } from "../../utils/tools";
 import { isAuth, signOut } from "../../store/actions/users";
 import { setLayout } from "../../store/reducers/site";
 import { adminIsAuth } from "../../store/actions/admins";
@@ -46,8 +46,9 @@ const Header = () => {
     },[dispatch])
 
     const signOutUser = () => {
-        dispatch(signOut())
-        navigate('/login')
+        removeTokenCookie()
+        window.location.reload(false);
+        // navigate('/login')
     }
 
     let username = "";

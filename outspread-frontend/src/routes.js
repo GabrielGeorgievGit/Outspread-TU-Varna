@@ -21,6 +21,7 @@ import AdminSpecialties from './components/admin/specialties';
 import AddExercise from './components/admin/exercises/edit_add/add';
 import AddSpecialty from './components/admin/specialties/edit_add/add';
 import AddProfile from './components/admin/profiles/edit_add/add';
+import AdminAuthGuard from './hoc/adminAuthGuard';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ const Router = () => {
 
                         <Route path='/' element= {<AuthGuard><Home/></AuthGuard>} />
 
-                        <Route path='/admin' element= {<AdminHome/>}>
+                        <Route path='/admin' element= {<AdminAuthGuard><AdminHome/></AdminAuthGuard>}>
                             <Route index element={<AdminMain/>}/>
                             <Route path='profiles'  element={<AdminProfiles/>}/>
                             <Route path='profiles/add'  element={<AddProfile/>}/>
