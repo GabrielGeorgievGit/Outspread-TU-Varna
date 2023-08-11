@@ -91,7 +91,6 @@ export const getUserSpecialties = createAsyncThunk(
 export const getAllUsers = createAsyncThunk(
     'user/findAll',
     async()=>{
-        console.log("hellooooooooosaoso")
         try {
             const request = await axios.get('http://localhost:8080/user/findAll', getAuthHeader());
             

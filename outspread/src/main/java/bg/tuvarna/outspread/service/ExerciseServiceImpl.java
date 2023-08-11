@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.entity.Exercise;
 import bg.tuvarna.outspread.mapper.ExerciseMapper;
@@ -27,8 +28,8 @@ public class ExerciseServiceImpl implements ExerciseService {
 	}
 	
 	@Override
-	public Exercise createExercise(ExerciseDto dto) {
-		return er.createExercise(dto.getOwnerId(), dto.getTitle(), dto.getDisciplineId(), dto.getInfo(), dto.getTime(), dto.getDuration(), dto.getRoom(), dto.getSigned()).get();
+	public Exercise createExercise(ExerciseCreateDto dto) {
+		return er.createExercise(dto.getIdOwner(), dto.getTitle(), dto.getIdDiscipline(), dto.getDescription(), dto.getTime(), dto.getDuration(), dto.getRoom()).get();
 	}
 	
 //	@Override

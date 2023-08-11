@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.entity.Exercise;
 import bg.tuvarna.outspread.service.ExerciseService;
@@ -34,8 +35,8 @@ public class ExerciseController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<?> createExercise(@RequestBody ExerciseDto request) {
-		System.out.println("id: " + request.getDisciplineId());
+	public ResponseEntity<?> createExercise(@RequestBody ExerciseCreateDto request) {
+		System.out.println("id: " + request.getIdDiscipline());
 		return new ResponseEntity<Exercise>(es.createExercise(request), HttpStatus.CREATED);
 	}
 	

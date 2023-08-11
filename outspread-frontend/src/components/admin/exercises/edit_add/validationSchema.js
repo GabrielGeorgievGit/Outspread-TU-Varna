@@ -1,14 +1,13 @@
 import * as Yup from 'yup';
 
 export const formValues = {
+    teacher: 0,
     title: '',
     discipline: '',
-    teacher: '',
-    date: '',
+    description: '',
     time: '',
     duration: '',
     room: '',
-    content: ''
 }
 
 export const validation = () => (
@@ -19,19 +18,19 @@ export const validation = () => (
         // content:Yup.string()
         // .required('Sorry the content is required')
         // .min(50,'That is it ? ...write some more'),
-        excerpt:Yup.string()
-        .required('Discipline name is required')
-        .max(100,"The discipline name can't exceed 100 characters"),
-        excerpt:Yup.string()
-        .required('Teacher name is required')
-        .max(50,"Teacher name can't exceed 50 characters"),
-        excerpt:Yup.string(),//date
-        excerpt:Yup.string(),//time
-        excerpt:Yup.string(),//duration
-        excerpt:Yup.string()
+        // excerpt:Yup.string()
+        // .required('Discipline name is required')
+        // .max(100,"The discipline name can't exceed 100 characters"),
+        // excerpt:Yup.string()
+        // .required('Teacher name is required')
+        // .max(50,"Teacher name can't exceed 50 characters"),
+        date:Yup.string(),//date
+        time:Yup.string(),//time
+        duration:Yup.string(),//duration
+        room:Yup.string()
         .max(20, "Room can't exceed 20 characters"),
-        excerpt:Yup.string()
-        .max(1000, "Content can't exceed 1000 characters"),
+        description:Yup.string()
+        .max(1000, "Description can't exceed 1000 characters"),
         /*
         score: Yup.number()
         .required('Sorry the score is required')

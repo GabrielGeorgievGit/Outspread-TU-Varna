@@ -37,7 +37,6 @@ public class UserController {
 	@GetMapping("/findAll")
 	public ResponseEntity<?> findAllUsers() {
 		List<UserMapper> users = us.findAllUsers();
-		System.out.println("im here");
 		return new ResponseEntity<List<UserMapper>>(users, HttpStatus.OK);
 	}
 	

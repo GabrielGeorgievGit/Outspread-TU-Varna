@@ -36,14 +36,12 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 	
 	@Override
 	@Transactional
-	public Optional<Exercise> createExercise(int ownerId, String title, int disciplineId, String info, LocalDateTime time, LocalTime duration, String room, int signed) {
+	public Optional<Exercise> createExercise(int ownerId, String title, int disciplineId, String info, LocalDateTime time, LocalTime duration, String room) {
 		
 		User owner = em.find(User.class, ownerId);
-		System.out.println("here\n\n\n\n\n\n" + disciplineId);
 		Discipline discipline = em.find(Discipline.class, disciplineId);
 		
-		Exercise exercise = new Exercise(owner, title, discipline, info, time, duration, room, signed);
-		System.out.println("here\n\n\n\n\n\n" + disciplineId + " " + exercise.getDiscipline().getName());
+		Exercise exercise = new Exercise(owner, title, discipline, info, time, duration, room, 0);
 		em.persist(exercise);
 		
 		return Optional.of(exercise);
