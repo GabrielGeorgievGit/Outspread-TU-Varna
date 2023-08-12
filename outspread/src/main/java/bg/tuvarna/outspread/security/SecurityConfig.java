@@ -2,6 +2,7 @@ package bg.tuvarna.outspread.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -23,8 +24,12 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration
-    ) throws Exception {
-        return configuration.getAuthenticationManager();
+    ) throws NotFoundException {
+        try {
+			return configuration.getAuthenticationManager();
+		} catch (Exception e) {
+			throw new NotFoundException();
+		}
     }
 
     @Bean

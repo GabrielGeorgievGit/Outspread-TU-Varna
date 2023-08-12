@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { clearNotifications } from "../../store/reducers/notifications";
@@ -16,8 +16,11 @@ const Header = () => {
     let location = useLocation();
     const admins = useSelector(state => state.admins)
 
+    const [pathname, setPathName] = useState(location.pathname.split('/'));
+
     useEffect(() => {
-        let pathname = location.pathname.split('/')
+        setPathName(location.pathname.split('/'))
+
         if(pathname[1] === 'admin') {
             dispatch(setLayout('dash_layout'))
         }else {
@@ -48,6 +51,8 @@ const Header = () => {
     const signOutUser = () => {
         removeTokenCookie()
         window.location.reload(false);
+        // if(pathname[1] === 'admin') navigate('/admin/login')
+        // else navigate('/login')
         // navigate('/login')
     }
 

@@ -30,7 +30,7 @@ const AdminSpecialties = () => {
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
                         <LinkContainer to='/admin/specialties/add'>
-                            <Button variant="secondary">Add Specialty</Button>
+                            <Button variant="secondary">Add/Edit Specialty</Button>
                         </LinkContainer>
                         
                         <Dropdown className="">

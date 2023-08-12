@@ -3,6 +3,7 @@ package bg.tuvarna.outspread.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -15,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import bg.tuvarna.outspread.jwt.JWTAuthenticationFilter;
-
 @Configuration
 @EnableWebSecurity
 // IMB: added this to allow role authorization
@@ -36,7 +36,8 @@ public class SecurityFilterChainConfig {
     
     
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    	try {
         http
                 .csrf().disable()
                 .cors(Customizer.withDefaults())
@@ -56,8 +57,11 @@ public class SecurityFilterChainConfig {
                 .requestMatchers(
                 		HttpMethod.POST, "/**"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                .requestMatchers(
+                		HttpMethod.POST, "/**"
+                		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/specialty/change"
-                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
+                		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
                 
                 /*
                 //admin
@@ -119,5 +123,9 @@ public class SecurityFilterChainConfig {
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint);
         return http.build();
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    		throw new NotFoundException();
+    	}
     }
 }

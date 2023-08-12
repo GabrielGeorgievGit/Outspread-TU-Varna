@@ -17,13 +17,13 @@ export const addExercise = createAsyncThunk(
 
 export const getAllExercises = createAsyncThunk(
     'exercises/getAllExercises',
-    async(exercise, {dispatch})=>{
+    async(exrcise)=>{
         try{
             const request = await axios.get(`/exercise/find/all`, getAuthHeader());
-            
+            console.log(request)
             return request.data;
         }catch(error){
-            throw error
+            console.log(error)
         }
     }
 )
@@ -37,6 +37,19 @@ export const getPaginateExercises = createAsyncThunk(
                 limit,
                 keywords
             }, getAuthHeader());
+            return request.data;
+        }catch(error){
+            throw error
+        }
+    }
+)
+
+export const getAllRooms = createAsyncThunk(
+    'exercises/getAllRooms',
+    async()=>{
+        try{
+            const request = await axios.get(`/exercise/room/all`, getAuthHeader());
+            
             return request.data;
         }catch(error){
             throw error

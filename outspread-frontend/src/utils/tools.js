@@ -32,7 +32,7 @@ export const showToast = (type, msg) => {
 }
 
 export const getTokenCookie = () => cookie.load('final-access-token');
-export const removeTokenCookie = () => cookie.remove('final-access-token', { path:'*' });
+export const removeTokenCookie = () => cookie.remove('final-access-token');//, { path:'*' }
 export const getAuthHeader = () => {
     // IMB: If there is no authentication token (the user is not logged in)
     // there is no need to have an Athorization header added with 'undefined' token

@@ -2,6 +2,7 @@ package bg.tuvarna.outspread.entity;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,8 +36,15 @@ public class Exercise {
 	private String info;
 	private LocalDateTime time;
 	private LocalTime duration;
-	private String room;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "room_id")
+	private Room room;
+	
 	private int signed;
+	
+	@OneToMany(mappedBy = "exercise")
+	private List<ReserveRoom> reservedRooms;
 
 	public Exercise() {
 	}
@@ -43,7 +52,7 @@ public class Exercise {
 	
 
 	public Exercise(User owner, String title, Discipline discipline, String info, LocalDateTime time,
-			LocalTime duration, String room, int signed) {
+			LocalTime duration, Room room, int signed) {
 		super();
 		this.owner = owner;
 		this.title = title;
@@ -113,11 +122,11 @@ public class Exercise {
 		this.duration = duration;
 	}
 
-	public String getRoom() {
+	public Room getRoom() {
 		return room;
 	}
 
-	public void setRoom(String room) {
+	public void setRoom(Room room) {
 		this.room = room;
 	}
 

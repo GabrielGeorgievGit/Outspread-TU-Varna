@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addExercise, getAllExercises } from "../actions/exercises";
+import { addExercise, getAllExercises, getAllRooms } from "../actions/exercises";
 
 export const exercisesSlice = createSlice({
     name:'exercises',
@@ -7,7 +7,8 @@ export const exercisesSlice = createSlice({
         homeSort: {},
         loading: false,
         exercises: [],
-        current: null
+        current: null,
+        rooms: []
     },
     reducers: {
 
@@ -22,10 +23,16 @@ export const exercisesSlice = createSlice({
         })
         .addCase(addExercise.rejected, state=>{state.loading = false})
          // GET all Exercises
-         .addCase(getAllExercises.pending,(state)=>{ state.loading = true })
-         .addCase(getAllExercises.fulfilled,(state,action)=>{ 
+        .addCase(getAllExercises.pending,(state)=>{ state.loading = true })
+        .addCase(getAllExercises.fulfilled,(state,action)=>{ 
+            state.loading = false;
+            state.exercises = action.payload
+        })
+        // GET ALL ROOMS
+        .addCase(getAllRooms.pending,(state)=>{ state.loading = true })
+         .addCase(getAllRooms.fulfilled,(state,action)=>{ 
              state.loading = false;
-             state.exercises = action.payload
+             state.rooms = action.payload
          })
     }
 })

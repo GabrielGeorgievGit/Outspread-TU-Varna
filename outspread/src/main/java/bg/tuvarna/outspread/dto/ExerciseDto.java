@@ -14,7 +14,7 @@ public class ExerciseDto {
 	private String info;
 	private LocalDateTime time;
 	private LocalTime duration;
-	private String room;
+	private int roomId;
 	private int signed;
 
 	public ExerciseDto() {
@@ -22,7 +22,7 @@ public class ExerciseDto {
 	}
 
 	public ExerciseDto(int id, int ownerId, String owner, String title, int disciplineId, String discipline,
-			String info, LocalDateTime time, LocalTime duration, String room, int signed) {
+			String info, LocalDateTime time, LocalTime duration, int room, int signed) {
 		super();
 		this.id = id;
 		this.ownerId = ownerId;
@@ -33,7 +33,7 @@ public class ExerciseDto {
 		this.info = info;
 		this.time = time;
 		this.duration = duration;
-		this.room = room;
+		this.roomId = room;
 		this.signed = signed;
 	}
 
@@ -109,12 +109,12 @@ public class ExerciseDto {
 		this.duration = duration;
 	}
 
-	public String getRoom() {
-		return room;
+	public int getRoom() {
+		return roomId;
 	}
 
-	public void setRoom(String room) {
-		this.room = room;
+	public void setRoom(int room) {
+		this.roomId = room;
 	}
 
 	public int getSigned() {

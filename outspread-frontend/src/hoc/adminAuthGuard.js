@@ -9,11 +9,11 @@ const AdminAuthGuard = (props) => {
     let location = useLocation();
     const dispatch = useDispatch();
 
-    // useEffect(()=>{
-    //     dispatch(adminIsAuth())
-    // })
+    useEffect(()=>{
+        dispatch(adminIsAuth())
+    },[dispatch])
 
-    if(admins.auth !== true && getAuthHeader() === {}) {
+    if(admins.auth === false) {
         return <Navigate to={"/admin/login"} state={{from: location}} replace/>
     }
 

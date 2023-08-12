@@ -26,7 +26,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import InputLabel from '@mui/material/InputLabel';
 import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
-import { addExercise } from "../../../../store/actions/exercises";
+import { addExercise, getAllRooms } from "../../../../store/actions/exercises";
 import { Autocomplete, Checkbox } from "@mui/material";
 import { getAllUsers } from "../../../../store/actions/users";
 import { getAllDisciplines, getAllSpecialties, getAllSpecialtiesSemester } from "../../../../store/actions/specialties";
@@ -35,7 +35,7 @@ import { DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pi
 const AddExercise = () => {
     const dispatch = useDispatch();
 
-    const exercises = useSelector(state => state.articles)
+    const exercises = useSelector(state => state.exercises)
     const allUsers = useSelector(state => state.usersGet)
     const specialties = useSelector(state => state.specialties)
 
@@ -43,11 +43,14 @@ const AddExercise = () => {
         dispatch(getAllUsers())
         dispatch(getAllSpecialties())
         dispatch(getAllDisciplines())
+        dispatch(getAllRooms())
         // dispatch(getAllDisciplines())
     },[dispatch])
 
     const [selectedUser, setSelectedUser] = useState({});
     const [selectedDiscipline, setSelectedDiscipline] = useState({});
+    const [selectedRoom, setSelectedRoom] = useState({});
+
     const [autoRoom, setAutoRoom] = useState(false);
     const [dateTime, setDateTime] = useState();
     const [duration, setDuration] = useState();
@@ -63,7 +66,7 @@ const AddExercise = () => {
             console.log(values,selectedUser, selectedDiscipline, dateTime, duration)
             dispatch(addExercise({idOwner: selectedUser.id, idDiscipline: selectedDiscipline.id,
                  title: values.title, description: values.description,
-                  time: dateTime, duration: duration, room: values.room}))
+                  time: dateTime, duration: duration, room: autoRoom === true ? -1 : selectedRoom.id}))
             .unwrap()
             .then(()=>{
                 navigate('/admin/exercises')
@@ -139,7 +142,7 @@ const AddExercise = () => {
                         rows={4}
                         />
                 </div>
-                <Divider className="mt-3 mb-3"/>
+                {/* <Divider className="mt-3 mb-3"/> */}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker 
                         onChange={(e) => setDateTime(getZero(e.$y)+ "-" + getZero(e.$M+1) + "-" + getZero(e.$D) + "T" + getZero(e.$H) + ":" + getZero(e.$m))}//setDateTime(event.target.value)
@@ -160,15 +163,26 @@ const AddExercise = () => {
                         Automatically find a free room
                         <Checkbox checked={autoRoom} onChange={(event) => setAutoRoom(event.target.checked)}/>
                     </InputLabel>
-                    <TextField
+
+                    <Autocomplete
                         disabled={autoRoom}
+                        onChange={(event, value) => setSelectedRoom(value)}
+                        getOptionLabel={(option) => option.name}
+                        disablePortal
+                        options={exercises.rooms}
+                        isOptionEqualToValue={(option, value)=> option.name === value.name}
+                        renderInput={(params) => <TextField {...params} label="Room" />}
+                        ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
+                    />
+                    {/* <TextField
+                        
                         style={{width: '100%'}}
                         name="room"
                         label="Enter a room"
                         variant="outlined"
                         {...formik.getFieldProps('room')}
                         {...errorHelper(formik, 'room')}
-                    />
+                    /> */}
                 </div>
             
 

@@ -63,19 +63,19 @@ const PaginateSpecialty = ({
                                 <th>Specialty</th>
                                 <th>Discipline</th>
                                 <th>Semester</th>
-                                <th colSpan={2}>Actions</th>
+                                {/* <th colSpan={2}>Actions</th> */}
                             </tr>
                         </thead>
                         <tbody>
-                            { specialties.data.map(item => {if(item.specialtyId == specialty) 
-                                return item.disciplines.map(discipline => (
+                            { specialties.data.map(item => item.specialtyId === specialty ?
+                                item.disciplines.map(discipline => discipline.semester === semester ? (
                                     <tr key={item.id}>
                                         <td>{item.specialtyName}</td>
 
                                         <td>{discipline.name}</td>
                                         <td>{discipline.semester}</td>
                                     
-                                        <td className='bg-success text-white'
+                                        {/* <td className='bg-success text-white'
                                         onClick={()=> goToEdit(item.id)}
                                         >
                                         Edit
@@ -85,14 +85,14 @@ const PaginateSpecialty = ({
                                             onClick={()=> alert(item.id) }
                                         >
                                             Remove
-                                        </td>
+                                        </td> */}
                                         {/* <td className='action_btn status_btn'
                                             onClick={()=> handleStatusChange(item.status,item.id)}
                                         >
                                             {item.status}
                                         </td> */}
                                     </tr>
-                            ))})}
+                            ) : null) : null)}
                         </tbody>
                     </Table>{/*
                     <Pagination>

@@ -27,8 +27,8 @@ export const validation = () => (
         date:Yup.string(),//date
         time:Yup.string(),//time
         duration:Yup.string(),//duration
-        room:Yup.string()
-        .max(20, "Room can't exceed 20 characters"),
+        // room:Yup.string()
+        // .max(20, "Room can't exceed 20 characters"),
         description:Yup.string()
         .max(1000, "Description can't exceed 1000 characters"),
         /*

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
-import bg.tuvarna.outspread.entity.Exercise;
+import bg.tuvarna.outspread.dto.RoomDto;
 import bg.tuvarna.outspread.service.ExerciseService;
 
 @RestController
@@ -35,9 +35,14 @@ public class ExerciseController {
 	}
 	
 	@PostMapping("/create")
+//	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"})
 	public ResponseEntity<?> createExercise(@RequestBody ExerciseCreateDto request) {
-		System.out.println("id: " + request.getIdDiscipline());
-		return new ResponseEntity<Exercise>(es.createExercise(request), HttpStatus.CREATED);
+		return new ResponseEntity<ExerciseDto>(es.createExercise(request), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/room/all")
+	public ResponseEntity<?> getAllRooms() {
+		return new ResponseEntity<List<RoomDto>>(es.getAllRooms(), HttpStatus.OK);
 	}
 	
 	

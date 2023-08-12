@@ -3,15 +3,14 @@ package bg.tuvarna.outspread.dto;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class ExerciseCreateDto {
-	private int idOwner, idDiscipline;
-	private String title, description, room;
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", shape = JsonFormat.Shape.STRING)
+	private int idOwner, idDiscipline, room;
+	private String title, description;
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
+	
 	private LocalDateTime time;
 	private LocalTime duration;
-	public ExerciseCreateDto(int idOwner, int idDiscipline, String title, String description, String room,
+	public ExerciseCreateDto(int idOwner, int idDiscipline, String title, String description, int room,
 			LocalDateTime time, LocalTime duration) {
 		super();
 		this.idOwner = idOwner;
@@ -46,10 +45,10 @@ public class ExerciseCreateDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getRoom() {
+	public int getRoom() {
 		return room;
 	}
-	public void setRoom(String room) {
+	public void setRoom(int room) {
 		this.room = room;
 	}
 	public LocalDateTime getTime() {

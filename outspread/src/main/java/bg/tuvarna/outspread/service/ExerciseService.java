@@ -4,10 +4,12 @@ import java.util.List;
 
 import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
-import bg.tuvarna.outspread.entity.Exercise;
+import bg.tuvarna.outspread.dto.RoomDto;
 
 public interface ExerciseService {
 	List<ExerciseDto> getAllExercises();
 	ExerciseDto findExercise(int id);
-	Exercise createExercise(ExerciseCreateDto dto);
+	ExerciseDto createExercise(ExerciseCreateDto dto);
+	
+	List<RoomDto> getAllRooms();
 }

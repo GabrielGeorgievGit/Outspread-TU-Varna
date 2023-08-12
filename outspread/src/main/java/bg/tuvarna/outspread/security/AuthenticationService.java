@@ -46,39 +46,56 @@ public class AuthenticationService {
     	else throw new NotFoundException();
     }
 
-    public LoginUserResponseDto login(LoginDto request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+    public LoginUserResponseDto login(LoginDto request) throws NotFoundException {
+    	Authentication authentication = null;
+    	
+    	try {
+    		authentication = authenticationManager.authenticate(
+        			new UsernamePasswordAuthenticationToken(
+        					request.getUsername(),
+        					request.getPassword()
+        					)
+        			);
+    		
+    	} catch(Exception e) {
+    		throw new NotFoundException();
+    	}
+    	
         User user = null;
+        String token = null;
         try {
         	user = (User) authentication.getPrincipal();
         	
-        } catch(ClassCastException e) {
+        	token = jwtUtil.issueToken(user.getUsername(), user.getRole().toString());
+        } catch(Exception e) {
         	return null;
         }
-        String token = jwtUtil.issueToken(user.getUsername(), user.getRole().toString());
         return new LoginUserResponseDto(token, UserMapper.userMapper(user));
     }
     
-    public LoginAdminResponseDto loginAdmin(LoginDto request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+    public LoginAdminResponseDto loginAdmin(LoginDto request) throws NotFoundException {
+    	Authentication authentication = null;
+    	try {
+    		authentication = authenticationManager.authenticate(
+    				new UsernamePasswordAuthenticationToken(
+    						request.getUsername(),
+    						request.getPassword()
+    						)
+    				);
+    		
+    	} catch(Exception e) {
+    		throw new NotFoundException();
+    	}
         
         Admin admin = null;
+        String token = null;
         try {
         	admin = (Admin) authentication.getPrincipal();
-        } catch(ClassCastException e) {
+        	token = jwtUtil.issueToken(admin.getUsername(), admin.isPrime() ? "ROLE_ADMIN_PRIME" : "ROLE_ADMIN");
+
+        } catch(Exception e) {
         	return null;
         }
-        String token = jwtUtil.issueToken(admin.getUsername(), admin.isPrime() ? "ROLE_ADMIN_PRIME" : "ROLE_ADMIN");
         return new LoginAdminResponseDto(token, admin);
     }
 

@@ -25,20 +25,33 @@ public class LoginController {
 	private AuthenticationService authenticationService;
 	
 	@GetMapping("/login")
-	public ResponseEntity<?> home(@NotNull Authentication authentication) throws NotFoundException {
+	public ResponseEntity<?> home(@NotNull Authentication authentication) {
 		if(authentication == null)
 			return ResponseEntity.notFound().build();
-		UserMapper user = authenticationService.loginUser(authentication);
+		
+		UserMapper user = null;
+		
+		try {
+			user = authenticationService.loginUser(authentication);			
+		} catch(Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+		
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok().body(authenticationService.loginUser(authentication));
+		return ResponseEntity.ok().body(user);
 	} 
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginDto request) {
 		
-		LoginUserResponseDto response = authenticationService.login(request);
+		LoginUserResponseDto response = null;
+		try {
+			response = authenticationService.login(request);			
+		} catch(Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 		if(response == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -52,7 +65,12 @@ public class LoginController {
 	public ResponseEntity<?> adminHome(@NotNull Authentication authentication) throws NotFoundException {
 		if(authentication == null)
 			return ResponseEntity.notFound().build();
-		Admin admin = authenticationService.loginAdmin(authentication);
+		Admin admin = null; 
+		try {
+			admin = authenticationService.loginAdmin(authentication);
+		} catch(Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 		if(admin == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -61,7 +79,12 @@ public class LoginController {
 	
 	@PostMapping("/admin/login")
 	public ResponseEntity<?> adminLogin(@RequestBody LoginDto request) {
-		LoginAdminResponseDto response = authenticationService.loginAdmin(request);
+		LoginAdminResponseDto response = null;
+		try {
+			response = authenticationService.loginAdmin(request);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 		if(response == null) {
 			return ResponseEntity.notFound().build();
 		}
