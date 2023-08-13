@@ -17,6 +17,31 @@ const PaginateExercise = ({
         navigate('/exercise/')
     }
 
+    function convertTime(time) {
+        time = time.split(':');
+        // if(time[0] === '1') time[0] = time[0] + ' hour'
+        // else time[0] = time[0] + ' hours'
+        if(time[0].at(0) === '0') time[0] = time[0].at(1);
+        time[0] = time[0] + 'h'
+        
+        if(time[1] === '00') return time[0]
+        // if(time[1].at(0) === '0') time[1] = time[1].at(1);
+        // if(time[1].at(0) === '1') time[1] = time[1] + ' minute'
+        // else time[1] = time[1] + ' minutes'
+        time[1] = time[1] + 'min'
+        console.log(time)
+        return time[0] + (time[1] === '00' ? "null" : (' and ' + time[1]));
+    }
+
+    function getDateTime(dateTime) {
+        if(dateTime === undefined) return null
+        dateTime = dateTime.split('T')
+        const date = dateTime[0].split('-');
+        let time = dateTime[1].split(':');
+
+        return date[2] + '-' + date[1] + '-' + date[0] + ' at ' + time[0] + ':' + time[1]
+    }
+
     return(
         <> 
             { exercises && exercises.exercises ?
@@ -28,7 +53,7 @@ const PaginateExercise = ({
                                 <th>Title</th>
                                 <th>Discipline</th>
                                 {/* <th>Information</th> */}
-                                <th>Start date</th>
+                                <th>Start</th>
                                 <th>Duration</th>
                                 <th>Room</th>
                                 <th>Signed number</th>
@@ -42,8 +67,8 @@ const PaginateExercise = ({
                                     <td>{item.title}</td>
                                     <td>{item.discipline ? item.discipline : "none"}</td>
                                     {/* <td>{item.info}</td> */}
-                                    <td>{new Date(item.time).toLocaleDateString()}</td>
-                                    <td>{String(item.duration).substring(0, 5)}</td>
+                                    <td>{getDateTime(item.time)}</td>
+                                    <td>{convertTime(item.duration)}</td>
                                     <td>{item.room}</td>
                                     <td>{item.signed}</td>
 

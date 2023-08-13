@@ -20,10 +20,10 @@ export const getAllExercises = createAsyncThunk(
     async(exrcise)=>{
         try{
             const request = await axios.get(`/exercise/find/all`, getAuthHeader());
-            console.log(request)
+            
             return request.data;
         }catch(error){
-            console.log(error)
+            
         }
     }
 )
