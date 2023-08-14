@@ -27,38 +27,49 @@ const PaginateProfile = ({
 
     return(
         <> 
-            <div>
-                <InputLabel>Specialty</InputLabel>
-                <Select defaultValue="1" onChange={(event) =>  setSpecialtySemester({...specialtySemester, specialty: event.target.value})}
-                name="specialty"
-                label="specialty"
-                >
-                    {
-                        specialties.all.map(item=>(
-                            <MenuItem key={item.specialtyId} value={item.specialtyId}>{item.specialtyName}</MenuItem>
-                        ))
-                    }
-                    
-                </Select>
-
-                <InputLabel>Semester</InputLabel>
-                <Select defaultValue="1" onChange={(event) => setSpecialtySemester({...specialtySemester, semester: event.target.value})}
-                name="semester"
-                label="semester"
-                >
-                    <MenuItem value="1">1</MenuItem>
-                    <MenuItem value="2">2</MenuItem>
-                    <MenuItem value="3">3</MenuItem>
-                    <MenuItem value="4">4</MenuItem>
-                    <MenuItem value="5">5</MenuItem>
-                    <MenuItem value="6">6</MenuItem>
-                    <MenuItem value="7">7</MenuItem>
-                    <MenuItem value="8">8</MenuItem>
-                </Select>
+            <h3>Filters</h3>
+            <div class="filters">
+                <div class="filterElement">
+                    <InputLabel class="filterLabel" id="specialty">Specialty</InputLabel>
+                    <Select 
+                    class="filterSelect"
+                    defaultValue="1"
+                    onChange={(event) =>  setSpecialtySemester({...specialtySemester, specialty: event.target.value})}
+                    name="specialty"
+                    labelId="specialty"
+                    >
+                        {
+                            specialties.all.map(item=>(
+                                <MenuItem key={item.specialtyId} value={item.specialtyId}>{item.specialtyName}</MenuItem>
+                            ))
+                        }
+                        
+                    </Select>
+                </div>
+                <div class="filterElement">
+                    <InputLabel class="filterLabel" id="semester">Semester</InputLabel>
+                    <Select 
+                    class="filterSelect"
+                    defaultValue="1" 
+                    onChange={(event) => setSpecialtySemester({...specialtySemester, semester: event.target.value})}
+                    name="semester"
+                    labelId="semester"
+                    >
+                        <MenuItem value="1">1</MenuItem>
+                        <MenuItem value="2">2</MenuItem>
+                        <MenuItem value="3">3</MenuItem>
+                        <MenuItem value="4">4</MenuItem>
+                        <MenuItem value="5">5</MenuItem>
+                        <MenuItem value="6">6</MenuItem>
+                        <MenuItem value="7">7</MenuItem>
+                        <MenuItem value="8">8</MenuItem>
+                    </Select>
+                </div>
             </div>
             { usersGet  ?
                 <>
-                    <Table striped bordered hover >
+                    <Table striped bordered hover
+                    style={{marginTop: "20px"}} >
                         <thead>
                             <tr>
                                 <th>Name</th>

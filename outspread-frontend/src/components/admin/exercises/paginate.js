@@ -29,7 +29,7 @@ const PaginateExercise = ({
         // if(time[1].at(0) === '1') time[1] = time[1] + ' minute'
         // else time[1] = time[1] + ' minutes'
         time[1] = time[1] + 'min'
-        console.log(time)
+        
         return time[0] + (time[1] === '00' ? "null" : (' and ' + time[1]));
     }
 

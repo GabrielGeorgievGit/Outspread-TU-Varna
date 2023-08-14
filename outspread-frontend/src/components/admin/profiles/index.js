@@ -46,20 +46,20 @@ const AdminProfiles = () => {
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
                         <LinkContainer to='/admin/profiles/add'>
-                            <Button variant="secondary">Add profile</Button>
+                            <Button variant="secondary">Add new profile</Button>
                         </LinkContainer>
                         
-                        <Dropdown className="">
+                        {/* <Dropdown className="">
                             <Dropdown.Toggle variant="info" id="dropdown-basic">
                                 Dropdown Button
                             </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                        </Dropdown>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown> */}
                     </ButtonGroup>
                     
                     <form>
