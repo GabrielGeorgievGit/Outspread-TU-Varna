@@ -1,4 +1,4 @@
-import { Button, Pagination, Table } from "react-bootstrap";
+import { Button, FormControl, InputGroup, Pagination, Table } from "react-bootstrap";
 import { Loader } from "../../../utils/tools";
 import { getAllSpecialties, getSpecialty } from "../../../store/actions/specialties";
 import { InputLabel, MenuItem, Select } from "@mui/material";
@@ -14,27 +14,62 @@ const PaginateProfile = ({
     handleShow
 }) => {
     const dispatch = useDispatch();
-    // const [getUsers, setGetUsers] = useState(users);
+    
     const specialties = useSelector(state=>state.specialties)
     const usersGet = useSelector(state=>state.usersGet)
-
+    
     const [specialtySemester, setSpecialtySemester] = useState({specialty: 1, semester: '1'})
     
     useEffect(()=>{
         dispatch(getAllSpecialties())
         dispatch(getUserSpecialtiesSemester(specialtySemester))
     },[dispatch, specialtySemester])
+    
+    const [tableData, setTableData] = useState(usersGet.data);
+    
+    useEffect(()=>{
+        setTableData(usersGet.data)
+    },[usersGet.data])
+
+    function searching(text) {
+        if(String.toString(text).length === 0) {
+            setTableData(usersGet.data);
+            return;
+        }
+        else setTableData(usersGet.data.filter(item => objContains(item, text)))
+    }
+
+    function objContains(obj, text) {
+        const values = Object.values(obj);
+        
+        for (let index = 0; index < values.length; index++) {
+            let element = values[index];
+            
+            if(String(element).includes(text)) {
+                return true
+            }
+        }
+        return false;
+    }
 
     return(
         <> 
             <h3>Filters</h3>
+            <InputGroup>
+                <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
+                    <FormControl 
+                    onChange={(event) => searching(event.target.value)}
+                    type="text"
+                    placeholder="Search"
+                />
+            </InputGroup>
             <div class="filters">
                 <div class="filterElement">
                     <InputLabel class="filterLabel" id="specialty">Specialty</InputLabel>
                     <Select 
                     class="filterSelect"
                     defaultValue="1"
-                    onChange={(event) =>  setSpecialtySemester({...specialtySemester, specialty: event.target.value})}
+                    onChange={(event) =>  {setSpecialtySemester({...specialtySemester, specialty: event.target.value}); }}
                     name="specialty"
                     labelId="specialty"
                     >
@@ -51,7 +86,7 @@ const PaginateProfile = ({
                     <Select 
                     class="filterSelect"
                     defaultValue="1" 
-                    onChange={(event) => setSpecialtySemester({...specialtySemester, semester: event.target.value})}
+                    onChange={(event) => {setSpecialtySemester({...specialtySemester, semester: event.target.value}); }}
                     name="semester"
                     labelId="semester"
                     >
@@ -81,7 +116,7 @@ const PaginateProfile = ({
                             </tr>
                         </thead>
                         <tbody>
-                            { usersGet.data.map(item=>(
+                            { tableData.map(item=>(
                                 <tr key={item.id}>
                                     <td>{item.fullname}</td>
                                     <td>{item.fn ? item.fn : "none"}</td>

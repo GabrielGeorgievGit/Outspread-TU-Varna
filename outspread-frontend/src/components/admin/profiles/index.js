@@ -62,17 +62,6 @@ const AdminProfiles = () => {
                         </Dropdown> */}
                     </ButtonGroup>
                     
-                    <form>
-                        <InputGroup>
-                            <InputGroup.Text id="btngrp1">@</InputGroup.Text>
-                            <FormControl
-                            type="text"
-                            placeholder="Search"
-                            />
-                        </InputGroup>
-
-                        
-                    </form>
                 </ButtonToolbar>
                 
                 <>
