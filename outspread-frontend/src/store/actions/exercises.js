@@ -28,6 +28,19 @@ export const getAllExercises = createAsyncThunk(
     }
 )
 
+export const getExercise = createAsyncThunk(
+    'exercises/getExercise',
+    async(id)=>{
+        try{
+            const request = await axios.get(`/exercise/find?id=${id}`, getAuthHeader());
+            
+            return request.data;
+        }catch(error){
+            
+        }
+    }
+)
+
 export const getPaginateExercises = createAsyncThunk(
     'exercises/getExercises',
     async({page=1,limit=5, keywords=''}, {dispatch})=>{

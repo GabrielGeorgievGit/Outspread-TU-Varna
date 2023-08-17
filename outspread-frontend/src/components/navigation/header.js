@@ -6,6 +6,7 @@ import { removeTokenCookie, showToast } from "../../utils/tools";
 import { isAuth, signOut } from "../../store/actions/users";
 import { setLayout } from "../../store/reducers/site";
 import { adminIsAuth } from "../../store/actions/admins";
+import { Button } from "react-bootstrap";
 
 const Header = () => {
     const users = useSelector(state => state.users);
@@ -64,11 +65,11 @@ const Header = () => {
                 TU Varna
             </Link>
 
-            <h3 style={{marginRight: '1px'}}>{username}</h3>
+            {/* <h3 style={{marginRight: '1px'}}>{username} aaa</h3> */}
             { users.auth || admins.auth ? 
                 <>
-                    <h3 style={{marginRight: '1px'}}>{users.data.fullname}</h3>
-                    <button onClick={()=>signOutUser()}>sign out</button>
+                    <h4 style={{ float: 'right', display: 'flex'}}>{users.data.fullname}</h4>
+                    <button className="button-28" style={{marginRight: '20px'}} onClick={()=>signOutUser()}>sign out</button>
                 </>
                 :
                 null

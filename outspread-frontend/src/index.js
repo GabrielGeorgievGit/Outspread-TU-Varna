@@ -5,6 +5,7 @@ import Router from './routes';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/main.css'
+import './styles/copy.css'
 
 import { Provider } from 'react-redux';
 import { store } from './store'

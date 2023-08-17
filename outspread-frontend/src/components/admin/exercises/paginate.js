@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Autocomplete, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDisciplines } from "../../../store/actions/specialties";
+import { getExercise } from "../../../store/actions/exercises";
 const PaginateExercise = ({
     exercises,
     goToPrevPage,
@@ -18,7 +19,9 @@ const PaginateExercise = ({
     const navigate = useNavigate();
 
     function goToView(item) {
-        navigate('/exercise/')
+        console.log(item)
+        navigate('/exercise')
+        dispatch(getExercise(item))
     }
 
     function convertTime(time) {
