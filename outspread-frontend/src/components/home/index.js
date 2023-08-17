@@ -20,19 +20,16 @@ const Home = () => {
 
     return(
         <>
-            <h4>You are home</h4>
-
-            <h3>Обучаващ в упражнения:</h3>
+            <h3>Your exercises</h3>
             
             {user.data.exercisesOwned  && user.data.exercisesOwned.length > 1 ?
                 <PaginateExercise exercises={user.data.exercisesOwned}/>
                 :
-                <h4>Не обучавате по упражнения</h4>
+                <h4>You don't own exercises</h4>
             }
 
-            tuk filtri
-
-            <h5>Browse exercises</h5>
+            <hr/>
+            <h2>Browse exercises</h2>
             <PaginateExercise exercises={exercises} userView={true}/>
         </>
     )

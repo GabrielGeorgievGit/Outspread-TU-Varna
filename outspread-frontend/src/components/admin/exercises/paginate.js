@@ -1,6 +1,10 @@
-import { Button, Pagination, Table } from "react-bootstrap";
+import { Button, FormControl, InputGroup, Pagination, Table } from "react-bootstrap";
 import { Loader } from "../../../utils/tools";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Autocomplete, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllDisciplines } from "../../../store/actions/specialties";
 const PaginateExercise = ({
     exercises,
     goToPrevPage,
@@ -41,27 +45,113 @@ const PaginateExercise = ({
 
         return date[2] + '-' + date[1] + '-' + date[0] + ' at ' + time[0] + ':' + time[1]
     }
+    const dispatch = useDispatch();
+    const specialties = useSelector(state => state.specialties)
+
+    const [tableData, setTableData] = useState(exercises.exercises);
+    const [selectedDiscipline, setSelectedDiscipline] = useState('');
+    const [searchText, setSearchText] = useState('');
+
+    useEffect(()=>{
+        dispatch(getAllDisciplines())
+    },[dispatch])
+
+    useEffect(()=>{
+        setTableData(exercises.exercises)
+    },[exercises.exercises])
+
+    function searching(text) {
+        setSearchText(text)
+        if(String.toString(text).length === 0) {
+            setTableData(exercises.exercises);
+            return;
+        }
+        else setTableData(tableData.filter(item => objContains(item, text)))
+    }
+
+    function objContains(obj, text) {
+        const values = Object.values(obj);
+        
+        for (let index = 0; index < values.length; index++) {
+            let element = values[index];
+            
+            if(String(element).toLowerCase().includes(text.toLowerCase())) {
+                return true
+            }
+        }
+        return false;
+    }
+
+    function filterDiscipline(discipline) {
+        if(discipline === null) {
+            setTableData(exercises.exercises)
+            return;
+        }
+        
+        setTableData(exercises.exercises.filter(item => item.disciplineId === discipline.id))
+    }
+
+    function sortByProp(prop) {
+        let data = [...tableData]
+        data.sort((a, b) => String(a[prop]).localeCompare(String(b[prop])))
+        setTableData(data)
+    }
 
     return(
         <> 
             { exercises && exercises.exercises ?
                 <>
-                    <Table striped bordered hover >
+                {/* {console.log(tableData)}{console.log(specialties.disciplines)} */}
+                    <h3>Filters</h3>
+                    <InputGroup className="search">
+                        <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
+                            <FormControl 
+                            onChange={(event) => searching(event.target.value)}
+                            type="text"
+                            placeholder="Search"
+                        />
+                    </InputGroup>
+
+                    <div className="filters">
+                        <div className="filterElement">
+                            <Autocomplete
+                                className="filterSelect"
+                                style= { { minWidth: 300 }}
+                                onChange={(event, value) => filterDiscipline(value)}
+                                
+                                getOptionLabel={(option) => option.name }
+                                disablePortal
+                                options={specialties.disciplines}
+                                isOptionEqualToValue={(option, value)=> option.id === value.id}
+                                renderInput={(params) => <TextField name="" {...params} label="Discipline" />}
+                                ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
+                            />
+                        </div>
+                        <div className="filterElement">
+                            
+                        </div>
+
+                        <div className="filterElementRight">
+                            <Button>Filter by my disciplines</Button>
+                        </div>
+                    </div>
+
+                    <Table 
+                    striped bordered hover >
                         <thead>
                             <tr>
-                                <th>Owner</th>
-                                <th>Title</th>
-                                <th>Discipline</th>
-                                {/* <th>Information</th> */}
-                                <th>Start</th>
-                                <th>Duration</th>
-                                <th>Room</th>
-                                <th>Signed number</th>
+                                <th className="headerSortText" onClick={() => sortByProp("owner")}>Owner <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("title")}>Title <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("discipline")}>Discipline <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("time")}>Start <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("duration")}>Duration <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("room")}>Room <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("signed")}>Signed<div className="headerSort"/></th>
                                 <th colSpan={2}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            { exercises.exercises.map(item=>(
+                            { tableData.map(item=>(
                                 <tr key={item.id}>
                                     <td>{item.owner}</td>
                                     <td>{item.title}</td>

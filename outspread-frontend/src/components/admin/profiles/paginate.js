@@ -45,7 +45,7 @@ const PaginateProfile = ({
         for (let index = 0; index < values.length; index++) {
             let element = values[index];
             
-            if(String(element).includes(text)) {
+            if(String(element).toLowerCase().includes(text.toLowerCase())) {
                 return true
             }
         }
