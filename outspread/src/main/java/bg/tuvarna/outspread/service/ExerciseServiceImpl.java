@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.dto.RoomDto;
+import bg.tuvarna.outspread.dto.UserExerciseDto;
 import bg.tuvarna.outspread.mapper.ExerciseMapper;
 import bg.tuvarna.outspread.repository.ExerciseRepository;
 import bg.tuvarna.outspread.service.tools.Tools;
@@ -49,6 +50,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 	@Override
 	public List<RoomDto> getAllRooms() {
 		return ExerciseMapper.mapRooms(er.getAllRooms());
+	}
+
+	@Override
+	public UserExerciseDto signUserExercise(int userId, int exerciseId) {
+		return ExerciseMapper.mapUserSignExercise(er.signUserExercise(userId, exerciseId));
 	}
 	
 //	@Override

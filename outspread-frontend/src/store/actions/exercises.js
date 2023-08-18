@@ -57,6 +57,19 @@ export const getPaginateExercises = createAsyncThunk(
     }
 )
 
+export const userSignExercise = createAsyncThunk(
+    'exercises/sign/user',
+    async(sign, {dispatch})=>{
+        try{
+            const request = await axios.post(`/exercise/sign/user`, sign, getAuthHeader());
+            
+            return request.data;
+        }catch(error){
+            throw error
+        }
+    }
+)
+
 export const getAllRooms = createAsyncThunk(
     'exercises/getAllRooms',
     async()=>{

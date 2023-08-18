@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.dto.RoomDto;
+import bg.tuvarna.outspread.dto.UserExerciseDto;
+import bg.tuvarna.outspread.dto.UserSignExerciseDto;
 import bg.tuvarna.outspread.service.ExerciseService;
 
 @RestController
@@ -38,6 +40,12 @@ public class ExerciseController {
 //	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"})
 	public ResponseEntity<?> createExercise(@RequestBody ExerciseCreateDto request) {
 		return new ResponseEntity<ExerciseDto>(es.createExercise(request), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/sign/user")
+	public ResponseEntity<?> signUserExercise(@RequestBody UserSignExerciseDto request) {
+		System.out.println("heerer");
+		return new ResponseEntity<UserExerciseDto>(es.signUserExercise(request.getUserId(), request.getExerciseId()), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/room/all")

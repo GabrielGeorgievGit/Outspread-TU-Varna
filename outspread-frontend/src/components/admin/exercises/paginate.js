@@ -1,11 +1,12 @@
 import { Button, FormControl, InputGroup, Pagination, Table } from "react-bootstrap";
 import { Loader } from "../../../utils/tools";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Autocomplete, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDisciplines } from "../../../store/actions/specialties";
 import { getExercise } from "../../../store/actions/exercises";
+
 const PaginateExercise = ({
     exercises,
     goToPrevPage,
@@ -17,24 +18,19 @@ const PaginateExercise = ({
 }) => {
 
     const navigate = useNavigate();
-
+    
     function goToView(item) {
-        console.log(item)
-        navigate('/exercise')
         dispatch(getExercise(item))
+        
+        navigate('/exercise')
     }
 
     function convertTime(time) {
         time = time.split(':');
-        // if(time[0] === '1') time[0] = time[0] + ' hour'
-        // else time[0] = time[0] + ' hours'
         if(time[0].at(0) === '0') time[0] = time[0].at(1);
         time[0] = time[0] + 'h'
         
         if(time[1] === '00') return time[0]
-        // if(time[1].at(0) === '0') time[1] = time[1].at(1);
-        // if(time[1].at(0) === '1') time[1] = time[1] + ' minute'
-        // else time[1] = time[1] + ' minutes'
         time[1] = time[1] + 'min'
         
         return time[0] + (time[1] === '00' ? "null" : (' and ' + time[1]));

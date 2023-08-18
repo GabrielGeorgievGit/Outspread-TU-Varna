@@ -54,6 +54,8 @@ public class SecurityFilterChainConfig {
                 .requestMatchers(
                 		HttpMethod.POST, "/admin/login"
                 		).permitAll()
+                .requestMatchers(HttpMethod.POST, "/exercise/sign/user"
+                		).permitAll()
                 .requestMatchers(
                 		HttpMethod.POST, "/**"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
@@ -62,6 +64,7 @@ public class SecurityFilterChainConfig {
                 		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/specialty/change"
                 		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
+                
                 
                 /*
                 //admin

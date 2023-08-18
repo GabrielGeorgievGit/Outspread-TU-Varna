@@ -7,11 +7,13 @@ import java.util.Optional;
 
 import bg.tuvarna.outspread.entity.Exercise;
 import bg.tuvarna.outspread.entity.Room;
+import bg.tuvarna.outspread.entity.UserSignExercise;
 
 public interface ExerciseRepository {
 	List<Exercise> getAllExercises();
 	Optional<Exercise> findExercise(int id);
 	Optional<Exercise> createExercise(int ownerId, String title, int disciplineId, String info, LocalDateTime time, LocalTime duration, int roomId);
+	UserSignExercise signUserExercise(int userId, int exerciseId);
 	
 	List<Room> getAllRooms();
 	Room findFreeRoom(LocalDateTime from, LocalDateTime to);

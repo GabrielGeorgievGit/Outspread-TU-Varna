@@ -4,8 +4,10 @@ import java.util.List;
 
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.dto.RoomDto;
+import bg.tuvarna.outspread.dto.UserExerciseDto;
 import bg.tuvarna.outspread.entity.Exercise;
 import bg.tuvarna.outspread.entity.Room;
+import bg.tuvarna.outspread.entity.UserSignExercise;
 
 public class ExerciseMapper {
 	
@@ -19,5 +21,9 @@ public class ExerciseMapper {
 	
 	public static List<RoomDto> mapRooms(List<Room> rooms) {
 		return rooms.stream().map(e -> new RoomDto(e.getId(), e.getName())).toList();
+	}
+	
+	public static UserExerciseDto mapUserSignExercise(UserSignExercise sign) {
+		return new UserExerciseDto(UserMapper.userMapper(sign.getUser()), ExerciseMapper.mapExercise(sign.getExercise()));
 	}
 }

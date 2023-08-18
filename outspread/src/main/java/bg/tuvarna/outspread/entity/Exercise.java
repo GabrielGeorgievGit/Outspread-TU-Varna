@@ -45,6 +45,9 @@ public class Exercise {
 	
 	@OneToMany(mappedBy = "exercise")
 	private List<ReserveRoom> reservedRooms;
+	
+	@OneToMany(mappedBy = "exercise")
+	private List<UserSignExercise> exercisesSigned;
 
 	public Exercise() {
 	}
@@ -136,6 +139,10 @@ public class Exercise {
 
 	public void setSigned(int signed) {
 		this.signed = signed;
+	}
+	
+	public void addSigned() {
+		this.signed++;
 	}
 
 }

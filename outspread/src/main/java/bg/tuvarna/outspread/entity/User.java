@@ -23,9 +23,6 @@ import jakarta.persistence.Table;
 @Table(name = "user")
 public class User implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4422872008000333258L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +43,9 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "owner")
 	private List<Exercise> exercisesOwned;
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserSignExercise> exercisesSigned;
 
 	public User() {
 

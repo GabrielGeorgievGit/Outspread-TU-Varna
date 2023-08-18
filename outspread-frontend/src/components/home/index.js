@@ -28,6 +28,13 @@ const Home = () => {
                 <h4>You don't own exercises</h4>
             }
 
+            <h3>Signed exercises</h3>
+            {user.data.exercisesSigned  && user.data.exercisesSigned.length > 1 ?
+                <PaginateExercise exercises={user.data.exercisesSigned} userView={true}/>
+                :
+                <h4>You haven't signed for any exercises</h4>
+            }
+
             <hr/>
             <h2>Browse exercises</h2>
             <PaginateExercise exercises={exercises} userView={true}/>

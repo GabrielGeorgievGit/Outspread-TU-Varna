@@ -14,6 +14,7 @@ import bg.tuvarna.outspread.entity.Exercise;
 import bg.tuvarna.outspread.entity.ReserveRoom;
 import bg.tuvarna.outspread.entity.Room;
 import bg.tuvarna.outspread.entity.User;
+import bg.tuvarna.outspread.entity.UserSignExercise;
 import bg.tuvarna.outspread.service.tools.Tools;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -56,6 +57,20 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 	private void addReservedRoomExercise(Exercise exercise) {
 		ReserveRoom reserved = new ReserveRoom(exercise.getRoom(), exercise, exercise.getTime(), Tools.addLocaltime(exercise.getTime(), exercise.getDuration()));
 		em.persist(reserved);
+	}
+	
+	@Override
+	@Transactional
+	public UserSignExercise signUserExercise(int userId, int exerciseId) {
+		User user = em.find(User.class, userId);
+		Exercise exercise = em.find(Exercise.class, exerciseId);
+		
+		UserSignExercise sign = new UserSignExercise(user, exercise);
+		em.persist(sign);
+		
+		exercise.addSigned();
+		
+		return sign;
 	}
 
 	@Override
@@ -110,5 +125,4 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 		
 		return freeRooms;
 	}
-	
 }
