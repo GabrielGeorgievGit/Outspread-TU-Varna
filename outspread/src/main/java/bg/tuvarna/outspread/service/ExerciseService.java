@@ -2,6 +2,8 @@ package bg.tuvarna.outspread.service;
 
 import java.util.List;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+
 import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.dto.RoomDto;
@@ -11,7 +13,7 @@ public interface ExerciseService {
 	List<ExerciseDto> getAllExercises();
 	ExerciseDto findExercise(int id);
 	ExerciseDto createExercise(ExerciseCreateDto dto);
-	UserExerciseDto signUserExercise(int userId, int exerciseId);
+	UserExerciseDto signUserExercise(int userId, int exerciseId) throws NotFoundException;
 	
 	List<RoomDto> getAllRooms();
 }

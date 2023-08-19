@@ -44,7 +44,7 @@ const Header = () => {
     },[dispatch, notifications])
 
     useEffect(() => {
-        dispatch(isAuth());
+        // dispatch(isAuth());
         dispatch(adminIsAuth());
 
     },[dispatch])

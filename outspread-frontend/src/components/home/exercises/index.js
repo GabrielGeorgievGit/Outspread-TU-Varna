@@ -52,6 +52,18 @@ const ViewExercise = () => {
         dispatch(userSignExercise({userId: user.id, exerciseId: exercise.id}))
     }
 
+    function alreadySigned() {
+        return exists(user.exercisesOwned, exercise, 'id') || exists(user.exercisesSigned, exercise, 'id');
+    }
+
+    function exists(arr, obj, prop) {
+        for (let index = 0; index < arr.length; index++) {
+            const element = arr[index];
+            if(obj[prop] === element[prop]) return true;
+        }
+        return false;
+    }
+
     return (
         <>
             {
@@ -66,7 +78,13 @@ const ViewExercise = () => {
                     <h2>{convertTime(exercise.duration)}</h2>
                     <h2>{exercise.room}</h2>
                     <h2>{exercise.signed}</h2>
-                    <Button onClick={() => signExercise()}>Sign for</Button>
+                    {
+                        alreadySigned() ?
+                        <Button disabled>Already signed</Button>
+                        :
+                        <Button onClick={() => signExercise()}>Sign for</Button>
+                    }
+                    
                 </>
                 :
                 null

@@ -2,10 +2,11 @@ import { Button, FormControl, InputGroup, Pagination, Table } from "react-bootst
 import { Loader } from "../../../utils/tools";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import { Autocomplete, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Autocomplete, Checkbox, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDisciplines } from "../../../store/actions/specialties";
+import { getAllDisciplines, getAllSpecialtiesSemester, getSpecialtiesSemester } from "../../../store/actions/specialties";
 import { getExercise } from "../../../store/actions/exercises";
+import { getUserSpecialties, getUserSpecialtiesSemester } from "../../../store/actions/users";
 
 const PaginateExercise = ({
     exercises,
@@ -14,7 +15,9 @@ const PaginateExercise = ({
     goToEdit,
     handleStatusChange,
     handleShow,
-    userView
+    userView,
+    hideFilters,
+    specialtiesData
 }) => {
 
     const navigate = useNavigate();
@@ -46,8 +49,10 @@ const PaginateExercise = ({
     }
     const dispatch = useDispatch();
     const specialties = useSelector(state => state.specialties)
-
-    const [tableData, setTableData] = useState(exercises.exercises);
+    const user = useSelector(state => state.users)
+    
+    const [tableData, setTableData] = useState(exercises);
+    const [beforeFilter, setBeforeFilter] = useState(tableData);
     const [selectedDiscipline, setSelectedDiscipline] = useState('');
     const [searchText, setSearchText] = useState('');
 
@@ -56,14 +61,13 @@ const PaginateExercise = ({
     },[dispatch])
 
     useEffect(()=>{
-        setTableData(exercises.exercises)
-    },[exercises.exercises])
+        setTableData(exercises)
+    },[exercises])
 
     function searching(text) {
         setSearchText(text)
         if(String.toString(text).length === 0) {
-            setTableData(exercises.exercises);
-            return;
+            setTableData(exercises);
         }
         else setTableData(tableData.filter(item => objContains(item, text)))
     }
@@ -82,12 +86,14 @@ const PaginateExercise = ({
     }
 
     function filterDiscipline(discipline) {
+        setSelectedDiscipline(discipline);
         if(discipline === null) {
-            setTableData(exercises.exercises)
+            setTableData(exercises);
+            // searching(searchText);
             return;
         }
         
-        setTableData(exercises.exercises.filter(item => item.disciplineId === discipline.id))
+        setTableData(exercises.filter(item => item.disciplineId === discipline.id))
     }
 
     function sortByProp(prop) {
@@ -96,45 +102,61 @@ const PaginateExercise = ({
         setTableData(data)
     }
 
+    function getDisciplineIds() {
+        return specialtiesData.map(sd => sd.id);
+    }
+
+    function filterMyDisciplines() {
+        setBeforeFilter(tableData);
+        setTableData(tableData.filter(item => getDisciplineIds().includes(item.disciplineId)))
+    }
+
+    function applyFilters() {
+        filterDiscipline(selectedDiscipline);
+        searching(searchText);
+    }
+
     return(
-        <> 
-            { exercises && exercises.exercises ?
+        <>
+            { exercises ?
                 <>
-                {/* {console.log(tableData)}{console.log(specialties.disciplines)} */}
-                    <h3>Filters</h3>
-                    <InputGroup className="search">
-                        <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
-                            <FormControl 
-                            onChange={(event) => searching(event.target.value)}
-                            type="text"
-                            placeholder="Search"
-                        />
-                    </InputGroup>
-
-                    <div className="filters">
-                        <div className="filterElement">
-                            <Autocomplete
-                                className="filterSelect"
-                                style= { { minWidth: 300 }}
-                                onChange={(event, value) => filterDiscipline(value)}
-                                
-                                getOptionLabel={(option) => option.name }
-                                disablePortal
-                                options={specialties.disciplines}
-                                isOptionEqualToValue={(option, value)=> option.id === value.id}
-                                renderInput={(params) => <TextField name="" {...params} label="Discipline" />}
-                                ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
+                    <div hidden={hideFilters}>
+                        <h3>Filters</h3>
+                        <InputGroup className="search">
+                            <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
+                                <FormControl 
+                                onChange={(event) => searching(event.target.value)}
+                                type="text"
+                                placeholder="Search"
                             />
-                        </div>
-                        <div className="filterElement">
-                            
-                        </div>
+                        </InputGroup>
 
-                        <div className="filterElementRight">
-                            <Button>Filter by my disciplines</Button>
+                        <div className="filters">
+                            <div className="filterElement">
+                                <Autocomplete
+                                    className="filterSelect"
+                                    style= { { minWidth: 300 }}
+                                    onChange={(event, value) => filterDiscipline(value)}
+                                    
+                                    getOptionLabel={(option) => option.name }
+                                    disablePortal
+                                    options={specialties.disciplines}
+                                    isOptionEqualToValue={(option, value)=> option.id === value.id}
+                                    renderInput={(params) => <TextField name="" {...params} label="Discipline" />}
+                                    ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
+                                />
+                            </div>
+                            <div className="filterElement">
+                                
+                            </div>
+
+                            <div className="filterElementRight" hidden={!userView}>
+                                <InputLabel>Filter by my disciplines
+                                    <Checkbox onChange={(event) => event.target.checked ? filterMyDisciplines() : applyFilters()}/>
+                                </InputLabel>
+                            </div>
                         </div>
                     </div>
-
                     <Table 
                     striped bordered hover >
                         <thead>
@@ -182,11 +204,6 @@ const PaginateExercise = ({
                                             </td>
                                         </>
                                     }
-                                    {/* <td className='action_btn status_btn'
-                                        onClick={()=> handleStatusChange(item.status,item.id)}
-                                    >
-                                        {item.status}
-                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>

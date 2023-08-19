@@ -26,4 +26,12 @@ public class ExerciseMapper {
 	public static UserExerciseDto mapUserSignExercise(UserSignExercise sign) {
 		return new UserExerciseDto(UserMapper.userMapper(sign.getUser()), ExerciseMapper.mapExercise(sign.getExercise()));
 	}
+	
+	public static List<UserExerciseDto> mapUserSignExercises(List<UserSignExercise> sign) {
+		return sign.stream().map(s -> new UserExerciseDto(UserMapper.userMapper(s.getUser()), ExerciseMapper.mapExercise(s.getExercise()))).toList();
+	}
+	
+	public static List<ExerciseDto> mapUserSignExercisesToExercises(List<UserSignExercise> sign) {
+		return sign.stream().map(s -> ExerciseMapper.mapExercise(s.getExercise())).toList();
+	}
 }

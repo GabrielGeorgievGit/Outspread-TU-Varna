@@ -46,6 +46,7 @@ export const getSpecialtiesSemester = createAsyncThunk(
     'specialties/getSpecialtiesSemester',
     async(specialtySemester, {dispatch})=>{
         try{
+            
             const request = await axios.post(`/specialty/semester`, {specialty: specialtySemester.specialty, semester: specialtySemester.semester}, getAuthHeader());
             
             return request.data;

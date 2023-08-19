@@ -39,34 +39,11 @@ const AdminExercises = () => {
                         <LinkContainer to='/admin/exercises/add'>
                             <Button variant="secondary">Add exercise</Button>
                         </LinkContainer>
-                        
-                        <Dropdown className="">
-                            <Dropdown.Toggle variant="info" id="dropdown-basic">
-                                Dropdown Button
-                            </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                        </Dropdown>
                     </ButtonGroup>
-                    <form>
-                        <InputGroup>
-                            <InputGroup.Text id="btngrp1">@</InputGroup.Text>
-                            <FormControl
-                            type="text"
-                            placeholder="Search"
-                            />
-                        </InputGroup>
-
-                        
-                    </form>
                 </ButtonToolbar>
                 
                 <>
-                    <PaginateExercise exercises={exercises}/>
+                    <PaginateExercise exercises={exercises.exercises}/>
                 </>
             </div>
         </>

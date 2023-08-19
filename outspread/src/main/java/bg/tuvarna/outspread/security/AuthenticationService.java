@@ -31,7 +31,7 @@ public class AuthenticationService {
     		Object obj = authentication.getPrincipal();
     		if(obj != null && obj instanceof User) {
     			return UserMapper.userMapper((User) obj);
-    		}    		
+    		}
     		else return null;
     	} catch(Exception e) {
     		return null;

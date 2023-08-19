@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAuthHeader } from "../../utils/tools";
 import axios from "axios";
+import { errorGlobal, successGlobal } from "../reducers/notifications";
 
 export const addExercise = createAsyncThunk(
     'exercises/addExercise',
@@ -62,10 +63,11 @@ export const userSignExercise = createAsyncThunk(
     async(sign, {dispatch})=>{
         try{
             const request = await axios.post(`/exercise/sign/user`, sign, getAuthHeader());
+            dispatch(successGlobal("Signed for exercise"));
             
             return request.data;
         }catch(error){
-            throw error
+            dispatch(errorGlobal("Unsuccessful sign for exercise"));
         }
     }
 )

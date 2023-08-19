@@ -50,6 +50,7 @@ public class LoginController {
 		try {
 			response = authenticationService.login(request);			
 		} catch(Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.notFound().build();
 		}
 		if(response == null) {

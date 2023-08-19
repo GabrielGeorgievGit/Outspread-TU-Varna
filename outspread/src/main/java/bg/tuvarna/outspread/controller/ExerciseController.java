@@ -44,8 +44,13 @@ public class ExerciseController {
 	
 	@PostMapping("/sign/user")
 	public ResponseEntity<?> signUserExercise(@RequestBody UserSignExerciseDto request) {
-		System.out.println("heerer");
-		return new ResponseEntity<UserExerciseDto>(es.signUserExercise(request.getUserId(), request.getExerciseId()), HttpStatus.CREATED);
+		UserExerciseDto result = null;
+		try {
+			result = es.signUserExercise(request.getUserId(), request.getExerciseId());
+		} catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+		return new ResponseEntity<UserExerciseDto>(result, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/room/all")

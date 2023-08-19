@@ -27,6 +27,7 @@ public class SpecialtyDiscipline {
 	@JoinColumn(name = "discipline_id")
 	private Discipline discipline;
 	
+	@Column(name = "semester")
 	private char semester;
 
 	public SpecialtyDiscipline() {

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import bg.tuvarna.outspread.dto.ExerciseCreateDto;
@@ -53,7 +54,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 	}
 
 	@Override
-	public UserExerciseDto signUserExercise(int userId, int exerciseId) {
+	public UserExerciseDto signUserExercise(int userId, int exerciseId) throws NotFoundException  {
 		return ExerciseMapper.mapUserSignExercise(er.signUserExercise(userId, exerciseId));
 	}
 	

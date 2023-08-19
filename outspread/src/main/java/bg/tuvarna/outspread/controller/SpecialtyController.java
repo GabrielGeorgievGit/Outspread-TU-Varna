@@ -48,6 +48,7 @@ public class SpecialtyController {
 	
 	@PostMapping("/semester")
 	public ResponseEntity<?> getSpecialtiesSemester(@RequestBody SpecialtySemesterDto request) {
+		System.out.println("in");
 		return new ResponseEntity<List<SpecialtyDto>>(ss.getSpecialtiesSemester(request.getSpecialty(), request.getSemester()), HttpStatus.OK);
 	}
 	

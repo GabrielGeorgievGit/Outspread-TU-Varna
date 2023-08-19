@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Repository;
 
 import bg.tuvarna.outspread.entity.Discipline;
@@ -61,9 +62,12 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 	
 	@Override
 	@Transactional
-	public UserSignExercise signUserExercise(int userId, int exerciseId) {
+	public UserSignExercise signUserExercise(int userId, int exerciseId) throws NotFoundException {
 		User user = em.find(User.class, userId);
+		
 		Exercise exercise = em.find(Exercise.class, exerciseId);
+		
+		if(alreadySigned(user, exercise) || ownedExercise(user, exercise)) throw new NotFoundException();
 		
 		UserSignExercise sign = new UserSignExercise(user, exercise);
 		em.persist(sign);
@@ -71,6 +75,16 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 		exercise.addSigned();
 		
 		return sign;
+	}
+	
+	private boolean alreadySigned(User user, Exercise exercise) {
+		List<Exercise> list = user.getExercisesSigned().stream().map(item -> item.getExercise()).toList();
+		return list.contains(exercise);
+	}
+	
+	private boolean ownedExercise(User user, Exercise exercise) {
+		List<Exercise> list = user.getExercisesOwned();
+		return list.contains(exercise);
 	}
 
 	@Override

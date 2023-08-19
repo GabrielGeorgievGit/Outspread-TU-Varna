@@ -25,18 +25,25 @@ const PaginateProfile = ({
         dispatch(getUserSpecialtiesSemester(specialtySemester))
     },[dispatch, specialtySemester])
     
-    const [tableData, setTableData] = useState(usersGet.data);
+    const [tableData, setTableData] = useState(filteredData(usersGet.data));
     
     useEffect(()=>{
         setTableData(usersGet.data)
     },[usersGet.data])
+
+    function filteredData(arr, text) {
+        return text ?
+        arr.filter(item => objContains(item, text))
+        :
+        []
+    }
 
     function searching(text) {
         if(String.toString(text).length === 0) {
             setTableData(usersGet.data);
             return;
         }
-        else setTableData(usersGet.data.filter(item => objContains(item, text)))
+        else setTableData(filteredData(usersGet.data))
     }
 
     function objContains(obj, text) {

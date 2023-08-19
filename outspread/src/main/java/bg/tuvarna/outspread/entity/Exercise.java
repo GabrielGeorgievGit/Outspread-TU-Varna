@@ -145,4 +145,30 @@ public class Exercise {
 		this.signed++;
 	}
 
+
+
+	public List<ReserveRoom> getReservedRooms() {
+		return reservedRooms;
+	}
+
+
+
+	public void setReservedRooms(List<ReserveRoom> reservedRooms) {
+		this.reservedRooms = reservedRooms;
+	}
+
+
+
+	public List<UserSignExercise> getExercisesSigned() {
+		return exercisesSigned;
+	}
+
+
+
+	public void setExercisesSigned(List<UserSignExercise> exercisesSigned) {
+		this.exercisesSigned = exercisesSigned;
+	}
+	
+	
+
 }

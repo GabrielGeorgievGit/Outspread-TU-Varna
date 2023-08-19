@@ -1,6 +1,5 @@
 package bg.tuvarna.outspread.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,18 +41,18 @@ public class User implements UserDetails {
 	@Column(name = "role")
 	private String role;
 
-	@OneToMany(mappedBy = "owner")
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
 	private List<Exercise> exercisesOwned;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<UserSignExercise> exercisesSigned;
 
 	public User() {
 
 	}
 
-	public User(String username, String password, String fullname, String fn, Specialty specialty,
-			Character semester, String role) {
+	public User(String username, String password, String fullname, String fn, Specialty specialty, Character semester,
+			String role, List<Exercise> exercisesOwned, List<UserSignExercise> exercisesSigned) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -61,7 +61,8 @@ public class User implements UserDetails {
 		this.specialty = specialty;
 		this.semester = semester;
 		this.role = role;
-		this.exercisesOwned = new ArrayList<>();
+		this.exercisesOwned = exercisesOwned;
+		this.exercisesSigned = exercisesSigned;
 	}
 
 	public int getId() {
@@ -128,6 +129,22 @@ public class User implements UserDetails {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public List<Exercise> getExercisesOwned() {
+		return exercisesOwned;
+	}
+
+	public void setExercisesOwned(List<Exercise> exercisesOwned) {
+		this.exercisesOwned = exercisesOwned;
+	}
+
+	public List<UserSignExercise> getExercisesSigned() {
+		return List.copyOf(exercisesSigned);
+	}
+
+	public void setExercisesSigned(List<UserSignExercise> exercisesSigned) {
+		this.exercisesSigned = exercisesSigned;
 	}
 
 	@Override

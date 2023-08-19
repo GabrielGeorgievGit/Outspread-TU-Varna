@@ -48,12 +48,19 @@ public class SpecialtyRepositoryImpl implements SpecialtyRepository {
 	
 	@Override
 	public List<Specialty> getSpecialtiesSemester(int specialtyId, char semester) {
+		Specialty specialty = em.find(Specialty.class, specialtyId);
+//		return specialty.getSpecialtyDisciplines().stream().filter(sd -> sd.getSpecialty().equals(specialty)).map(sd -> sd.getSpecialty()).toList();
 		List<Specialty> specialties = new ArrayList<>();
-		specialties.addAll(em.createQuery("SELECT s from Specialty s INNER JOIN SpecialtyDiscipline sd on s.id = sd.specialty.id WHERE s.id = :specialtyId AND sd.semester = :semester ORDER BY s.id, sd.discipline.id", Specialty.class)
+//		specialties.addAll(em.createQuery("SELECT s from Specialty s INNER JOIN SpecialtyDiscipline sd on s.id = sd.specialty.id WHERE s.id = :specialtyId AND sd.semester = :semester ORDER BY s.id, s", Specialty.class)
+//				.setParameter("specialtyId", specialtyId)
+//				.setParameter("semester", semester)
+//				.getResultList());
+//		
+//		return specialties;
+		specialties.addAll(em.createQuery("SELECT s.specialty from SpecialtyDiscipline s WHERE s.specialty.id = :specialtyId AND s.semester = :semester ORDER BY s.id, s.discipline.id", Specialty.class)
 				.setParameter("specialtyId", specialtyId)
-				.setParameter("semester", semester)
+				.setParameter("semester", Character.valueOf(semester))
 				.getResultList());
-		
 		return specialties;
 	}
 	
