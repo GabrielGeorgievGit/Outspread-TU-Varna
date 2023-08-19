@@ -1,10 +1,10 @@
-import { Button, FormControl, InputGroup, Pagination, Table } from "react-bootstrap";
-import { Loader } from "../../../utils/tools";
-import { getAllSpecialties, getSpecialty } from "../../../store/actions/specialties";
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getUserSemester, getUserSpecialties, getUserSpecialtiesSemester } from "../../../store/actions/users";
+import { FormControl, InputGroup, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllSpecialties } from "../../../store/actions/specialties";
+import { getUserSpecialtiesSemester } from "../../../store/actions/users";
+import { Loader } from "../../../utils/tools";
 const PaginateProfile = ({
     specialtiesMap,
     goToPrevPage,

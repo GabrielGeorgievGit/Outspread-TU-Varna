@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { clearNotifications } from "../../store/reducers/notifications";
-import { removeTokenCookie, showToast } from "../../utils/tools";
-import { isAuth, signOut } from "../../store/actions/users";
-import { setLayout } from "../../store/reducers/site";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { adminIsAuth } from "../../store/actions/admins";
-import { Button } from "react-bootstrap";
+import { clearNotifications } from "../../store/reducers/notifications";
+import { setLayout } from "../../store/reducers/site";
+import { removeTokenCookie, showToast } from "../../utils/tools";
 
 const Header = () => {
     const users = useSelector(state => state.users);

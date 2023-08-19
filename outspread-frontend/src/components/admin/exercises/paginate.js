@@ -1,12 +1,11 @@
-import { Button, FormControl, InputGroup, Pagination, Table } from "react-bootstrap";
-import { Loader } from "../../../utils/tools";
-import { useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
-import { Autocomplete, Checkbox, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Autocomplete, Checkbox, InputLabel, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { FormControl, InputGroup, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDisciplines, getAllSpecialtiesSemester, getSpecialtiesSemester } from "../../../store/actions/specialties";
+import { useNavigate } from "react-router-dom";
 import { getExercise } from "../../../store/actions/exercises";
-import { getUserSpecialties, getUserSpecialtiesSemester } from "../../../store/actions/users";
+import { getAllDisciplines } from "../../../store/actions/specialties";
+import { Loader } from "../../../utils/tools";
 
 const PaginateExercise = ({
     exercises,
@@ -116,6 +115,11 @@ const PaginateExercise = ({
         searching(searchText);
     }
 
+    function cutText(text, size) {
+        if(text.length <= size) return text;
+        return String(text).substring(0, size) + "...";
+    }
+
     return(
         <>
             { exercises ?
@@ -175,7 +179,7 @@ const PaginateExercise = ({
                             { tableData.map(item=>(
                                 <tr key={item.id}>
                                     <td>{item.owner}</td>
-                                    <td>{item.title}</td>
+                                    <td>{cutText(item.title, 40)}</td>
                                     <td>{item.discipline ? item.discipline : "none"}</td>
                                     {/* <td>{item.info}</td> */}
                                     <td>{getDateTime(item.time)}</td>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -66,18 +66,21 @@ const ViewExercise = () => {
 
     return (
         <>
+            <div className="navigation">
+                <Button >Back to home page</Button>
+            </div>
             {
                 exercise ?
                 <>
-                    <h2>View Exercise</h2>
-                    <span>Title:</span>{exercise.title}
-                    <h2>{exercise.discipline}</h2>
-                    <h2>{exercise.owner}</h2>
-                    <h2>{exercise.info}</h2>
-                    <h2>{getDateTime(exercise.time)}</h2>
-                    <h2>{convertTime(exercise.duration)}</h2>
-                    <h2>{exercise.room}</h2>
-                    <h2>{exercise.signed}</h2>
+                    {/* <h2>View Exercise</h2> */}
+                    <h2>{exercise.owner}'s exercise</h2>
+                    <h4 className="exerciseInfo">Title: {exercise.title}</h4>
+                    <h4>Discipline: {exercise.discipline}</h4>
+                    <h4>Description: {exercise.info}</h4>
+                    <h4>Start: {getDateTime(exercise.time)}</h4>
+                    <h4>Duration: {convertTime(exercise.duration)}</h4>
+                    <h4>Room: {exercise.room}</h4>
+                    <h4>Signed number: {exercise.signed}</h4>
                     {
                         alreadySigned() ?
                         <Button disabled>Already signed</Button>

@@ -1,23 +1,17 @@
-import { AdminTitle } from "../../../utils/tools"
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AdminTitle } from "../../../utils/tools";
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    Modal,
     Button,
-    ButtonToolbar,
     ButtonGroup,
-    InputGroup,
-    FormControl,
-    Dropdown
+    ButtonToolbar
 } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'
-import { getAllUsers, getUserSemester } from "../../../store/actions/users";
-import PaginateProfile from "./paginate";
+import { LinkContainer } from 'react-router-bootstrap';
 import { getAllSpecialties } from "../../../store/actions/specialties";
-import { InputLabel, MenuItem, Select } from "@mui/material";
+import PaginateProfile from "./paginate";
 
 const AdminProfiles = () => {
 

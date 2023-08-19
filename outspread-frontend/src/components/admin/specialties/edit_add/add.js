@@ -1,34 +1,19 @@
-import { useState, useRef, useEffect } from "react";
-import { useFormik, FieldArray, FormikProvider } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 
-import { AdminTitle } from "../../../../utils/tools"
-import { errorHelper, Loader } from "../../../../utils/tools";
-import { validation, formValues } from "./validationSchema";
-import * as Yup from 'yup';
 import { useDispatch, useSelector } from "react-redux";
+import * as Yup from 'yup';
+import { AdminTitle, errorHelper } from "../../../../utils/tools";
 // MUI
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button' 
-import Divider from '@mui/material/Divider' 
-import Chip from '@mui/material/Chip'
-import Paper from '@mui/material/Paper'
-import InputBase from '@mui/material/InputBase'
-import IconButton from '@mui/material/IconButton'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
+import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
  
 import InputLabel from '@mui/material/InputLabel';
-import AddIcon from '@mui/icons-material/Add';
-import { visuallyHidden } from '@mui/utils';
-import { addExercise } from "../../../../store/actions/exercises";
 import { addSpecialty, changeSpecialty, getAllDisciplines, getAllSpecialties } from "../../../../store/actions/specialties";
-import { Dropdown, Form, InputGroup } from "react-bootstrap";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
 // import makeAnimated from 'react-select/animated';
-import makeAnimated from 'react-select/animated';
 import { Autocomplete, Select } from "@mui/material";
+import makeAnimated from 'react-select/animated';
 
 const AddSpecialty = () => {
 

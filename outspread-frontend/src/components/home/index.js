@@ -1,17 +1,21 @@
 // import HomePosts from "./homePosts"
 import { useDispatch, useSelector } from 'react-redux';
 import { homeExcercises } from "../../store/actions/home"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { isAuth } from '../../store/actions/users';
 import PaginateExercise from '../admin/exercises/paginate';
 import { getAllExercises } from '../../store/actions/exercises';
 import { getSpecialtiesSemester } from '../../store/actions/specialties';
+import { Button } from 'react-bootstrap';
 
 const Home = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.users);
     const exercises = useSelector(state => state.exercises);
     const specialties = useSelector(state => state.specialties);
+
+    const [showOwned, setShowOwned] = useState(false);
+    const [showSigned, setShowSigned] = useState(false);
 
     useEffect(() => {
         dispatch(isAuth())
@@ -22,20 +26,42 @@ const Home = () => {
 
     return(
         <>
-            <h3>Your exercises</h3>
+            <div className='showButton'>
+                {showOwned ?
+                <Button onClick={() => {setShowOwned(false)}}>Hide owned exercises</Button>
+                :
+                <Button onClick={() => {setShowOwned(true)}}>Show owned exercises</Button>
+                }
+            </div>
+            <div hidden={!showOwned}>
+            <h3>Owned exercises</h3>
             
             {user.data.exercisesOwned  && user.data.exercisesOwned.length > 0 ?
                 <PaginateExercise exercises={user.data.exercisesOwned} userView={true} hideFilters={true}/>
                 :
                 <h4>You don't own exercises</h4>
             }
+            </div>
 
+            <hr/>
+
+            <div className='showButton'>
+                {showSigned ?
+                <Button onClick={() => {setShowSigned(false)}}>Hide signed exercises</Button>
+                :
+                <Button onClick={() => {setShowSigned(true)}}>Show signed exercises</Button>
+                }
+            </div>
+
+            <div hidden={!showSigned}>
             <h3>Signed exercises</h3>
+            
             {user.data.exercisesSigned  && user.data.exercisesSigned.length > 1 ?
                 <PaginateExercise exercises={user.data.exercisesSigned} userView={true} hideFilters={true}/>
                 :
                 <h4>You haven't signed for any exercises</h4>
             }
+            </div>
 
             <hr/>
             <h2>Browse exercises</h2>
