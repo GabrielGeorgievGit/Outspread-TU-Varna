@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `outspreaddb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `outspreaddb`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: outspreaddb
@@ -39,7 +37,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `fn_UNIQUE` (`fn`),
   KEY `specialty_user_id_idx` (`specialty_id`),
   CONSTRAINT `specialty_user_id` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`specialty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +46,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'ivan','ivan','Ivan Ivanov',NULL,1,'1','STUDENT'),(2,'georgi','georgi','Georgi Georgiev',NULL,2,'2','STUDENT'),(3,'teacher1','teacher1','inz Pavel Hristov',NULL,NULL,NULL,'TEACHER'),(4,'galin','galin','Galin Petrov','19281929',1,'6','STUDENT');
+INSERT INTO `user` VALUES (1,'ivan','ivan','Ivan Ivanov',NULL,1,'1','STUDENT'),(2,'georgi','georgi','Georgi Georgiev',NULL,2,'2','STUDENT'),(3,'teacher1','teacher1','inz Pavel Hristov',NULL,NULL,NULL,'TEACHER'),(4,'galin','galin','Galin Petrov','19281929',1,'6','STUDENT'),(6,'john','john','john john john','12312312',2,'1',''),(7,'john1','john','john john john','12312313',2,'1',''),(8,'georgito','1234','georgi georgie','19293912',2,'1',''),(9,'joro','joro','Jorkata Jordanov','19281983',1,'1',''),(10,'joro1','joro1','Joro jorkov','19281928',1,'1',''),(11,'joro3','joro3','joro3 jorka','19281920',1,'1',''),(12,'jorka34','jorka34','jorkakakka','19283494',1,'1',''),(13,'jorkaks','jorka','jorkasd','19281736',1,'1',''),(14,'jorojoro','jorojoro','joro joro','19121341',1,'2','STUDENT');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-06 13:38:26
+-- Dump completed on 2023-08-21 18:00:43

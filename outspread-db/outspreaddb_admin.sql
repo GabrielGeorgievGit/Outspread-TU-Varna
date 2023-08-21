@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `outspreaddb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `outspreaddb`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: outspreaddb
@@ -32,7 +30,7 @@ CREATE TABLE `admin` (
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `id_UNIQUE` (`admin_id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +39,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'pesho','pesho',1),(2,'gosho','gosho',0),(3,'hristo','hristo',0),(4,'john','john',0);
+INSERT INTO `admin` VALUES (1,'pesho','pesho',1),(2,'gosho','gosho',0),(3,'hristo','hristo',0),(4,'john','john',0),(5,'ivanov1978','ivan213',1);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-06 13:38:26
+-- Dump completed on 2023-08-21 18:00:44

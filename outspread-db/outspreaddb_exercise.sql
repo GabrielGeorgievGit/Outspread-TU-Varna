@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `outspreaddb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `outspreaddb`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: outspreaddb
@@ -32,15 +30,17 @@ CREATE TABLE `exercise` (
   `info` varchar(1000) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `duration` time DEFAULT NULL,
-  `room` varchar(20) DEFAULT NULL,
+  `room_id` int unsigned DEFAULT NULL,
   `signed` int unsigned NOT NULL,
   PRIMARY KEY (`exercise_id`),
   UNIQUE KEY `id_UNIQUE` (`exercise_id`),
   KEY `discipline_exercise_id_idx` (`discipline_id`),
   KEY `owner_user_id_idx` (`owner_id`),
+  KEY `exercise_room_id_idx` (`room_id`),
   CONSTRAINT `discipline_exercise_id` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`discipline_id`),
+  CONSTRAINT `exercise_room_id` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`),
   CONSTRAINT `owner_user_id` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `exercise` (
 
 LOCK TABLES `exercise` WRITE;
 /*!40000 ALTER TABLE `exercise` DISABLE KEYS */;
-INSERT INTO `exercise` VALUES (1,1,'title1',1,'info1','2023-05-03 10:30:22','10:30:00','123',0);
+INSERT INTO `exercise` VALUES (1,1,'Exercise for studying on discipline 1',1,'info1','2023-05-03 10:30:22','10:30:00',1,2),(2,3,'Exercise for studying on discipline Web design and creating beautiful websites',3,'sdfsdf','2023-08-29 13:20:00','02:10:00',2,1),(17,2,'dsfds',2,'dsf','2023-08-13 14:00:00','03:00:00',13,1),(18,2,'fgdg',5,'bfdbefgdfg','2023-08-13 12:00:00','11:00:00',18,1),(19,4,'Second exercise',8,'Math exercise part 2','2023-08-31 15:00:00','03:00:00',8,0);
 /*!40000 ALTER TABLE `exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-06 13:38:26
+-- Dump completed on 2023-08-21 18:00:43

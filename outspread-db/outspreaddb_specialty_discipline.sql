@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `outspreaddb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `outspreaddb`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: outspreaddb
@@ -35,7 +33,7 @@ CREATE TABLE `specialty_discipline` (
   KEY `specialty_id_discipline_idx` (`specialty_id`),
   CONSTRAINT `discipline_id_specialty` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`discipline_id`),
   CONSTRAINT `specialty_id_discipline` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`specialty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +42,7 @@ CREATE TABLE `specialty_discipline` (
 
 LOCK TABLES `specialty_discipline` WRITE;
 /*!40000 ALTER TABLE `specialty_discipline` DISABLE KEYS */;
-INSERT INTO `specialty_discipline` VALUES (1,1,1,'1');
+INSERT INTO `specialty_discipline` VALUES (1,1,1,'1'),(2,1,2,'1'),(3,1,3,'1'),(4,1,4,'1'),(5,1,5,'1'),(6,1,6,'1'),(7,1,7,'1'),(8,2,2,'1'),(9,2,4,'1'),(10,2,5,'1'),(11,2,6,'1'),(12,2,7,'1'),(13,1,8,'2'),(14,3,2,'1'),(15,3,5,'1'),(16,3,6,'1'),(25,1,9,'2'),(26,1,10,'2'),(27,1,11,'2'),(28,1,12,'2'),(29,1,13,'2'),(30,1,14,'2');
 /*!40000 ALTER TABLE `specialty_discipline` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-06 13:38:26
+-- Dump completed on 2023-08-21 18:00:44

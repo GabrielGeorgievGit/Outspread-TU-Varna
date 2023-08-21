@@ -16,29 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `discipline`
+-- Table structure for table `reserve_room`
 --
 
-DROP TABLE IF EXISTS `discipline`;
+DROP TABLE IF EXISTS `reserve_room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `discipline` (
-  `discipline_id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`discipline_id`),
-  UNIQUE KEY `id_UNIQUE` (`discipline_id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+CREATE TABLE `reserve_room` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `room_id` int unsigned NOT NULL,
+  `exercise_id` int unsigned DEFAULT NULL,
+  `from_date` datetime NOT NULL,
+  `to_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `reserve_room_room_id_idx` (`room_id`),
+  KEY `reserve_room_exercise_id_idx` (`exercise_id`),
+  CONSTRAINT `reserve_room_exercise_id` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`exercise_id`),
+  CONSTRAINT `reserve_room_room_id` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `discipline`
+-- Dumping data for table `reserve_room`
 --
 
-LOCK TABLES `discipline` WRITE;
-/*!40000 ALTER TABLE `discipline` DISABLE KEYS */;
-INSERT INTO `discipline` VALUES (1,'discipline1'),(3,'Web дизайн'),(4,'Базово програмиране'),(5,'Електроника'),(10,'Логика и автомати '),(2,'Математика - 1 част'),(8,'Математика - 2 част'),(9,'Синтез и анализ на алгоритми'),(6,'Специализирана спортна подготовка - 1 част'),(12,'Специализирана спортна подготовка - 2част'),(7,'Спорт и социална адаптация - 1част'),(13,'Спорт и социална адаптация - 2част'),(14,'Учебна практика - 1част'),(11,'Чужд език');
-/*!40000 ALTER TABLE `discipline` ENABLE KEYS */;
+LOCK TABLES `reserve_room` WRITE;
+/*!40000 ALTER TABLE `reserve_room` DISABLE KEYS */;
+INSERT INTO `reserve_room` VALUES (1,1,1,'2023-08-14 12:00:00','2023-08-14 15:00:00'),(2,8,2,'2023-08-13 12:00:00','2023-08-13 13:30:00'),(12,13,17,'2023-08-13 14:00:00','2023-08-13 17:00:00'),(13,18,18,'2023-08-13 12:00:00','2023-08-13 23:00:00'),(14,8,19,'2023-08-31 15:00:00','2023-08-31 18:00:00');
+/*!40000 ALTER TABLE `reserve_room` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-21 18:00:43
+-- Dump completed on 2023-08-21 18:00:44

@@ -16,29 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `discipline`
+-- Table structure for table `room`
 --
 
-DROP TABLE IF EXISTS `discipline`;
+DROP TABLE IF EXISTS `room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `discipline` (
-  `discipline_id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`discipline_id`),
-  UNIQUE KEY `id_UNIQUE` (`discipline_id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `room` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `discipline`
+-- Dumping data for table `room`
 --
 
-LOCK TABLES `discipline` WRITE;
-/*!40000 ALTER TABLE `discipline` DISABLE KEYS */;
-INSERT INTO `discipline` VALUES (1,'discipline1'),(3,'Web дизайн'),(4,'Базово програмиране'),(5,'Електроника'),(10,'Логика и автомати '),(2,'Математика - 1 част'),(8,'Математика - 2 част'),(9,'Синтез и анализ на алгоритми'),(6,'Специализирана спортна подготовка - 1 част'),(12,'Специализирана спортна подготовка - 2част'),(7,'Спорт и социална адаптация - 1част'),(13,'Спорт и социална адаптация - 2част'),(14,'Учебна практика - 1част'),(11,'Чужд език');
-/*!40000 ALTER TABLE `discipline` ENABLE KEYS */;
+LOCK TABLES `room` WRITE;
+/*!40000 ALTER TABLE `room` DISABLE KEYS */;
+INSERT INTO `room` VALUES (1,'403ТВ'),(2,'301ТВ'),(3,'207ТВ'),(4,'307ТВ'),(5,'303ТВ'),(6,'404ТВ'),(7,'НУК 217'),(8,'105ТВ'),(9,'НУК 317'),(10,'НУК 526'),(11,'НУК 235'),(12,'НУК 213'),(13,'102ТВ'),(14,'203ТВ'),(15,'202ТВ'),(16,'308ТВ'),(17,'401ТВ'),(18,'201ТВ');
+/*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-21 18:00:43
+-- Dump completed on 2023-08-21 18:00:44
