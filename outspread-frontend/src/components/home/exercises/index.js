@@ -67,7 +67,7 @@ const ViewExercise = () => {
     return (
         <>
             <div className="navigation">
-                <Button >Back to home page</Button>
+                <Button onClick={() => navigate('/')}>Back to home page</Button>
             </div>
             {
                 exercise ?

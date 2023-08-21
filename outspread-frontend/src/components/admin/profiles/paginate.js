@@ -19,17 +19,22 @@ const PaginateProfile = ({
     const usersGet = useSelector(state=>state.usersGet)
     
     const [specialtySemester, setSpecialtySemester] = useState({specialty: 1, semester: '1'})
-    
+    const [searchText, setSearchText] = useState('');
+
     useEffect(()=>{
         dispatch(getAllSpecialties())
         dispatch(getUserSpecialtiesSemester(specialtySemester))
     },[dispatch, specialtySemester])
     
-    const [tableData, setTableData] = useState(filteredData(usersGet.data));
+    const [tableData, setTableData] = useState(usersGet.data);
     
     useEffect(()=>{
         setTableData(usersGet.data)
     },[usersGet.data])
+
+    useEffect(()=>{
+        setTableData(usersGet.data.filter(item => objContains(item, searchText)))
+    },[searchText])
 
     function filteredData(arr, text) {
         return text ?
@@ -53,6 +58,7 @@ const PaginateProfile = ({
             let element = values[index];
             
             if(String(element).toLowerCase().includes(text.toLowerCase())) {
+                
                 return true
             }
         }
@@ -65,7 +71,7 @@ const PaginateProfile = ({
             <InputGroup>
                 <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
                     <FormControl 
-                    onChange={(event) => searching(event.target.value)}
+                    onChange={(event) => setSearchText(event.target.value)}
                     type="text"
                     placeholder="Search"
                 />
