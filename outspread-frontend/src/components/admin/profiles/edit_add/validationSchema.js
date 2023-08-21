@@ -22,9 +22,9 @@ export const validation = () => (
         .required('Full name is required')
         .max(50,"Full name can't exceed 50 characters"),
         fn:Yup.string()
-        .required('Faculty number is required')
-        .min(8,"The faculty number can't be less than 8 characters")
-        .max(8,"The faculty number can't exceed 8 characters"),
+        .required('Student number is required')
+        .min(8,"The student number can't be less than 8 characters")
+        .max(8,"The student number can't exceed 8 characters"),
         specialtyId:Yup.string()
         .required('Specialty is required')
         .max(100, "The specialty can't exceed 100 characters"),

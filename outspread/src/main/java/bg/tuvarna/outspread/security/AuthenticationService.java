@@ -48,7 +48,9 @@ public class AuthenticationService {
 
     public LoginUserResponseDto login(LoginDto request) throws NotFoundException {
     	Authentication authentication = null;
-    	
+//    	BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+//		request.setPassword(bcrypt.encode(request.getPassword()));
+//		System.out.println(request.getPassword());
     	try {
     		authentication = authenticationManager.authenticate(
         			new UsernamePasswordAuthenticationToken(

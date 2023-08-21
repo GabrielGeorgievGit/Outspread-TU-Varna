@@ -90,6 +90,7 @@ const AddProfile = () => {
 
                 <div className="form-group">
                     <TextField
+                            type="password"
                             style={{width: '30%'}}
                             name="password"
                             label="Enter a password"
@@ -112,7 +113,7 @@ const AddProfile = () => {
                     <TextField
                         style={{width: '30%'}}
                         name="fn"
-                        label="Enter faculty number"
+                        label="Enter student number"
                         variant="outlined"
                         {...formik.getFieldProps('fn')}
                         {...errorHelper(formik, 'fn')}/>

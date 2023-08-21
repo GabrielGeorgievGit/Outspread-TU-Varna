@@ -31,7 +31,7 @@ const Login = () => {
             password: Yup.string()
             .required('The password field is required')
             .min(3)
-            .max(10)
+            .max(100)
             
         }),
         onSubmit: (values)=> {
@@ -74,7 +74,7 @@ const Login = () => {
 
                         <TextField
                             name="password"
-                            label="Enter you password"
+                            label="Enter your password"
                             type="password"
                             variant='outlined'
                             {...formik.getFieldProps('password')}
