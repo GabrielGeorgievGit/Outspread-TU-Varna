@@ -54,6 +54,7 @@ const PaginateExercise = ({
     const [beforeFilter, setBeforeFilter] = useState(tableData);
     const [selectedDiscipline, setSelectedDiscipline] = useState('');
     const [searchText, setSearchText] = useState('');
+    const [myDisciplineCheck, setMyDisciplineCheck] = useState(false);
 
     useEffect(()=>{
         dispatch(getAllDisciplines())
@@ -63,12 +64,23 @@ const PaginateExercise = ({
         setTableData(exercises)
     },[exercises])
 
-    function searching(text) {
-        setSearchText(text)
-        if(String.toString(text).length === 0) {
-            setTableData(exercises);
+    useEffect(() => {
+        applyAll()
+    },[exercises, selectedDiscipline, searchText, myDisciplineCheck])
+
+    function applyAll() {
+        let data = exercises;
+
+        if(myDisciplineCheck) data = (data.filter(item => getDisciplineIds().includes(item.disciplineId)));
+
+        if(selectedDiscipline) {
+            data = (data.filter(item => item.disciplineId === selectedDiscipline.id))
         }
-        else setTableData(tableData.filter(item => objContains(item, text)))
+
+        if(searchText) {
+            data = (data.filter(item => objContains(item, searchText)));
+        }
+        setTableData(data)
     }
 
     function objContains(obj, text) {
@@ -84,17 +96,6 @@ const PaginateExercise = ({
         return false;
     }
 
-    function filterDiscipline(discipline) {
-        setSelectedDiscipline(discipline);
-        if(discipline === null) {
-            setTableData(exercises);
-            // searching(searchText);
-            return;
-        }
-        
-        setTableData(exercises.filter(item => item.disciplineId === discipline.id))
-    }
-
     function sortByProp(prop) {
         let data = [...tableData]
         data.sort((a, b) => String(a[prop]).localeCompare(String(b[prop])))
@@ -103,16 +104,6 @@ const PaginateExercise = ({
 
     function getDisciplineIds() {
         return specialtiesData.map(sd => sd.id);
-    }
-
-    function filterMyDisciplines() {
-        setBeforeFilter(tableData);
-        setTableData(tableData.filter(item => getDisciplineIds().includes(item.disciplineId)))
-    }
-
-    function applyFilters() {
-        filterDiscipline(selectedDiscipline);
-        searching(searchText);
     }
 
     function cutText(text, size) {
@@ -129,7 +120,7 @@ const PaginateExercise = ({
                         <InputGroup className="search">
                             <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
                                 <FormControl 
-                                onChange={(event) => searching(event.target.value)}
+                                onChange={(event) => setSearchText(event.target.value)}//searching(event.target.value)}
                                 type="text"
                                 placeholder="Search"
                             />
@@ -140,7 +131,7 @@ const PaginateExercise = ({
                                 <Autocomplete
                                     className="filterSelect"
                                     style= { { minWidth: 300 }}
-                                    onChange={(event, value) => filterDiscipline(value)}
+                                    onChange={(event, value) => setSelectedDiscipline(value)}//filterDiscipline(value)}
                                     
                                     getOptionLabel={(option) => option.name }
                                     disablePortal
@@ -156,7 +147,8 @@ const PaginateExercise = ({
 
                             <div className="filterElementRight" hidden={!userView}>
                                 <InputLabel>Filter by my disciplines
-                                    <Checkbox onChange={(event) => event.target.checked ? filterMyDisciplines() : applyFilters()}/>
+                                    <Checkbox onChange={(event) => {setMyDisciplineCheck(event.target.checked);}}/>
+                                    {/* event.target.checked ? filterMyDisciplines() : applyFilters()}}/> */}
                                 </InputLabel>
                             </div>
                         </div>

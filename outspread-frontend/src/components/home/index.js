@@ -7,6 +7,7 @@ import PaginateExercise from '../admin/exercises/paginate';
 import { getAllExercises } from '../../store/actions/exercises';
 import { getSpecialtiesSemester } from '../../store/actions/specialties';
 import { Button } from 'react-bootstrap';
+import { Loader } from '../../utils/tools';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -26,11 +27,13 @@ const Home = () => {
 
     return(
         <>
+            {user.data.exercisesOwned && user.data.exercisesSigned ?
+            <>
             <div className='showButton'>
                 {showOwned ?
-                <Button onClick={() => {setShowOwned(false)}}>Hide owned exercises</Button>
+                <Button onClick={() => {setShowOwned(false)}}>Hide owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
                 :
-                <Button onClick={() => {setShowOwned(true)}}>Show owned exercises</Button>
+                <Button onClick={() => {setShowOwned(true)}}>Show owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
                 }
             </div>
             <div hidden={!showOwned}>
@@ -47,9 +50,9 @@ const Home = () => {
 
             <div className='showButton'>
                 {showSigned ?
-                <Button onClick={() => {setShowSigned(false)}}>Hide signed exercises</Button>
+                <Button onClick={() => {setShowSigned(false)}}>Hide signed exercises &#40;{user.data.exercisesSigned.length}&#41;</Button>
                 :
-                <Button onClick={() => {setShowSigned(true)}}>Show signed exercises</Button>
+                <Button onClick={() => {setShowSigned(true)}}>Show signed exercises &#40;{user.data.exercisesSigned.length}&#41;</Button>
                 }
             </div>
 
@@ -66,6 +69,10 @@ const Home = () => {
             <hr/>
             <h2>Browse exercises</h2>
             <PaginateExercise exercises={exercises.exercises} userView={true} specialtiesData={specialties.data.length > 0 ? specialties.data[0].disciplines.filter(d => d.semester === user.data.semester) : []}/>
+            </>
+            :
+            <Loader/>    
+        }   
         </>
     )
 }
