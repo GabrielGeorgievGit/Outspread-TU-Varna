@@ -20,7 +20,6 @@ import bg.tuvarna.outspread.dto.SpecialtySemesterDto;
 import bg.tuvarna.outspread.dto.StringDto;
 import bg.tuvarna.outspread.entity.Specialty;
 import bg.tuvarna.outspread.service.SpecialtyService;
-import jakarta.annotation.security.RolesAllowed;
 
 @Controller
 @RequestMapping("/specialty")
@@ -63,7 +62,7 @@ public class SpecialtyController {
 	}
 	
 	@PutMapping("/change")
-	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"})
+//	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"})
 	public ResponseEntity<?> changeNameDisciplines(@RequestBody SpecialtyChangeDto request) {
 		try {
 			ss.changeNameDisciplines(request);

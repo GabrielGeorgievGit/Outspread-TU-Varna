@@ -58,14 +58,16 @@ public class SecurityFilterChainConfig {
                 		).permitAll()
                 .requestMatchers(HttpMethod.POST, "/specialty/semester"
                 		).permitAll()
+                .requestMatchers(HttpMethod.PUT, "/specialty/change"
+                		).permitAll()
                 .requestMatchers(
                 		HttpMethod.POST, "/**"
                 		).hasAnyRole("ADMIN_PRIME", "ADMIN")
                 .requestMatchers(
                 		HttpMethod.POST, "/**"
                 		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/specialty/change"
-                		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
+//                .requestMatchers(HttpMethod.PUT, "/specialty/change"
+//                		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
                 
                 
                 /*

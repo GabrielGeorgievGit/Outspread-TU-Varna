@@ -1,36 +1,23 @@
-import { useState, useRef, useEffect } from "react";
-import { useFormik, FieldArray, FormikProvider } from "formik";
+import { useFormik } from "formik";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AdminTitle } from "../../../../utils/tools"
-import { errorHelper, Loader } from "../../../../utils/tools";
-import { validation, formValues } from "./validationSchema";
+import { AdminTitle, errorHelper } from "../../../../utils/tools";
+import { formValues, validation } from "./validationSchema";
 
 import { useDispatch, useSelector } from "react-redux";
 // MUI
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button' 
-import Divider from '@mui/material/Divider' 
-import Chip from '@mui/material/Chip'
-import Paper from '@mui/material/Paper'
-import InputBase from '@mui/material/InputBase'
-import IconButton from '@mui/material/IconButton'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import InputLabel from '@mui/material/InputLabel';
-import AddIcon from '@mui/icons-material/Add';
-import { visuallyHidden } from '@mui/utils';
-import { addExercise, getAllRooms } from "../../../../store/actions/exercises";
 import { Autocomplete, Checkbox } from "@mui/material";
-import { getAllUsers } from "../../../../store/actions/users";
-import { getAllDisciplines, getAllSpecialties, getAllSpecialtiesSemester } from "../../../../store/actions/specialties";
+import InputLabel from '@mui/material/InputLabel';
 import { DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { addExercise, getAllRooms } from "../../../../store/actions/exercises";
+import { getAllDisciplines, getAllSpecialties } from "../../../../store/actions/specialties";
+import { getAllUsers } from "../../../../store/actions/users";
 
 const AddExercise = () => {
     const dispatch = useDispatch();
@@ -119,15 +106,15 @@ const AddExercise = () => {
                 </div>
 
                 <div className="form-group">
-                <Autocomplete
-                    onChange={(event, value) => setSelectedDiscipline(value)}
-                    getOptionLabel={(option) => option.name}
-                    disablePortal
-                    options={specialties.disciplines}
-                    isOptionEqualToValue={(option, value)=> option.name === value.name}
-                    renderInput={(params) => <TextField {...params} label="Discipline" />}
-                    ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
-                />
+                    <Autocomplete
+                        onChange={(event, value) => setSelectedDiscipline(value)}
+                        getOptionLabel={(option) => option.name}
+                        disablePortal
+                        options={specialties.disciplines}
+                        isOptionEqualToValue={(option, value)=> option.name === value.name}
+                        renderInput={(params) => <TextField {...params} label="Discipline" />}
+                        ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
+                    />
                 </div>
 
                 <div className="form-group">
@@ -142,29 +129,38 @@ const AddExercise = () => {
                         rows={4}
                         />
                 </div>
+                <div className="form-group">
                 {/* <Divider className="mt-3 mb-3"/> */}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker 
+                    <div className="inlineFilter">
+                    <DateTimePicker
+                        
+                        className="inlineFilter"
                         onChange={(e) => setDateTime(getZero(e.$y)+ "-" + getZero(e.$M+1) + "-" + getZero(e.$D) + "T" + getZero(e.$H) + ":" + getZero(e.$m))}//setDateTime(event.target.value)
                         label="Start date and time"
                         format="DD/MM/YYYY HH:mm"
                             views={['year', 'month', 'day', 'hours', 'minutes']}
                     />
+                    <div className="inlineFilter"></div>
                     <TimePicker
+                        className="inlineFilter"
                         onChange={(e) => setDuration(getZero(e.$H) + ":" + getZero(e.$m))}//setDuration(event.target.value)}
                         label="Duration"
                         format="hh:mm"
                         ampm={false}
                     />
+                    </div>
                 </LocalizationProvider>
+                </div>
 
                 <div className="form-group">
                     <InputLabel>
                         Automatically find a free room
-                        <Checkbox checked={autoRoom} onChange={(event) => setAutoRoom(event.target.checked)}/>
+                        <Checkbox style={{borderColor: 'transparent'}} checked={autoRoom} onChange={(event) => setAutoRoom(event.target.checked)}/>
                     </InputLabel>
 
                     <Autocomplete
+                        className="form-group"
                         disabled={autoRoom}
                         onChange={(event, value) => setSelectedRoom(value)}
                         getOptionLabel={(option) => option.name}

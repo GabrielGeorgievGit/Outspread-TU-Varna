@@ -68,7 +68,7 @@ const PaginateProfile = ({
     return(
         <> 
             <h3>Filters</h3>
-            <InputGroup>
+            <InputGroup  className="search">
                 <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
                     <FormControl 
                     onChange={(event) => setSearchText(event.target.value)}
@@ -114,7 +114,7 @@ const PaginateProfile = ({
                     </Select>
                 </div>
             </div>
-            { usersGet  ?
+            { tableData  ?
                 <>
                     <Table striped bordered hover
                     style={{marginTop: "20px"}} >

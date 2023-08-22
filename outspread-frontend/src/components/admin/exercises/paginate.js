@@ -130,7 +130,7 @@ const PaginateExercise = ({
                             <div className="filterElement">
                                 <Autocomplete
                                     className="filterSelect"
-                                    style= { { minWidth: 300 }}
+                                    style= { { minWidth: 400 }}
                                     onChange={(event, value) => setSelectedDiscipline(value)}//filterDiscipline(value)}
                                     
                                     getOptionLabel={(option) => option.name }

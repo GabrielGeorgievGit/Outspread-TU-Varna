@@ -99,12 +99,14 @@ export const getAllDisciplines = createAsyncThunk(
 
 export const changeSpecialty = createAsyncThunk(
     'specialty/change',
-    async(specialty)=>{
+    async(specialty, {dispatch})=>{
         try{
             const request = await axios.put(`/specialty/change`, {id: specialty.specialty, name: specialty.specialtyName, semester: specialty.semester, disciplines: specialty.disciplines}, getAuthHeader());
-            
+            dispatch(successGlobal("Specialty changed"));
+
             return request.data;
         }catch(error){
+            dispatch(errorGlobal("Error"));
             throw error
         }
     }

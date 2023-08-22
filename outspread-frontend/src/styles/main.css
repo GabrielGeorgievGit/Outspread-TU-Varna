@@ -282,6 +282,30 @@ color: white !important;
   align-items: center;
 }
 
+.inlineFilter {
+  display: flex;
+  margin-right: 20px;
+  
+}
+.MuiSvgIcon-root {
+  background-color: transparent;
+  outline-color: transparent;
+  border-color: transparent;
+ 
+}
+#Aico {
+  border: red;
+}
+.MuiSvgIcon-root {
+  /* background-color: transparent;
+  border-color: transparent; */
+  border: red;
+}
+
+.css-ghsjzk-MuiInputBase-root-MuiInput-root {
+  border-color: transparent !important;
+}
+
 .filters {
   display: inline-flex;
   margin-block: 10px;

@@ -129,8 +129,9 @@ const AddSpecialty = () => {
                  className="m5-3 article_form"
                  onSubmit={specialtyEditFormik.handleSubmit}
                 >
-                    <div>
+                    <div className="form-group">
                         <Autocomplete
+                            style={{maxWidth: '50%'}}
                             onChange={(event, value) => selectSpecialty({id: value.id, name: value.name, disciplines: value.disciplines})}
                             getOptionLabel={(option) => option.name}
                             disablePortal
@@ -140,52 +141,57 @@ const AddSpecialty = () => {
                             
                         />
                     </div>
-
-                    <TextField
-                        style={{width: '50%'}}
-                        name="specialtyName"
-                        label="Edit specialty name"
-                        variant="outlined"
-                        value={specialty.name}
-                        {...specialtyEditFormik.getFieldProps('specialtyName')}
-                        {...errorHelper(specialtyEditFormik, 'specialtyName')}
-                    />
-                    
-                    <InputLabel>Semester</InputLabel>
-                    <Select defaultValue="1" onChange={(event) => setSemester(event.target.value)}
-                    name="semester"
-                    label="semester"
-                    >
-                        <MenuItem value="1">1</MenuItem>
-                        <MenuItem value="2">2</MenuItem>
-                        <MenuItem value="3">3</MenuItem>
-                        <MenuItem value="4">4</MenuItem>
-                        <MenuItem value="5">5</MenuItem>
-                        <MenuItem value="6">6</MenuItem>
-                        <MenuItem value="7">7</MenuItem>
-                        <MenuItem value="8">8</MenuItem>
-                    </Select>
-
-                    <InputLabel>Disciplines</InputLabel>
-                   <Autocomplete
-                        multiple
-                        disableCloseOnSelect
-                        // id="tags-outlined"
-                        options={specialties.disciplines}
-                        getOptionLabel={(option) => option.name}
-                        value={selectedDisciplines}
-                        // defaultValue={specialty.disciplines.filter(item => item.semester === semester)}
-                        filterSelectedOptions
-                        onChange={(event, values)=> setSelectedDisciplines(values)}
-                        isOptionEqualToValue={(option, value)=> option.name === value.name}
-                        renderInput={(params) => (
+                    <div  className="form-group">
                         <TextField
-                            {...params}
-                            // label="filterSelectedOptions"
-                            // placeholder="Favorites"
+                            style={{width: '50%'}}
+                            name="specialtyName"
+                            label="Edit specialty name"
+                            variant="outlined"
+                            value={specialty.name}
+                            {...specialtyEditFormik.getFieldProps('specialtyName')}
+                            {...errorHelper(specialtyEditFormik, 'specialtyName')}
                         />
-                        )}
-                    />
+                    </div>
+                    
+                    <div  className="form-group">
+                        <InputLabel>Semester</InputLabel>
+                        <Select defaultValue="1" onChange={(event) => setSemester(event.target.value)}
+                        name="semester"
+                        label="semester"
+                        >
+                            <MenuItem value="1">1</MenuItem>
+                            <MenuItem value="2">2</MenuItem>
+                            <MenuItem value="3">3</MenuItem>
+                            <MenuItem value="4">4</MenuItem>
+                            <MenuItem value="5">5</MenuItem>
+                            <MenuItem value="6">6</MenuItem>
+                            <MenuItem value="7">7</MenuItem>
+                            <MenuItem value="8">8</MenuItem>
+                        </Select>
+                    </div>
+
+                    <div  className="form-group">
+                        <InputLabel>Disciplines</InputLabel>
+                        <Autocomplete
+                            multiple
+                            disableCloseOnSelect
+                            // id="tags-outlined"
+                            options={specialties.disciplines}
+                            getOptionLabel={(option) => option.name}
+                            value={selectedDisciplines}
+                            // defaultValue={specialty.disciplines.filter(item => item.semester === semester)}
+                            filterSelectedOptions
+                            onChange={(event, values)=> setSelectedDisciplines(values)}
+                            isOptionEqualToValue={(option, value)=> option.name === value.name}
+                            renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                // label="filterSelectedOptions"
+                                // placeholder="Favorites"
+                            />
+                            )}
+                        />
+                    </div>
 
                     <div className="mt-2">
                         <Button variant="contained" color="primary" type="submit"
