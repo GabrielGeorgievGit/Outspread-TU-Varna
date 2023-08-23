@@ -72,7 +72,10 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	@Transactional 
 	public void deleteUser(int id) {
-		em.createNativeQuery("DELETE s FROM outspreaddb.user_sign_exercise s LEFT join outspreaddb.exercise e on s.exercise_id = e.exercise_id  where e.owner_id = :id").setParameter("id", id).executeUpdate();
+		User u = em.find(User.class, id);
+		u.getExercisesSigned().forEach(e -> e.getExercise().minusSigned());
+		
+		em.createNativeQuery("DELETE s FROM outspreaddb.user_sign_exercise s LEFT join outspreaddb.exercise e on s.exercise_id = e.exercise_id where e.owner_id = :id").setParameter("id", id).executeUpdate();
 		em.createNativeQuery("DELETE FROM outspreaddb.user_sign_exercise s where s.user_id = :id").setParameter("id", id).executeUpdate();
 		em.createNativeQuery("DELETE r FROM outspreaddb.RESERVE_ROOM r LEFT join outspreaddb.exercise e on r.exercise_id = e.exercise_id where e.owner_id = :id").setParameter("id", id).executeUpdate();
 		em.createNativeQuery("DELETE FROM EXERCISE WHERE OWNER_ID = :id").setParameter("id", id).executeUpdate();

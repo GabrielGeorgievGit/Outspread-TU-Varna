@@ -143,17 +143,10 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 	@Override
 	@Transactional
 	public void deleteExericse(int id) {
-		Exercise exercise = em.find(Exercise.class, id);
+		em.createNativeQuery("DELETE s FROM outspreaddb.user_sign_exercise s LEFT join outspreaddb.exercise e on s.exercise_id = e.exercise_id where e.exercise_id = :id").setParameter("id", id).executeUpdate();
 		
-		List<ReserveRoom> reserved = List.copyOf(exercise.getReservedRooms());
-		for(ReserveRoom r : reserved) {
-//			em.detach(reserved);
-			em.remove(em.find(ReserveRoom.class, r.getId()));
-		}
-		List<UserSignExercise> signed = List.copyOf(exercise.getExercisesSigned());
-		for(UserSignExercise sign : signed) {
-			em.remove(em.find(UserSignExercise.class, sign.getId()));
-		}
-		em.remove(exercise);
+		em.createNativeQuery("DELETE r FROM outspreaddb.RESERVE_ROOM r LEFT join outspreaddb.exercise e on r.exercise_id = e.exercise_id where e.exercise_id = :id").setParameter("id", id).executeUpdate();
+		
+		em.createNativeQuery("DELETE FROM EXERCISE WHERE EXERCISE_ID = :id").setParameter("id", id).executeUpdate();
 	}
 }

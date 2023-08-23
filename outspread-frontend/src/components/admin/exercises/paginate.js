@@ -205,7 +205,7 @@ const PaginateExercise = ({
                                             </td>
                                             <td
                                                 className="bg-danger text-white click"
-                                                onClick={()=> alert(item.id) }
+                                                onClick={()=> remove(item) }
                                             >
                                                 Remove
                                             </td>
