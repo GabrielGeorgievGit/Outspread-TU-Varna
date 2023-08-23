@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { FormControl, InputGroup, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getExercise } from "../../../store/actions/exercises";
+import { deleteExercise, getExercise } from "../../../store/actions/exercises";
 import { getAllDisciplines } from "../../../store/actions/specialties";
 import { Loader } from "../../../utils/tools";
+import ModalDialog from "../../popup/modal";
 
 const PaginateExercise = ({
     exercises,
@@ -111,6 +112,16 @@ const PaginateExercise = ({
         return String(text).substring(0, size) + "...";
     }
 
+    function deleteExerciseF(id) {
+        dispatch(deleteExercise(id))
+        setTableData(tableData.filter(exercise => exercise.id !== id))
+    }
+
+    function remove(exercise) {
+        ModalDialog("Do you want to remove '" + exercise.owner + "'s exercise " + exercise.title, 
+        deleteExerciseF, exercise.id)
+    }
+
     return(
         <>
             { exercises ?
@@ -187,13 +198,13 @@ const PaginateExercise = ({
                                          </td>
                                         :
                                         <>
-                                            <td className='bg-success text-white'
+                                            <td className='bg-success text-white click'
                                             onClick={()=> goToEdit(item.id)}
                                             >
                                             Edit
                                             </td>
                                             <td
-                                                className="bg-danger text-white"
+                                                className="bg-danger text-white click"
                                                 onClick={()=> alert(item.id) }
                                             >
                                                 Remove

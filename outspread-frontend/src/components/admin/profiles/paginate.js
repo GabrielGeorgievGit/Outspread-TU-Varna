@@ -1,10 +1,13 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FormControl, InputGroup, Table } from "react-bootstrap";
+import { Button, FormControl, InputGroup, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpecialties } from "../../../store/actions/specialties";
-import { getUserSpecialtiesSemester } from "../../../store/actions/users";
+import { deleteUser, getUserSpecialtiesSemester } from "../../../store/actions/users";
 import { Loader } from "../../../utils/tools";
+import Popup from 'reactjs-popup';
+import ModalDialog from "../../popup/modal";
+
 const PaginateProfile = ({
     specialtiesMap,
     goToPrevPage,
@@ -20,6 +23,7 @@ const PaginateProfile = ({
     
     const [specialtySemester, setSpecialtySemester] = useState({specialty: 1, semester: '1'})
     const [searchText, setSearchText] = useState('');
+    const [popup, setPopup] = useState(false);
 
     useEffect(()=>{
         dispatch(getAllSpecialties())
@@ -65,8 +69,18 @@ const PaginateProfile = ({
         return false;
     }
 
+    function deleteUserF(id) {
+        dispatch(deleteUser(id))
+        setTableData(tableData.filter(user => user.id !== id))
+    }
+
+    function remove(user) {
+        ModalDialog("Do you want to remove user '" + user.username + "'(" + user.fullname + ") " + user.fn, 
+        deleteUserF, user.id)
+    }
+
     return(
-        <> 
+        <>
             <h3>Filters</h3>
             <InputGroup  className="search">
                 <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
@@ -76,6 +90,7 @@ const PaginateProfile = ({
                     placeholder="Search"
                 />
             </InputGroup>
+            
             <div class="filters">
                 <div class="filterElement">
                     <InputLabel class="filterLabel" id="specialty">Specialty</InputLabel>
@@ -114,6 +129,7 @@ const PaginateProfile = ({
                     </Select>
                 </div>
             </div>
+            
             { tableData  ?
                 <>
                     <Table striped bordered hover
@@ -121,7 +137,7 @@ const PaginateProfile = ({
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Fn</th>
+                                <th>Student number</th>
                                 <th>Specialty</th>
                                 <th>Semester</th>
                                 <th>User type</th>
@@ -137,16 +153,16 @@ const PaginateProfile = ({
                                     <td>{item.semester}</td>
                                     <td>{String(item.role).toLowerCase()}</td>
 
-                                    <td className='bg-success text-white'
+                                    <td className='bg-success text-white click'
                                         onClick={()=> goToEdit(item.id)}
                                     >
                                         Edit
                                     </td>
                                     <td
-                                        className="bg-danger text-white"
-                                        onClick={()=> alert("Do you want to remove user " + item.username + item.id) }
+                                        className="bg-danger text-white click"
+                                        onClick={()=> remove(item) }
                                     >
-                                        Remove
+                                     Remove   
                                     </td>
                                     {/* <td className='action_btn status_btn'
                                         onClick={()=> handleStatusChange(item.status,item.id)}
@@ -156,7 +172,9 @@ const PaginateProfile = ({
                                 </tr>
                             ))}
                         </tbody>
-                    </Table>{/*
+                    </Table>
+                    
+                    {/*
                     <Pagination>
                         { exercises.hasPrevPage ?
                             <>

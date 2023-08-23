@@ -115,6 +115,22 @@ export const addUser = createAsyncThunk(
     }
 )
 
+export const deleteUser = createAsyncThunk(
+    'user/deleteUser',
+    async(id, {dispatch})=>{
+        try{
+            const request = await axios.delete(`/user/delete?id=${id}`, getAuthHeader());
+            
+            dispatch(successGlobal("User deleted"));
+
+            return request.data;
+        }catch(error){
+            dispatch(errorGlobal("Couldn't delete the user"));
+            throw error
+        }
+    }
+)
+
 /*
 export const loginGet = createAsyncThunk(
     'get/login',

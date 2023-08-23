@@ -72,6 +72,21 @@ export const userSignExercise = createAsyncThunk(
     }
 )
 
+export const deleteExercise = createAsyncThunk(
+    'exercises/deleteExercise',
+    async(id, {dispatch})=>{
+        try{
+            const request = await axios.delete(`/exercise/delete?id=${id}`, getAuthHeader());
+            
+            dispatch(successGlobal("Exercise deleted"));
+
+            return request.data;
+        }catch(error){
+            dispatch(errorGlobal("Couldn't delete the exercise"));
+        }
+    }
+)
+
 export const getAllRooms = createAsyncThunk(
     'exercises/getAllRooms',
     async()=>{

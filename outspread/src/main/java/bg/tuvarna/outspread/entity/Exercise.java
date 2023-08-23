@@ -145,7 +145,10 @@ public class Exercise {
 		this.signed++;
 	}
 
-
+	public void minusSigned() {
+		this.signed--;
+		if(this.signed < 0) this.signed = 0;
+	}
 
 	public List<ReserveRoom> getReservedRooms() {
 		return reservedRooms;

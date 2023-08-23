@@ -57,6 +57,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 	public UserExerciseDto signUserExercise(int userId, int exerciseId) throws NotFoundException  {
 		return ExerciseMapper.mapUserSignExercise(er.signUserExercise(userId, exerciseId));
 	}
+
+	@Override
+	public void deleteExercise(int id) {
+		er.deleteExericse(id);
+	}
 	
 //	@Override
 //	public Exercise paginateExercises(ExerciseDto dto) {

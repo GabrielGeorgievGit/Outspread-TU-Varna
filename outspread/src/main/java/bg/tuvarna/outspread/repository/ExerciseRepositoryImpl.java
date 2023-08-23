@@ -139,4 +139,21 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 		
 		return freeRooms;
 	}
+
+	@Override
+	@Transactional
+	public void deleteExericse(int id) {
+		Exercise exercise = em.find(Exercise.class, id);
+		
+		List<ReserveRoom> reserved = List.copyOf(exercise.getReservedRooms());
+		for(ReserveRoom r : reserved) {
+//			em.detach(reserved);
+			em.remove(em.find(ReserveRoom.class, r.getId()));
+		}
+		List<UserSignExercise> signed = List.copyOf(exercise.getExercisesSigned());
+		for(UserSignExercise sign : signed) {
+			em.remove(em.find(UserSignExercise.class, sign.getId()));
+		}
+		em.remove(exercise);
+	}
 }
