@@ -31,9 +31,9 @@ const Home = () => {
             <>
             <div className='showButton'>
                 {showOwned ?
-                <Button onClick={() => {setShowOwned(false)}}>Hide owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
+                <Button className='trans' onClick={() => {setShowOwned(false)}}>Hide owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
                 :
-                <Button onClick={() => {setShowOwned(true)}}>Show owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
+                <Button className='trans' onClick={() => {setShowOwned(true)}}>Show owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
                 }
             </div>
             <div hidden={!showOwned}>
@@ -50,9 +50,9 @@ const Home = () => {
 
             <div className='showButton'>
                 {showSigned ?
-                <Button onClick={() => {setShowSigned(false)}}>Hide signed exercises &#40;{user.data.exercisesSigned.length}&#41;</Button>
+                <Button className='trans' onClick={() => {setShowSigned(false)}}>Hide signed exercises &#40;{user.data.exercisesSigned.length}&#41;</Button>
                 :
-                <Button onClick={() => {setShowSigned(true)}}>Show signed exercises &#40;{user.data.exercisesSigned.length}&#41;</Button>
+                <Button className='trans' onClick={() => {setShowSigned(true)}}>Show signed exercises &#40;{user.data.exercisesSigned.length}&#41;</Button>
                 }
             </div>
 

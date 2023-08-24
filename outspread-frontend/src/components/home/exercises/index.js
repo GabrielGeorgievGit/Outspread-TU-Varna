@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { userSignExercise } from "../../../store/actions/exercises";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteOwnerExercise, getExercise, userSignExercise, userSignOutExercise } from "../../../store/actions/exercises";
 import { isAuth } from "../../../store/actions/users";
 
 const ViewExercise = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const params = useParams();
 
     const exercises = useSelector(state => state.exercises);
     const [exercise, setExercise] = useState();
 
     const users = useSelector(state => state.users);
     const [user, setUser] = useState();
+    const [signed, setSigned] = useState(false);
+    const [owned, setOwned] = useState(false);
 
     useEffect(() => {
+        dispatch(getExercise(params.id))
         setExercise(exercises.current);
-    },[exercises])
+    },[exercises.current])
 
     useEffect(() => {
         dispatch(isAuth())
@@ -26,7 +30,17 @@ const ViewExercise = () => {
 
     useEffect(() => {
         setUser(users.data);
+        if(user) setSigned(alreadySigned());
     },[users])
+
+    // useEffect(() => {
+    //     if(user && exercise) setOwned(user.id === exercise.ownerId)
+    //     if(user && user.exercisesOwned && user.exercisesSigned) {
+    //         setSigned(alreadySigned())
+    //         console.log(signed)
+    //     }
+            
+    // },[user.exercisesSigned, user.exercisesOwned])
 
     function convertTime(time) {
         time = time.split(':');
@@ -50,16 +64,41 @@ const ViewExercise = () => {
 
     function signExercise() {
         dispatch(userSignExercise({userId: user.id, exerciseId: exercise.id}))
+        .then((result) => {
+            setSigned(!result.payload.error)
+        })
+    }
+
+    function signOutExercise() {
+        dispatch(userSignOutExercise({userId: user.id, exerciseId: exercise.id}))
+        .then((result) => {
+            setSigned(result.payload.error)
+        })
+    }
+
+    function deleteExercise() {
+        dispatch(deleteOwnerExercise({userId: user.id, exerciseId: exercise.id}))
     }
 
     function alreadySigned() {
-        return exists(user.exercisesOwned, exercise, 'id') || exists(user.exercisesSigned, exercise, 'id');
+        if(exists(user.exercisesSigned, exercise, 'id')) {
+            return true;
+        }
+        if(exists(user.exercisesOwned, exercise, 'id')) {
+            setOwned(true)
+            return true;
+        }
+        return false;
     }
 
     function exists(arr, obj, prop) {
         for (let index = 0; index < arr.length; index++) {
             const element = arr[index];
-            if(obj[prop] === element[prop]) return true;
+            try {
+                if(obj[prop] === element[prop]) return true;
+            } catch (error) {
+                
+            }
         }
         return false;
     }
@@ -67,7 +106,7 @@ const ViewExercise = () => {
     return (
         <>
             <div className="navigation">
-                <Button onClick={() => navigate('/')}>Back to home page</Button>
+                <Button className="trans" onClick={() => navigate('/')}>Back to home page</Button>
             </div>
             {
                 exercise ?
@@ -81,11 +120,17 @@ const ViewExercise = () => {
                     <h4>Duration: {convertTime(exercise.duration)}</h4>
                     <h4>Room: {exercise.room}</h4>
                     <h4>Signed number: {exercise.signed}</h4>
+                    {/* {console.log(signed, owned)} */}
                     {
-                        alreadySigned() ?
-                        <Button disabled>Already signed</Button>
+                        signed ? owned ? 
+                        <>
+                            <Button className="trans" disabled>Your exercise</Button>
+                            <Button className="trans" style={{backgroundColor: 'red', margin: '5px'}} onClick={() => deleteExercise()}>Delete exercise</Button>
+                        </>
                         :
-                        <Button onClick={() => signExercise()}>Sign for</Button>
+                        <Button className="trans" style={{backgroundColor: 'red'}} onClick={() => signOutExercise()}>Sign out</Button>
+                        :
+                        <Button className="trans" onClick={() => signExercise()}>Sign for</Button>
                     }
                     
                 </>

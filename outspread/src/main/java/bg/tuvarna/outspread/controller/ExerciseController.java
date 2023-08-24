@@ -54,6 +54,17 @@ public class ExerciseController {
 		return new ResponseEntity<UserExerciseDto>(result, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/signOut/user")
+	public ResponseEntity<?> signOutUserExercise(@RequestBody UserSignExerciseDto request) {
+		try {
+			es.signOutUserExercise(request.getUserId(), request.getExerciseId());
+		} catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok().build();
+	}
+	
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> deleteExericse(int id) {
 		es.deleteExercise(id);

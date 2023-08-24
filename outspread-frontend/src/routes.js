@@ -61,7 +61,7 @@ const Router = () => {
                         <Route path='/admin/login' element={<AdminLogin/>}/>
 
                         <Route path='/' element= {<AuthGuard><Home/></AuthGuard>} />
-                        <Route path='/exercise' element= {<AuthGuard><ViewExercise/></AuthGuard>} />
+                        <Route path='/exercise/:id' element= {<AuthGuard><ViewExercise /></AuthGuard>} />
 
                         <Route path='/admin' element= {<AdminAuthGuard><AdminHome/></AdminAuthGuard>}>
                             <Route index element={<AdminMain/>}/>

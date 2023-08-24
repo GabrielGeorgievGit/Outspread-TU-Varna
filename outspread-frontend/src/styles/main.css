@@ -340,6 +340,11 @@ justify-content: flex-end; */
 /* float: right; */
 }
 
+.trans {
+  border-color: transparent;
+  
+}
+
 .click {
   cursor: pointer;
   padding: 0%;

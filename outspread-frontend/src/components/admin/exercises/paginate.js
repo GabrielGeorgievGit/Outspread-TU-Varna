@@ -2,11 +2,12 @@ import { Autocomplete, Checkbox, InputLabel, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FormControl, InputGroup, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { deleteExercise, getExercise } from "../../../store/actions/exercises";
 import { getAllDisciplines } from "../../../store/actions/specialties";
 import { Loader } from "../../../utils/tools";
 import ModalDialog from "../../popup/modal";
+import ViewExercise from "../../home/exercises";
 
 const PaginateExercise = ({
     exercises,
@@ -24,8 +25,7 @@ const PaginateExercise = ({
     
     function goToView(item) {
         dispatch(getExercise(item))
-        
-        navigate('/exercise')
+        navigate('/exercise/' + item)
     }
 
     function convertTime(time) {
@@ -191,7 +191,7 @@ const PaginateExercise = ({
                                     <td>{item.signed}</td>
 
                                     {userView ? 
-                                         <td className='bg-success text-white'
+                                         <td className='bg-success text-white click'
                                          onClick={()=> goToView(item.id)}
                                          >
                                          View

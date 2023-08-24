@@ -65,9 +65,47 @@ export const userSignExercise = createAsyncThunk(
             const request = await axios.post(`/exercise/sign/user`, sign, getAuthHeader());
             dispatch(successGlobal("Signed for exercise"));
             
-            return request.data;
+            return {...request.data, error: false};
         }catch(error){
             dispatch(errorGlobal("Unsuccessful sign for exercise"));
+            return {error: true}
+        }
+    }
+)
+
+export const userSignOutExercise = createAsyncThunk(
+    'exercises/signOut/user',
+    async(sign, {dispatch})=>{
+        try{
+            const request = await axios.post(`/exercise/signOut/user`, sign, getAuthHeader())
+            
+            dispatch(successGlobal("Signed out of the exercise"));
+            
+            return {...request.data, error: false};
+        }catch(error){
+            dispatch(errorGlobal("Unsuccessful sign out of exercise"));
+            return {error: true}
+        }
+    }
+)
+
+export const deleteOwnerExercise = createAsyncThunk(
+    'exercises/deleteOwnerExercise',
+    async(remove, {dispatch})=>{
+        try{
+            const request = await axios.delete(`/exercise/own/delete`, {userId: remove.userId, exerciseId: remove.exerciseId}, getAuthHeader())
+            .then(response => {
+                if(response.status === 200) {
+                    dispatch({error: false})
+                }
+            });
+            
+            dispatch(successGlobal("Exercise deleted"));
+
+            return request.data;
+        }catch(error){
+            dispatch({error: true})
+            dispatch(errorGlobal("Couldn't delete the exercise"));
         }
     }
 )

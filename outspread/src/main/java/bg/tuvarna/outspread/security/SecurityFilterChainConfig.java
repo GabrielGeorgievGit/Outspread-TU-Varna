@@ -56,6 +56,8 @@ public class SecurityFilterChainConfig {
                 		).permitAll()
                 .requestMatchers(HttpMethod.POST, "/exercise/sign/user"
                 		).permitAll()
+                .requestMatchers(HttpMethod.POST, "/exercise/signOut/user"
+                		).permitAll()
                 .requestMatchers(HttpMethod.POST, "/specialty/semester"
                 		).permitAll()
                 .requestMatchers(HttpMethod.PUT, "/specialty/change"

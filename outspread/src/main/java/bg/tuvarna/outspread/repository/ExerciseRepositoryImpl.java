@@ -77,6 +77,21 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 		return sign;
 	}
 	
+	@Override
+	@Transactional
+	public void signOutUserExercise(int userId, int exerciseId) throws NotFoundException {
+		User user = em.find(User.class, userId);
+		
+		Exercise exercise = em.find(Exercise.class, exerciseId);
+		
+		if(!alreadySigned(user, exercise) || ownedExercise(user, exercise)) throw new NotFoundException();
+		
+		em.createNativeQuery("DELETE FROM user_sign_exercise s where s.user_id = :user and s.exercise_id = :exercise")
+		.setParameter("user", userId).setParameter("exercise", exerciseId).executeUpdate();
+		
+		exercise.minusSigned();
+	}
+	
 	private boolean alreadySigned(User user, Exercise exercise) {
 		List<Exercise> list = user.getExercisesSigned().stream().map(item -> item.getExercise()).toList();
 		return list.contains(exercise);
