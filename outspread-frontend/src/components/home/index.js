@@ -59,7 +59,7 @@ const Home = () => {
             <div hidden={!showSigned}>
             <h3>Signed exercises</h3>
             
-            {user.data.exercisesSigned  && user.data.exercisesSigned.length > 1 ?
+            {user.data.exercisesSigned  && user.data.exercisesSigned.length > 0 ?
                 <PaginateExercise exercises={user.data.exercisesSigned} userView={true} hideFilters={true}/>
                 :
                 <h4>You haven't signed for any exercises</h4>

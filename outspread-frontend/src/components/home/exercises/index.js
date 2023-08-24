@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteOwnerExercise, getExercise, userSignExercise, userSignOutExercise } from "../../../store/actions/exercises";
 import { isAuth } from "../../../store/actions/users";
+import { Loader } from "../../../utils/tools";
 
 const ViewExercise = () => {
 
@@ -20,18 +21,22 @@ const ViewExercise = () => {
     const [owned, setOwned] = useState(false);
 
     useEffect(() => {
+        dispatch(isAuth())
         dispatch(getExercise(params.id))
+    },[dispatch, owned, signed])
+
+    useEffect(() => {
+        setUser(users.data);
+    },[users])
+
+    useEffect(() => {
         setExercise(exercises.current);
     },[exercises.current])
 
     useEffect(() => {
-        dispatch(isAuth())
-    },[dispatch])
-
-    useEffect(() => {
-        setUser(users.data);
-        if(user) setSigned(alreadySigned());
-    },[users])
+        if(exercise) setSigned(alreadySigned());
+        console.log(signed, owned)
+    },[exercise, user])
 
     // useEffect(() => {
     //     if(user && exercise) setOwned(user.id === exercise.ownerId)
@@ -65,14 +70,14 @@ const ViewExercise = () => {
     function signExercise() {
         dispatch(userSignExercise({userId: user.id, exerciseId: exercise.id}))
         .then((result) => {
-            setSigned(!result.payload.error)
+            if(result.payload.error === false) setSigned(true);
         })
     }
 
     function signOutExercise() {
         dispatch(userSignOutExercise({userId: user.id, exerciseId: exercise.id}))
         .then((result) => {
-            setSigned(result.payload.error)
+            if(result.payload.error === false) setSigned(false);
         })
     }
 
@@ -82,13 +87,14 @@ const ViewExercise = () => {
 
     function alreadySigned() {
         if(exists(user.exercisesSigned, exercise, 'id')) {
+            setOwned(false)
             return true;
         }
         if(exists(user.exercisesOwned, exercise, 'id')) {
             setOwned(true)
             return true;
         }
-        return false;
+        setOwned(false)
     }
 
     function exists(arr, obj, prop) {
@@ -125,6 +131,7 @@ const ViewExercise = () => {
                         signed ? owned ? 
                         <>
                             <Button className="trans" disabled>Your exercise</Button>
+                            <Button className="trans" style={{backgroundColor: 'red', margin: '5px'}}>Edit exercise</Button>
                             <Button className="trans" style={{backgroundColor: 'red', margin: '5px'}} onClick={() => deleteExercise()}>Delete exercise</Button>
                         </>
                         :
@@ -135,7 +142,7 @@ const ViewExercise = () => {
                     
                 </>
                 :
-                null
+                <Loader/>
             }
             
             

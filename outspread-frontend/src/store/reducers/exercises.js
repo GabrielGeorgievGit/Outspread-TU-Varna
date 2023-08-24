@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addExercise, getAllExercises, getAllRooms, getExercise } from "../actions/exercises";
+import { addExercise, getAllExercises, getAllRooms, getExercise, removeCurrent } from "../actions/exercises";
 
 export const exercisesSlice = createSlice({
     name:'exercises',
@@ -27,6 +27,8 @@ export const exercisesSlice = createSlice({
         .addCase(getAllExercises.fulfilled,(state,action)=>{ 
             state.loading = false;
             state.exercises = action.payload
+
+            state.current = null;
         })
         // GET ALL ROOMS
         .addCase(getAllRooms.pending,(state)=>{ state.loading = true })
@@ -38,6 +40,10 @@ export const exercisesSlice = createSlice({
         .addCase(getExercise.fulfilled,(state,action)=>{ 
             state.loading = false;
             state.current = action.payload
+        })
+        .addCase(removeCurrent.pending,(state,action)=>{ 
+            state.loading = false;
+            state.current = null;
         })
     }
 })

@@ -137,3 +137,5 @@ export const getAllRooms = createAsyncThunk(
         }
     }
 )
+
+export const removeCurrent = createAsyncThunk()

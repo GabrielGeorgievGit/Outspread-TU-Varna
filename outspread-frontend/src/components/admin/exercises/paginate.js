@@ -24,7 +24,7 @@ const PaginateExercise = ({
     const navigate = useNavigate();
     
     function goToView(item) {
-        dispatch(getExercise(item))
+        // dispatch(getExercise(item))
         navigate('/exercise/' + item)
     }
 
