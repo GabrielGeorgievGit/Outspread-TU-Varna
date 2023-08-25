@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const formValues = {
     teacher: 0,
     title: '',
-    discipline: '',
+    discipline: null,
     description: '',
     time: '',
     duration: '',
@@ -15,6 +15,8 @@ export const validation = () => (
         title:Yup.string()
         .required('The title is required')
         .max(100, "The title can't exceed 100 characters"),
+        // discipline:Yup.string()
+        // .required('The discipline is required'),
         // content:Yup.string()
         // .required('Sorry the content is required')
         // .min(50,'That is it ? ...write some more'),

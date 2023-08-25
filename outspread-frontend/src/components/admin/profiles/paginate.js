@@ -84,7 +84,7 @@ const PaginateProfile = ({
             <h3>Filters</h3>
             <InputGroup  className="search">
                 <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
-                    <FormControl 
+                    <FormControl className="bg"
                     onChange={(event) => setSearchText(event.target.value)}
                     type="text"
                     placeholder="Search"

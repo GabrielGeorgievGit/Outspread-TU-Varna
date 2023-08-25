@@ -130,9 +130,9 @@ const ViewExercise = () => {
                     {
                         signed ? owned ? 
                         <>
-                            <Button className="trans" disabled>Your exercise</Button>
-                            <Button className="trans" style={{backgroundColor: 'red', margin: '5px'}}>Edit exercise</Button>
-                            <Button className="trans" style={{backgroundColor: 'red', margin: '5px'}} onClick={() => deleteExercise()}>Delete exercise</Button>
+                            <Button className="trans ml-5" disabled>Your exercise</Button>
+                            <Button className="trans ml-5" style={{backgroundColor: 'green'}}>Edit exercise</Button>
+                            <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => deleteExercise()}>Delete exercise</Button>
                         </>
                         :
                         <Button className="trans" style={{backgroundColor: 'red'}} onClick={() => signOutExercise()}>Sign out</Button>

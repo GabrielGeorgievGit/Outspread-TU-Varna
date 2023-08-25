@@ -17,20 +17,22 @@ import InputLabel from '@mui/material/InputLabel';
 import { DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { addExercise, getAllRooms } from "../../../../store/actions/exercises";
 import { getAllDisciplines, getAllSpecialties } from "../../../../store/actions/specialties";
-import { getAllUsers } from "../../../../store/actions/users";
+import { getAllUsers, isAuth } from "../../../../store/actions/users";
 
-const AddExercise = () => {
+const AddExercise = (isUser) => {
     const dispatch = useDispatch();
 
     const exercises = useSelector(state => state.exercises)
     const allUsers = useSelector(state => state.usersGet)
     const specialties = useSelector(state => state.specialties)
+    const users = useSelector(state => state.users);
 
     useEffect(()=>{
         dispatch(getAllUsers())
         dispatch(getAllSpecialties())
         dispatch(getAllDisciplines())
         dispatch(getAllRooms())
+        dispatch(isAuth())
         // dispatch(getAllDisciplines())
     },[dispatch])
 
@@ -51,13 +53,24 @@ const AddExercise = () => {
         validationSchema: validation,
         onSubmit: (values) => {
             console.log(values,selectedUser, selectedDiscipline, dateTime, duration)
-            dispatch(addExercise({idOwner: selectedUser.id, idDiscipline: selectedDiscipline.id,
-                 title: values.title, description: values.description,
-                  time: dateTime, duration: duration, room: autoRoom === true ? -1 : selectedRoom.id}))
-            .unwrap()
-            .then(()=>{
-                navigate('/admin/exercises')
-            })
+            if(isUser) {
+                dispatch(addExercise({idOwner: users.data.id, idDiscipline: selectedDiscipline.id,
+                    title: values.title, description: values.description,
+                     time: dateTime, duration: duration, room: -1}))
+               .unwrap()
+               .then(()=>{
+                   navigate('/');
+               })
+            }
+            else {
+                dispatch(addExercise({idOwner: selectedUser.id, idDiscipline: selectedDiscipline.id,
+                    title: values.title, description: values.description,
+                    time: dateTime, duration: duration, room: autoRoom === true ? -1 : selectedRoom.id}))
+                .unwrap()
+                .then(()=>{
+                    navigate('/admin/exercises')
+                })
+            }
         }
     })
 
@@ -86,6 +99,7 @@ const AddExercise = () => {
             <form className="m5-3 article_form" onSubmit={formik.handleSubmit}>
                 <div className="form-group">
                 <Autocomplete
+                    hidden={isUser}
                     onChange={(event, value) => setSelectedUser(value)}
                     getOptionLabel={(option) => getUserDisplay(option)}
                     disablePortal
@@ -107,8 +121,9 @@ const AddExercise = () => {
 
                 <div className="form-group">
                     <Autocomplete
-                        onChange={(event, value) => setSelectedDiscipline(value)}
-                        getOptionLabel={(option) => option.name}
+                        defaultValue={null}
+                        onChange={(event, value) => { setSelectedDiscipline(value);}}
+                        getOptionLabel={(option) => option ? option.name : '' }
                         disablePortal
                         options={specialties.disciplines}
                         isOptionEqualToValue={(option, value)=> option.name === value.name}
@@ -154,12 +169,13 @@ const AddExercise = () => {
                 </div>
 
                 <div className="form-group">
-                    <InputLabel>
+                    <InputLabel hidden={isUser}>
                         Automatically find a free room
                         <Checkbox style={{borderColor: 'transparent'}} checked={autoRoom} onChange={(event) => setAutoRoom(event.target.checked)}/>
                     </InputLabel>
 
                     <Autocomplete
+                        hidden={isUser}
                         className="form-group"
                         disabled={autoRoom}
                         onChange={(event, value) => setSelectedRoom(value)}

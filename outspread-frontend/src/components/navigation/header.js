@@ -58,7 +58,7 @@ const Header = () => {
     let username = "";
 
     return (
-        <nav className={`navbar fixed-top ${site.layout}`}>
+        <nav className={`navbar fixed-top ${site.layout} bg`}>
             <Link to={admins.auth ? "/admin" : "/"} className="navbar-brand d-flex align-items-center fredoka_ff">
                 TU Varna
             </Link>

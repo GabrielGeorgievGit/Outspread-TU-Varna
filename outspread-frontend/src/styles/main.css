@@ -357,6 +357,10 @@ justify-content: flex-end; */
   
 }
 
+body, .bg {
+  background-color: #e6e8eb;
+}
+
 .filterSelect {
   height: 32px;
   margin-right: 20px;
@@ -372,6 +376,11 @@ justify-content: flex-end; */
   content: url(../sort-alpha-up.svg);
   margin-left: 1px;
   display: inline-flex;
+}
+
+.ml-5 {
+  display: inline;
+  margin: 20px 20px 0 0;
 }
 
 .search {

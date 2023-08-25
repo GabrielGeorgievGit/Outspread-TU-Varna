@@ -8,9 +8,11 @@ import { getAllExercises } from '../../store/actions/exercises';
 import { getSpecialtiesSemester } from '../../store/actions/specialties';
 import { Button } from 'react-bootstrap';
 import { Loader } from '../../utils/tools';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(state => state.users);
     const exercises = useSelector(state => state.exercises);
     const specialties = useSelector(state => state.specialties);
@@ -31,10 +33,11 @@ const Home = () => {
             <>
             <div className='showButton'>
                 {showOwned ?
-                <Button className='trans' onClick={() => {setShowOwned(false)}}>Hide owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
+                <Button className='trans ml-5' onClick={() => {setShowOwned(false)}}>Hide owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
                 :
-                <Button className='trans' onClick={() => {setShowOwned(true)}}>Show owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
+                <Button className='trans ml-5' onClick={() => {setShowOwned(true)}}>Show owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
                 }
+                <Button className='ml-5' style={{backgroundColor: 'green'}} onClick={() => { navigate("/create/exercise") }}>Add your exercise</Button>
             </div>
             <div hidden={!showOwned}>
             <h3>Owned exercises</h3>

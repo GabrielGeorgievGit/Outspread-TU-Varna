@@ -130,7 +130,7 @@ const PaginateExercise = ({
                         <h3>Filters</h3>
                         <InputGroup className="search">
                             <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
-                                <FormControl 
+                                <FormControl className="bg"
                                 onChange={(event) => setSearchText(event.target.value)}//searching(event.target.value)}
                                 type="text"
                                 placeholder="Search"
@@ -149,6 +149,7 @@ const PaginateExercise = ({
                                     options={specialties.disciplines}
                                     isOptionEqualToValue={(option, value)=> option.id === value.id}
                                     renderInput={(params) => <TextField name="" {...params} label="Discipline" />}
+                                    
                                     ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
                                 />
                             </div>
