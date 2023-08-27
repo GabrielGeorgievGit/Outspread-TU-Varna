@@ -24,6 +24,7 @@ import AddProfile from './components/admin/profiles/edit_add/add';
 import AdminAuthGuard from './hoc/adminAuthGuard';
 import ViewExercise from './components/home/exercises';
 import CreateExercise from './components/home/exercises/create';
+import AdminAddExercise from './components/admin/exercises/edit_add';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
@@ -70,7 +71,7 @@ const Router = () => {
                             <Route path='profiles'  element={<AdminProfiles/>}/>
                             <Route path='profiles/add'  element={<AddProfile/>}/>
                             <Route path='exercises' element={<AdminExercises/>}/>
-                            <Route path='exercises/add' element={<AddExercise/>}/>
+                            <Route path='exercises/add' element={<AdminAddExercise/>}/>
                             <Route path='specialties' element={<AdminSpecialties/>}/>
                             <Route path='specialties/add' element={<AddSpecialty/>}/>
                         </Route>

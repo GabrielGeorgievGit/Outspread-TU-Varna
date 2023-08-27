@@ -53,7 +53,7 @@ const AddExercise = (isUser) => {
         validationSchema: validation,
         onSubmit: (values) => {
             console.log(values,selectedUser, selectedDiscipline, dateTime, duration)
-            if(isUser) {
+            if(isUser === true) {
                 dispatch(addExercise({idOwner: users.data.id, idDiscipline: selectedDiscipline.id,
                     title: values.title, description: values.description,
                      time: dateTime, duration: duration, room: -1}))
@@ -99,7 +99,7 @@ const AddExercise = (isUser) => {
             <form className="m5-3 article_form" onSubmit={formik.handleSubmit}>
                 <div className="form-group">
                 <Autocomplete
-                    hidden={isUser}
+                    hidden={isUser === true}
                     onChange={(event, value) => setSelectedUser(value)}
                     getOptionLabel={(option) => getUserDisplay(option)}
                     disablePortal
@@ -169,13 +169,13 @@ const AddExercise = (isUser) => {
                 </div>
 
                 <div className="form-group">
-                    <InputLabel hidden={isUser}>
+                    <InputLabel hidden={isUser === true}>
                         Automatically find a free room
                         <Checkbox style={{borderColor: 'transparent'}} checked={autoRoom} onChange={(event) => setAutoRoom(event.target.checked)}/>
                     </InputLabel>
 
                     <Autocomplete
-                        hidden={isUser}
+                        hidden={isUser === true}
                         className="form-group"
                         disabled={autoRoom}
                         onChange={(event, value) => setSelectedRoom(value)}
