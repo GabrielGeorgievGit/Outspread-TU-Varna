@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import AddExercise from "./add"
+
 import { useDispatch, useSelector } from "react-redux";
-import { getExercise } from "../../../../store/actions/exercises";
 import { useNavigate, useParams } from "react-router-dom";
-import { Loader } from "../../../../utils/tools";
+import AddExercise from "../../admin/exercises/edit_add/add"
+import { getExercise } from "../../../store/actions/exercises";
+import { Loader } from "../../../utils/tools";
 import { Button } from "react-bootstrap";
 
-const AdminEditExercise = () => {
+const EditExercise = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
@@ -23,12 +24,17 @@ const AdminEditExercise = () => {
 
     return (
         <>
+            <div className="navigation">
+                <Button className="trans ml-5" onClick={() => navigate('/')}>Back to home page</Button>
+                <Button className="trans ml-5" onClick={() => navigate('/exercise/' + params.id)}>View exercise</Button>
+            </div>
             { current ? 
-                <AddExercise isUser={false} edit={true} exercise={current}/>
+                <AddExercise isUser={true} edit={true} exercise={current}/>
                 :
                 <Loader/>
             }
         </>
     )
 }
-export default AdminEditExercise;
+export default EditExercise
+;

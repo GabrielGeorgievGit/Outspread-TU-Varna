@@ -35,7 +35,6 @@ const ViewExercise = () => {
 
     useEffect(() => {
         if(exercise) setSigned(alreadySigned());
-        console.log(signed, owned)
     },[exercise, user])
 
     // useEffect(() => {
@@ -109,6 +108,10 @@ const ViewExercise = () => {
         return false;
     }
 
+    function editExercise() {
+        navigate('/exercise/edit/' + params.id)
+    }
+
     return (
         <>
             <div className="navigation">
@@ -131,7 +134,7 @@ const ViewExercise = () => {
                         signed ? owned ? 
                         <>
                             <Button className="trans ml-5" disabled>Your exercise</Button>
-                            <Button className="trans ml-5" style={{backgroundColor: 'green'}}>Edit exercise</Button>
+                            <Button className="trans ml-5" style={{backgroundColor: 'green'}} onClick={() => editExercise()}>Edit exercise</Button>
                             <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => deleteExercise()}>Delete exercise</Button>
                         </>
                         :

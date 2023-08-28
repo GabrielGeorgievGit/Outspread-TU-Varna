@@ -26,6 +26,7 @@ import ViewExercise from './components/home/exercises';
 import CreateExercise from './components/home/exercises/create';
 import AdminAddExercise from './components/admin/exercises/edit_add';
 import AdminEditExercise from './components/admin/exercises/edit_add/edit';
+import EditExercise from './components/home/exercises/edit';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
@@ -65,6 +66,7 @@ const Router = () => {
 
                         <Route path='/' element= {<AuthGuard><Home/></AuthGuard>} />
                         <Route path='/exercise/:id' element={<AuthGuard><ViewExercise /></AuthGuard>} />
+                        <Route path='/exercise/edit/:id' element={<AuthGuard><EditExercise /></AuthGuard>} />
                         <Route path='/create/exercise' element={<AuthGuard><CreateExercise /></AuthGuard>} />
 
                         <Route path='/admin' element= {<AdminAuthGuard><AdminHome/></AdminAuthGuard>}>
@@ -72,7 +74,7 @@ const Router = () => {
                             <Route path='profiles'  element={<AdminProfiles/>}/>
                             <Route path='profiles/add'  element={<AddProfile/>}/>
                             <Route path='exercises' element={<AdminExercises/>}/>
-                            <Route path='exercise/add' element={<AdminAddExercise/>}/>
+                            <Route path='exercise/add' element={<AdminAddExercise isUser={false} edit={false} exercise={null}/>}/>
                             <Route path='exercise/edit/:id' element={<AdminEditExercise/>}/>
                             <Route path='specialties' element={<AdminSpecialties/>}/>
                             <Route path='specialties/add' element={<AddSpecialty/>}/>

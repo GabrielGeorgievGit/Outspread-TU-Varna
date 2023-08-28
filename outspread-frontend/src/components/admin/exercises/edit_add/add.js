@@ -8,6 +8,7 @@ import { formValues, validation } from "./validationSchema";
 import { useDispatch, useSelector } from "react-redux";
 // MUI
 import Button from '@mui/material/Button';
+import {Button as Buttonb} from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -49,14 +50,14 @@ const AddExercise = ({isUser, edit, exercise}) => {
     const actorsValue = useRef('');
     let navigate = useNavigate();
 
-    const editValues = {
+    const editValues = edit === true ? {
         title: exercise.title,
         discipline: exercise.discipline,
         description: exercise.info,
         time: exercise.time,
         duration: exercise.duration,
         room: exercise.room,
-    }
+    } : null;
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -126,6 +127,9 @@ const AddExercise = ({isUser, edit, exercise}) => {
 
     return (
         <>
+            <div className="navigation" hidden={edit === true || isUser === false}>
+                <Buttonb className="trans ml-5" onClick={() => navigate('/')}>Back to home page</Buttonb>
+            </div>
             <AdminTitle title= {edit === true ? "Edit exercise" : "Add exercise"}/>
             
             <form className="m5-3 article_form" onSubmit={formik.handleSubmit}>
@@ -141,11 +145,12 @@ const AddExercise = ({isUser, edit, exercise}) => {
                     ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
                 />
                 <TextField
-                    hidden={edit === false}
+                    hidden={edit === false || isUser === true}
                     style={{width: '100%'}}
                     label="Owner"
                     variant="outlined"
-                    value={getUserDisplay(allUsers.data.filter(user => {return user.id === exercise.ownerId})[0])}
+                    value={edit === true ?
+                        getUserDisplay(allUsers.data.filter(user => {return user.id === exercise.ownerId})[0]) : null}
                     />
                 </div>
                 <div className="form-group">

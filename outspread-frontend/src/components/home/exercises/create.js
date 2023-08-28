@@ -7,7 +7,7 @@ const CreateExercise = () => {
 
     return (
         <>
-            <AddExercise isUser={true}/>
+            <AddExercise isUser={true} edit={false} exercise={null}/>
         </>
     )
 }
