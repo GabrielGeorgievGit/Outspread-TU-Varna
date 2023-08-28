@@ -36,7 +36,7 @@ const AdminExercises = () => {
             <div className="exercises_table">
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
-                        <LinkContainer to='/admin/exercises/add'>
+                        <LinkContainer to='/admin/exercise/add'>
                             <Button variant="secondary">Add exercise</Button>
                         </LinkContainer>
                     </ButtonGroup>

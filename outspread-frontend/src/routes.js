@@ -25,6 +25,7 @@ import AdminAuthGuard from './hoc/adminAuthGuard';
 import ViewExercise from './components/home/exercises';
 import CreateExercise from './components/home/exercises/create';
 import AdminAddExercise from './components/admin/exercises/edit_add';
+import AdminEditExercise from './components/admin/exercises/edit_add/edit';
 
 const Router = () => {
     const [loading, setLoading] = useState(true);
@@ -63,15 +64,16 @@ const Router = () => {
                         <Route path='/admin/login' element={<AdminLogin/>}/>
 
                         <Route path='/' element= {<AuthGuard><Home/></AuthGuard>} />
-                        <Route path='/exercise/:id' element= {<AuthGuard><ViewExercise /></AuthGuard>} />
-                        <Route path='/create/exercise' element= {<AuthGuard><CreateExercise /></AuthGuard>} />
+                        <Route path='/exercise/:id' element={<AuthGuard><ViewExercise /></AuthGuard>} />
+                        <Route path='/create/exercise' element={<AuthGuard><CreateExercise /></AuthGuard>} />
 
                         <Route path='/admin' element= {<AdminAuthGuard><AdminHome/></AdminAuthGuard>}>
                             <Route index element={<AdminMain/>}/>
                             <Route path='profiles'  element={<AdminProfiles/>}/>
                             <Route path='profiles/add'  element={<AddProfile/>}/>
                             <Route path='exercises' element={<AdminExercises/>}/>
-                            <Route path='exercises/add' element={<AdminAddExercise/>}/>
+                            <Route path='exercise/add' element={<AdminAddExercise/>}/>
+                            <Route path='exercise/edit/:id' element={<AdminEditExercise/>}/>
                             <Route path='specialties' element={<AdminSpecialties/>}/>
                             <Route path='specialties/add' element={<AddSpecialty/>}/>
                         </Route>

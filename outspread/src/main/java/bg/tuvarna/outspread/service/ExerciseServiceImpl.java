@@ -37,6 +37,12 @@ public class ExerciseServiceImpl implements ExerciseService {
 		return ExerciseMapper.mapExercise(er.createExercise(dto.getIdOwner(), dto.getTitle(), dto.getIdDiscipline(), dto.getDescription(), dto.getTime(), dto.getDuration(), room).get());
 	}
 	
+	@Override
+	public ExerciseDto editExercise(ExerciseDto dto) {
+		int roomId = er.getRoom(dto.getRoom()).getId();
+		return ExerciseMapper.mapExercise(er.editExercise(dto.getId(), dto.getOwnerId(), dto.getTitle(), dto.getDisciplineId(), dto.getInfo(), dto.getTime(), dto.getDuration(), roomId).get());
+	}
+	
 	private int getRoom(ExerciseCreateDto dto) {
 		int room = dto.getRoom();
 		

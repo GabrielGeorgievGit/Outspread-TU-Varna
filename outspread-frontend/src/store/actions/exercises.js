@@ -6,11 +6,27 @@ import { errorGlobal, successGlobal } from "../reducers/notifications";
 export const addExercise = createAsyncThunk(
     'exercises/addExercise',
     async(exercise, {dispatch})=>{
+        console.log(exercise)
         try{
             const request = await axios.post(`/exercise/create`, exercise, getAuthHeader());
             
             return request.data;
         }catch(error){
+            throw error
+        }
+    }
+)
+
+export const editExercise = createAsyncThunk(
+    'exercises/editExercise',
+    async(exercise, {dispatch})=>{
+        try{
+            const request = await axios.put(`/exercise/edit`, exercise, getAuthHeader());
+            
+            dispatch(successGlobal('Exercise updated'))
+            return request.data;
+        }catch(error){
+            dispatch(errorGlobal('Exercise not updated'))
             throw error
         }
     }

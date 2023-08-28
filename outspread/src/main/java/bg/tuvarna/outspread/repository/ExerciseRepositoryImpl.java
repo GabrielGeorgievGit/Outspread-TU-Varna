@@ -55,6 +55,26 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 		return Optional.of(exercise);
 	}
 	
+	@Override
+	@Transactional
+	public Optional<Exercise> editExercise(int exerciseId, int ownerId, String title, int disciplineId, String info, LocalDateTime time, LocalTime duration, int roomId) {
+		Exercise exercise = em.find(Exercise.class, exerciseId);
+		User user = em.find(User.class, ownerId);
+		exercise.setOwner(user);
+		exercise.setTitle(title);
+		Discipline discipline = em.find(Discipline.class, disciplineId);
+		exercise.setDiscipline(discipline);
+		exercise.setInfo(info);
+		exercise.setTime(LocalDateTime.of(time.toLocalDate(), time.toLocalTime()));
+		exercise.setDuration(LocalTime.of(duration.getHour(), duration.getMinute()));
+		Room room = em.find(Room.class, roomId);
+		exercise.setRoom(room);
+		
+		em.persist(exercise);
+		
+		return Optional.of(exercise);
+	}
+	
 	private void addReservedRoomExercise(Exercise exercise) {
 		ReserveRoom reserved = new ReserveRoom(exercise.getRoom(), exercise, exercise.getTime(), Tools.addLocaltime(exercise.getTime(), exercise.getDuration()));
 		em.persist(reserved);
@@ -132,6 +152,13 @@ public class ExerciseRepositoryImpl implements ExerciseRepository {
 	private boolean outsideTime(LocalDateTime fromT1, LocalDateTime toT1, LocalDateTime fromT2, LocalDateTime toT2) {
 		if(toT2.isBefore(fromT1) || fromT2.isAfter(toT1)) return true;
 		return false;
+	}
+	
+	@Override
+	public Room getRoom(String name) {
+		Room room = em.createQuery("Select r from Room r where r.name = :name", Room.class)
+				.setParameter("name", name).getSingleResult();
+		return room;
 	}
 
 	@Override

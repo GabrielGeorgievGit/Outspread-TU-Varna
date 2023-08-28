@@ -13,6 +13,7 @@ public interface ExerciseService {
 	List<ExerciseDto> getAllExercises();
 	ExerciseDto findExercise(int id);
 	ExerciseDto createExercise(ExerciseCreateDto dto);
+	ExerciseDto editExercise(ExerciseDto dto);
 	UserExerciseDto signUserExercise(int userId, int exerciseId) throws NotFoundException;
 	void signOutUserExercise(int userId, int exerciseId) throws NotFoundException;
 	void deleteExercise(int id);

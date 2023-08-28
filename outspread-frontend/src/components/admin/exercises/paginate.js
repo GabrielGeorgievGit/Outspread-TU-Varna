@@ -13,7 +13,6 @@ const PaginateExercise = ({
     exercises,
     goToPrevPage,
     goToNextPage,
-    goToEdit,
     handleStatusChange,
     handleShow,
     userView,
@@ -28,7 +27,15 @@ const PaginateExercise = ({
         navigate('/exercise/' + item)
     }
 
+    function goToEdit(item) {
+        if(userView === true) {
+
+        }
+        else navigate('/admin/exercise/edit/' + item)
+    }
+
     function convertTime(time) {
+        if(time === null || time === undefined) return null;
         time = time.split(':');
         if(time[0].at(0) === '0') time[0] = time[0].at(1);
         time[0] = time[0] + 'h'
@@ -40,7 +47,7 @@ const PaginateExercise = ({
     }
 
     function getDateTime(dateTime) {
-        if(dateTime === undefined) return null
+        if(dateTime === undefined || dateTime === null) return null;
         dateTime = dateTime.split('T')
         const date = dateTime[0].split('-');
         let time = dateTime[1].split(':');

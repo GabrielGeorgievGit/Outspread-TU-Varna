@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,11 @@ public class ExerciseController {
 //	@RolesAllowed({"ROLE_ADMIN_PRIME", "ROLE_ADMIN"})
 	public ResponseEntity<?> createExercise(@RequestBody ExerciseCreateDto request) {
 		return new ResponseEntity<ExerciseDto>(es.createExercise(request), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/edit")
+	public ResponseEntity<?> editExercise(@RequestBody ExerciseDto request) {
+		return new ResponseEntity<ExerciseDto>(es.editExercise(request), HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/sign/user")
