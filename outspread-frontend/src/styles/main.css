@@ -402,11 +402,6 @@ Table {
   /* margin: 0 auto; */
 }
 
-.exerciseInfo > * {
-  display: inline-flex;
-  margin-right: 5px;
-}
-
 .navigation {
   margin-bottom: 20px;
 }
@@ -439,6 +434,53 @@ Table {
   transform: translateY(0);
 }
 
+.exerciseTitle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 20px;
+  background-color: #003c9c9a;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 900;
+}
+
+.exerciseInfo {
+  margin-right: 5px;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+}
+
+.exerciseInfos {
+  /* background-color: #44348b35; */
+  
+}
+
+.Card {
+  background-color: #44348b35;
+  margin-top: 20px;
+  padding: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.cardLogin {
+  margin-top: calc(50% - 900px);
+  margin-left:  calc(50% - 400px);
+  padding: 80px;
+  height: 500px;
+  width: 800px;
+}
+
+.full {
+  position: fixed;
+  /* margin-left: -15%; */
+  width: 80%;
+  left: 10%;
+}
+.adminTitle {
+  margin-top: 20px;
+}
 /* .articles_table .table-striped>tbody>tr:nth-of-type(odd)>* {
 color: white;
 } */

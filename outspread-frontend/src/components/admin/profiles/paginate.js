@@ -30,7 +30,7 @@ const PaginateProfile = ({
         dispatch(getUserSpecialtiesSemester(specialtySemester))
     },[dispatch, specialtySemester])
     
-    const [tableData, setTableData] = useState(usersGet.data);
+    const [tableData, setTableData] = useState([]);
     
     useEffect(()=>{
         setTableData(usersGet.data)
@@ -154,6 +154,7 @@ const PaginateProfile = ({
                                     <td>{String(item.role).toLowerCase()}</td>
 
                                     <td className='bg-success text-white click'
+                                        hidden
                                         onClick={()=> goToEdit(item.id)}
                                     >
                                         Edit

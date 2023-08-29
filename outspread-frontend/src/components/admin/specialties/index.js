@@ -16,13 +16,14 @@ import {
 import { LinkContainer } from 'react-router-bootstrap'
 import PaginateSpecialty from "./paginate";
 import { getAllSpecialties } from "../../../store/actions/specialties";
+import { Card } from "@mui/material";
 
 const AdminSpecialties = () => {
 
     const navigate = useNavigate();
 
     return (
-        <>
+        <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
             <AdminTitle title="Specialties"/>
 
 
@@ -39,7 +40,7 @@ const AdminSpecialties = () => {
                     <PaginateSpecialty/>
                 </>
             </div>
-        </>
+        </Card>
     )
 }
 

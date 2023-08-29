@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import { addSpecialty, changeSpecialty, getAllDisciplines, getAllSpecialties } from "../../../../store/actions/specialties";
 // import makeAnimated from 'react-select/animated';
-import { Autocomplete, Select } from "@mui/material";
+import { Autocomplete, Card, Select } from "@mui/material";
 import makeAnimated from 'react-select/animated';
 
 const AddSpecialty = () => {
@@ -100,7 +100,7 @@ const AddSpecialty = () => {
     }
     
     return (
-        <>
+        <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
             <AdminTitle title="Add new specialty"/>
             <form 
                 className="m5-3 article_form"
@@ -173,6 +173,7 @@ const AddSpecialty = () => {
                     <div  className="form-group">
                         <InputLabel>Disciplines</InputLabel>
                         <Autocomplete
+                            style={{maxWidth: '50%'}}
                             multiple
                             disableCloseOnSelect
                             // id="tags-outlined"
@@ -186,7 +187,7 @@ const AddSpecialty = () => {
                             renderInput={(params) => (
                             <TextField
                                 {...params}
-                                // label="filterSelectedOptions"
+                                label="Select discipline"
                                 // placeholder="Favorites"
                             />
                             )}
@@ -201,7 +202,7 @@ const AddSpecialty = () => {
                     </div>
                 </form>
 
-        </>
+        </Card>
     )
 }
 

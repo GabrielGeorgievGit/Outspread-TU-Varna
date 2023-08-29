@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AdminTitle } from "../../../utils/tools";
+import { AdminTitle, Loader } from "../../../utils/tools";
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,6 +12,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import { getAllSpecialties } from "../../../store/actions/specialties";
 import PaginateProfile from "./paginate";
+import { Card } from '@mui/material';
 
 const AdminProfiles = () => {
 
@@ -34,6 +35,7 @@ const AdminProfiles = () => {
 
     return (
         <>
+        <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
             <AdminTitle title="Profiles"/>
 
             <div className="exercises_table">
@@ -62,6 +64,7 @@ const AdminProfiles = () => {
                     <PaginateProfile specialtiesMap={getSpecialtiesMap()}/>
                 </>
             </div>
+        </Card>
         </>
     )
 }

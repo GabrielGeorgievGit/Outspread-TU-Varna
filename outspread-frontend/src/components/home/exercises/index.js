@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { deleteOwnerExercise, getExercise, userSignExercise, userSignOutExercise } from "../../../store/actions/exercises";
 import { isAuth } from "../../../store/actions/users";
 import { Loader } from "../../../utils/tools";
+import { Box, Card } from "@mui/material";
 
 const ViewExercise = () => {
 
@@ -120,16 +121,19 @@ const ViewExercise = () => {
             </div>
             {
                 exercise ?
-                <>
+                <Card className="Card" style={{backgroundColor: '#44348b35'}}>
                     {/* <h2>View Exercise</h2> */}
-                    <h2>{exercise.owner}'s exercise</h2>
-                    <h4 className="exerciseInfo">Title: {exercise.title}</h4>
-                    <h4>Discipline: {exercise.discipline}</h4>
-                    <h4>Description: {exercise.info}</h4>
-                    <h4>Start: {getDateTime(exercise.time)}</h4>
-                    <h4>Duration: {convertTime(exercise.duration)}</h4>
-                    <h4>Room: {exercise.room}</h4>
-                    <h4>Signed number: {exercise.signed}</h4>
+                    <div className="exerciseInfos">
+                        <h2 className="exerciseTitle">{exercise.owner}'s exercise</h2>
+                        
+                        <h4 className="exerciseInfo">Title: {exercise.title}</h4>
+                        <h4 className="exerciseInfo">Discipline: {exercise.discipline}</h4>
+                        <h4 className="exerciseInfo">Description: {exercise.info}</h4>
+                        <h4 className="exerciseInfo">Start: {getDateTime(exercise.time)}</h4>
+                        <h4 className="exerciseInfo">Duration: {convertTime(exercise.duration)}</h4>
+                        <h4 className="exerciseInfo">Room: {exercise.room}</h4>
+                        <h4 className="exerciseInfo">Signed number: {exercise.signed}</h4>
+                    </div>
                     {/* {console.log(signed, owned)} */}
                     {
                         signed ? owned ? 
@@ -139,12 +143,12 @@ const ViewExercise = () => {
                             <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => deleteExercise()}>Delete exercise</Button>
                         </>
                         :
-                        <Button className="trans" style={{backgroundColor: 'red'}} onClick={() => signOutExercise()}>Sign out</Button>
+                        <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => signOutExercise()}>Sign out</Button>
                         :
-                        <Button className="trans" onClick={() => signExercise()}>Sign for</Button>
+                        <Button className="trans ml-5" onClick={() => signExercise()}>Sign for</Button>
                     }
                     
-                </>
+                </Card>
                 :
                 <Loader/>
             }

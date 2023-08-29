@@ -80,7 +80,7 @@ public class ExerciseController {
 	
 	@DeleteMapping("/own/delete")
 	public ResponseEntity<?> deleteOwnExericse(int ownerId, int exerciseId) {
-		try {System.out.println("here");
+		try {
 			es.deleteownExercise(ownerId, exerciseId);
 		} catch (NotFoundException e) {
 			return ResponseEntity.notFound().build();

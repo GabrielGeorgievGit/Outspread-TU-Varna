@@ -27,6 +27,7 @@ import { addExercise } from "../../../../store/actions/exercises";
 import { Dropdown } from "react-bootstrap";
 import { addUser } from "../../../../store/actions/users";
 import { getAllSpecialties } from "../../../../store/actions/specialties";
+import { Card } from "@mui/material";
 
 const AddProfile = () => {
 
@@ -56,7 +57,7 @@ const AddProfile = () => {
     const [role, setRole] = useState("STUDENT");
 
     return (
-        <>
+        <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
             <AdminTitle title="Add profile"/>
             <FormControl fullWidth>
                 <InputLabel>Select user type</InputLabel>
@@ -153,7 +154,7 @@ const AddProfile = () => {
                         {...errorHelper(formik, 'semester')}/>
                 </div>
 
-                <div className="mt-2">
+                <div className="mt-4">
                         <Button variant="contained" color="primary" type="submit"
                         size="large" disabled={!formik.isValid}>
                             Add profile
@@ -161,7 +162,7 @@ const AddProfile = () => {
                     </div>
 
             </form>
-        </>
+        </Card>
     )
 }
 

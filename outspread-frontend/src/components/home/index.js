@@ -9,6 +9,7 @@ import { getSpecialtiesSemester } from '../../store/actions/specialties';
 import { Button } from 'react-bootstrap';
 import { Loader } from '../../utils/tools';
 import { useNavigate } from 'react-router-dom';
+import { Card } from '@mui/material';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Home = () => {
     return(
         <>
             {user.data.exercisesOwned && user.data.exercisesSigned ?
-            <>
+            <Card className="Card full" >
             <div className='showButton'>
                 {showOwned ?
                 <Button className='trans ml-5' onClick={() => {setShowOwned(false)}}>Hide owned exercises &#40;{user.data.exercisesOwned.length}&#41;</Button>
@@ -72,7 +73,7 @@ const Home = () => {
             <hr/>
             <h2>Browse exercises</h2>
             <PaginateExercise exercises={exercises.exercises} userView={true} specialtiesData={specialties.data.length > 0 ? specialties.data[0].disciplines.filter(d => d.semester === user.data.semester) : []}/>
-            </>
+            </Card>
             :
             <Loader/>    
         }   

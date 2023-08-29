@@ -18,6 +18,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap'
 import PaginateExercise from "./paginate";
 import { getAllExercises } from "../../../store/actions/exercises";
+import { Card } from "@mui/material";
 
 
 const AdminExercises = () => {
@@ -31,7 +32,7 @@ const AdminExercises = () => {
     },[dispatch])
 
     return (
-        <>
+        <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
             <AdminTitle title="Exercises"/>
             <div className="exercises_table">
                 <ButtonToolbar className="mb-3">
@@ -46,7 +47,7 @@ const AdminExercises = () => {
                     <PaginateExercise exercises={exercises.exercises}/>
                 </>
             </div>
-        </>
+        </Card>
     )
 }
 
