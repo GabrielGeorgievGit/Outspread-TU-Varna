@@ -81,7 +81,8 @@ const ViewExercise = () => {
     }
 
     function deleteExercise() {
-        dispatch(deleteOwnerExercise({userId: user.id, exerciseId: exercise.id}))
+        dispatch(deleteOwnerExercise({ownerId: user.id, exerciseId: exercise.id}))
+        navigate('/')
     }
 
     function alreadySigned() {

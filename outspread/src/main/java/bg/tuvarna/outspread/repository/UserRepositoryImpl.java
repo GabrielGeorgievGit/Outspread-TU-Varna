@@ -21,6 +21,11 @@ public class UserRepositoryImpl implements UserRepository {
 	private ExerciseRepository er;
 	
 	@Override
+	public Optional<User> findUser(int id) {
+		return Optional.of(em.find(User.class, id));
+	}
+	
+	@Override
 	public Optional<User> findUser(String username) {
 		User user = null;
 		try {

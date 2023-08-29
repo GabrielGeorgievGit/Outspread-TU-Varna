@@ -108,14 +108,13 @@ export const userSignOutExercise = createAsyncThunk(
 export const deleteOwnerExercise = createAsyncThunk(
     'exercises/deleteOwnerExercise',
     async(remove, {dispatch})=>{
-        try{
-            const request = await axios.delete(`/exercise/own/delete`, {userId: remove.userId, exerciseId: remove.exerciseId}, getAuthHeader())
+        try{console.log(remove)
+            const request = await axios.delete(`/exercise/own/delete?ownerId=${remove.ownerId}&exerciseId=${remove.exerciseId}`, getAuthHeader())
             .then(response => {
                 if(response.status === 200) {
                     dispatch({error: false})
                 }
             });
-            
             dispatch(successGlobal("Exercise deleted"));
 
             return request.data;

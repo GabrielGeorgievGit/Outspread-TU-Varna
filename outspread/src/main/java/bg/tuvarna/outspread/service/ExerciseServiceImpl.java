@@ -11,8 +11,11 @@ import bg.tuvarna.outspread.dto.ExerciseCreateDto;
 import bg.tuvarna.outspread.dto.ExerciseDto;
 import bg.tuvarna.outspread.dto.RoomDto;
 import bg.tuvarna.outspread.dto.UserExerciseDto;
+import bg.tuvarna.outspread.entity.Exercise;
+import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.mapper.ExerciseMapper;
 import bg.tuvarna.outspread.repository.ExerciseRepository;
+import bg.tuvarna.outspread.repository.UserRepository;
 import bg.tuvarna.outspread.service.tools.Tools;
 
 @Service
@@ -20,6 +23,9 @@ public class ExerciseServiceImpl implements ExerciseService {
 
 	@Autowired
 	private ExerciseRepository er;
+	
+	@Autowired
+	private UserRepository ur;
 	
 	@Override
 	public List<ExerciseDto> getAllExercises() {
@@ -72,6 +78,20 @@ public class ExerciseServiceImpl implements ExerciseService {
 	@Override
 	public void deleteExercise(int id) {
 		er.deleteExericse(id);
+	}
+
+	@Override
+	public void deleteownExercise(int ownerId, int exerciseId) throws NotFoundException {
+		
+		User user = ur.findUser(ownerId).orElseThrow(() -> new NotFoundException());
+		
+		for(Exercise e : user.getExercisesOwned()) {
+			if(e.getId() == exerciseId) {
+				deleteExercise(exerciseId);
+				return;
+			}
+		}
+		throw new NotFoundException();
 	}
 
 	

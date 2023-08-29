@@ -17,6 +17,7 @@ public interface ExerciseService {
 	UserExerciseDto signUserExercise(int userId, int exerciseId) throws NotFoundException;
 	void signOutUserExercise(int userId, int exerciseId) throws NotFoundException;
 	void deleteExercise(int id);
+	void deleteownExercise(int ownerId, int exerciseId) throws NotFoundException;
 	
 	List<RoomDto> getAllRooms();
 }
