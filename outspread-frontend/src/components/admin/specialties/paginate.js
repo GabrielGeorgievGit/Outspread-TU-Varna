@@ -1,9 +1,9 @@
-import { Button, Pagination, Table } from "react-bootstrap";
-import { Loader } from "../../../utils/tools";
 import { InputLabel, MenuItem, Select } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllAllSpecialties, getAllSpecialties, getAllSpecialtiesSemester, getSpecialtiesSemester } from "../../../store/actions/specialties";
+import { Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllAllSpecialties, getSpecialtiesSemester } from "../../../store/actions/specialties";
+import { Loader } from "../../../utils/tools";
 
 const PaginateSpecialty = ({
     specialtiesNames,
@@ -28,7 +28,7 @@ const PaginateSpecialty = ({
         <>
             <div class="filters">
                 <div class="filterElement">
-                    <InputLabel class="filterLabel">Specialty</InputLabel>
+                    <InputLabel class="filterLabel">Специалност</InputLabel>
                         <Select defaultValue="1" onChange={(event) =>  setSpecialty(event.target.value)}
                         name="specialty"
                         label="specialty"
@@ -43,7 +43,7 @@ const PaginateSpecialty = ({
                 </div>
 
                 <div class="filterElement">
-                    <InputLabel class="filterLabel">Semester</InputLabel>
+                    <InputLabel class="filterLabel">Семестър</InputLabel>
                     <Select defaultValue="1" onChange={(event) => setSemester(event.target.value)}
                     name="semester"
                     label="semester"
@@ -64,9 +64,9 @@ const PaginateSpecialty = ({
                     <Table striped bordered hover >
                         <thead>
                             <tr>
-                                <th>Specialty</th>
-                                <th>Discipline</th>
-                                <th>Semester</th>
+                                <th>Специалност</th>
+                                <th>Дисциплина</th>
+                                <th>Семестър</th>
                                 {/* <th colSpan={2}>Actions</th> */}
                             </tr>
                         </thead>
@@ -78,57 +78,10 @@ const PaginateSpecialty = ({
 
                                         <td>{discipline.name}</td>
                                         <td>{discipline.semester}</td>
-                                    
-                                        {/* <td className='bg-success text-white'
-                                        onClick={()=> goToEdit(item.id)}
-                                        >
-                                        Edit
-                                        </td>
-                                        <td
-                                            className="bg-danger text-white"
-                                            onClick={()=> alert(item.id) }
-                                        >
-                                            Remove
-                                        </td> */}
-                                        {/* <td className='action_btn status_btn'
-                                            onClick={()=> handleStatusChange(item.status,item.id)}
-                                        >
-                                            {item.status}
-                                        </td> */}
                                     </tr>
                             ) : null) : null)}
                         </tbody>
-                    </Table>{/*
-                    <Pagination>
-                        { exercises.hasPrevPage ?
-                            <>
-                                <Pagination.Prev 
-                                    onClick={()=> goToPrevPage(exercises.prevPage)}
-                                />
-                                <Pagination.Item
-                                    onClick={()=> goToPrevPage(exercises.prevPage)}
-                                >
-                                    {exercises.prevPage}
-                                </Pagination.Item>
-                            </>
-                            :null
-                        }
-                        <Pagination.Item active>{exercises.page}</Pagination.Item>
-                        { exercises.hasNextPage ?
-                            <>
-                                <Pagination.Item
-                                    onClick={()=> goToNextPage(exercises.nextPage)}
-                                >
-                                    {exercises.nextPage}
-                                </Pagination.Item>
-                                <Pagination.Next
-                                    onClick={()=> goToNextPage(exercises.nextPage)}
-                                />
-                            </>
-                        :null
-                        }
-
-                    </Pagination>*/}
+                    </Table>
                 </>
             :
                 <Loader/>

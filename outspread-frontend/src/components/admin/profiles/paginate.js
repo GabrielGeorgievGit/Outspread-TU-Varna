@@ -75,7 +75,7 @@ const PaginateProfile = ({
                     <FormControl className="bg"
                     onChange={(event) => setSearchText(event.target.value)}
                     type="text"
-                    placeholder="Търси"
+                    placeholder="Търсене"
                 />
             </InputGroup>
             
@@ -85,7 +85,7 @@ const PaginateProfile = ({
                     <Select 
                     class="filterSelect"
                     defaultValue="1"
-                    onChange={(event) =>  {setSpecialtySemester({...specialtySemester, specialty: event.target.value}); }}
+                    onChange={(event) => {setSpecialtySemester({...specialtySemester, specialty: event.target.value});}}
                     name="specialty"
                     labelId="specialty"
                     >

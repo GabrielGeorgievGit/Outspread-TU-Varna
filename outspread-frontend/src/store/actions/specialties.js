@@ -75,11 +75,11 @@ export const addSpecialty = createAsyncThunk(
         try{
             const request = await axios.post(`/specialty/add`, specialty, getAuthHeader());
             
-            dispatch(successGlobal("Specialty " + specialty.name + " added"))
+            dispatch(successGlobal("Специалността " + specialty.name + " е добавена"))
             
             return request.data;
         }catch(error){
-            dispatch(errorGlobal("This specialty already exists"))
+            dispatch(errorGlobal("Специалност с това име вече съществува"))
         }
     }
 )
@@ -102,11 +102,11 @@ export const changeSpecialty = createAsyncThunk(
     async(specialty, {dispatch})=>{
         try{
             const request = await axios.put(`/specialty/change`, {id: specialty.specialty, name: specialty.specialtyName, semester: specialty.semester, disciplines: specialty.disciplines}, getAuthHeader());
-            dispatch(successGlobal("Specialty changed"));
+            dispatch(successGlobal("Специалността е променена"));
 
             return request.data;
         }catch(error){
-            dispatch(errorGlobal("Error"));
+            dispatch(errorGlobal("Грешка при промяната на специалност"));
             throw error
         }
     }

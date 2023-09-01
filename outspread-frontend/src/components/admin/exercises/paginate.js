@@ -23,7 +23,6 @@ const PaginateExercise = ({
     const navigate = useNavigate();
     
     function goToView(item) {
-        // dispatch(getExercise(item))
         navigate('/exercise/' + item)
     }
 
@@ -38,12 +37,12 @@ const PaginateExercise = ({
         if(time === null || time === undefined) return null;
         time = time.split(':');
         if(time[0].at(0) === '0') time[0] = time[0].at(1);
-        time[0] = time[0] + 'h'
+        time[0] = time[0] + 'ч'
         
         if(time[1] === '00') return time[0]
-        time[1] = time[1] + 'min'
+        time[1] = time[1] + 'мин'
         
-        return time[0] + (time[1] === '00' ? "null" : (' and ' + time[1]));
+        return time[0] + (time[1] === '00' ? "няма" : (' и ' + time[1]));
     }
 
     function getDateTime(dateTime) {
@@ -52,7 +51,7 @@ const PaginateExercise = ({
         const date = dateTime[0].split('-');
         let time = dateTime[1].split(':');
 
-        return date[2] + '-' + date[1] + '-' + date[0] + ' at ' + time[0] + ':' + time[1]
+        return date[2] + '-' + date[1] + '-' + date[0] + ' от ' + time[0] + ':' + time[1]
     }
     const dispatch = useDispatch();
     const specialties = useSelector(state => state.specialties)
@@ -125,7 +124,7 @@ const PaginateExercise = ({
     }
 
     function remove(exercise) {
-        ModalDialog("Do you want to remove '" + exercise.owner + "'s exercise " + exercise.title, 
+        ModalDialog("Искате ли да изтриете упражнението на '" + exercise.owner + "' с заглавие: " + exercise.title, 
         deleteExerciseF, exercise.id)
     }
 
@@ -134,13 +133,13 @@ const PaginateExercise = ({
             { exercises ?
                 <>
                     <div hidden={hideFilters}>
-                        <h3>Filters</h3>
+                        <h3>Филтри</h3>
                         <InputGroup className="search">
                             <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
                                 <FormControl className="bg"
                                 onChange={(event) => setSearchText(event.target.value)}//searching(event.target.value)}
                                 type="text"
-                                placeholder="Search"
+                                placeholder="Търсене"
                             />
                         </InputGroup>
 
@@ -155,7 +154,7 @@ const PaginateExercise = ({
                                     disablePortal
                                     options={specialties.disciplines}
                                     isOptionEqualToValue={(option, value)=> option.id === value.id}
-                                    renderInput={(params) => <TextField name="" {...params} label="Discipline" />}
+                                    renderInput={(params) => <TextField name="" {...params} label="Дисциплина" />}
                                     
                                     ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
                                 />
@@ -165,9 +164,8 @@ const PaginateExercise = ({
                             </div>
 
                             <div className="filterElementRight" hidden={!userView}>
-                                <InputLabel>Filter by my disciplines
+                                <InputLabel>Филтриране по моите дисциплини
                                     <Checkbox onChange={(event) => {setMyDisciplineCheck(event.target.checked);}}/>
-                                    {/* event.target.checked ? filterMyDisciplines() : applyFilters()}}/> */}
                                 </InputLabel>
                             </div>
                         </div>
@@ -176,14 +174,14 @@ const PaginateExercise = ({
                     striped bordered hover >
                         <thead>
                             <tr>
-                                <th className="headerSortText" onClick={() => sortByProp("owner")}>Owner <div className="headerSort"/></th>
-                                <th className="headerSortText" onClick={() => sortByProp("title")}>Title <div className="headerSort"/></th>
-                                <th className="headerSortText" onClick={() => sortByProp("discipline")}>Discipline <div className="headerSort"/></th>
-                                <th className="headerSortText" onClick={() => sortByProp("time")}>Start <div className="headerSort"/></th>
-                                <th className="headerSortText" onClick={() => sortByProp("duration")}>Duration <div className="headerSort"/></th>
-                                <th className="headerSortText" onClick={() => sortByProp("room")}>Room <div className="headerSort"/></th>
-                                <th className="headerSortText" onClick={() => sortByProp("signed")}>Signed<div className="headerSort"/></th>
-                                <th colSpan={2}>Actions</th>
+                                <th className="headerSortText" onClick={() => sortByProp("owner")}>Собственик <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("title")}>Заглавие <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("discipline")}>Дисциплина <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("time")}>Начало <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("duration")}>Продължителност <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("room")}>Стая <div className="headerSort"/></th>
+                                <th className="headerSortText" onClick={() => sortByProp("signed")}>Записали се<div className="headerSort"/></th>
+                                <th colSpan={2}>Функции</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -191,8 +189,7 @@ const PaginateExercise = ({
                                 <tr key={item.id}>
                                     <td>{item.owner}</td>
                                     <td>{cutText(item.title, 40)}</td>
-                                    <td>{item.discipline ? item.discipline : "none"}</td>
-                                    {/* <td>{item.info}</td> */}
+                                    <td>{item.discipline ? item.discipline : "няма"}</td>
                                     <td>{getDateTime(item.time)}</td>
                                     <td>{convertTime(item.duration)}</td>
                                     <td>{item.room}</td>
@@ -202,57 +199,27 @@ const PaginateExercise = ({
                                          <td className='bg-success text-white click'
                                          onClick={()=> goToView(item.id)}
                                          >
-                                         View
+                                         Отвори
                                          </td>
                                         :
                                         <>
                                             <td className='bg-success text-white click'
                                             onClick={()=> goToEdit(item.id)}
                                             >
-                                            Edit
+                                            Редактирай
                                             </td>
                                             <td
                                                 className="bg-danger text-white click"
                                                 onClick={()=> remove(item) }
                                             >
-                                                Remove
+                                                Изтрий
                                             </td>
                                         </>
                                     }
                                 </tr>
                             ))}
                         </tbody>
-                    </Table>{/*
-                    <Pagination>
-                        { exercises.hasPrevPage ?
-                            <>
-                                <Pagination.Prev 
-                                    onClick={()=> goToPrevPage(exercises.prevPage)}
-                                />
-                                <Pagination.Item
-                                    onClick={()=> goToPrevPage(exercises.prevPage)}
-                                >
-                                    {exercises.prevPage}
-                                </Pagination.Item>
-                            </>
-                            :null
-                        }
-                        <Pagination.Item active>{exercises.page}</Pagination.Item>
-                        { exercises.hasNextPage ?
-                            <>
-                                <Pagination.Item
-                                    onClick={()=> goToNextPage(exercises.nextPage)}
-                                >
-                                    {exercises.nextPage}
-                                </Pagination.Item>
-                                <Pagination.Next
-                                    onClick={()=> goToNextPage(exercises.nextPage)}
-                                />
-                            </>
-                        :null
-                        }
-
-                    </Pagination>*/}
+                    </Table>
                 </>
             :
                 <Loader/>

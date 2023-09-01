@@ -1,31 +1,25 @@
-import { AdminTitle } from "../../../utils/tools"
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
+import { AdminTitle } from "../../../utils/tools";
 // import PaginateComponent from './paginate';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import {
-    Modal,
-    Button,
-    ButtonToolbar,
-    ButtonGroup,
-    InputGroup,
-    FormControl,
-    Dropdown
-} from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap'
-import PaginateExercise from "./paginate";
-import { getAllExercises } from "../../../store/actions/exercises";
 import { Card } from "@mui/material";
+import {
+    Button,
+    ButtonGroup,
+    ButtonToolbar,
+} from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { getAllExercises } from "../../../store/actions/exercises";
+import PaginateExercise from "./paginate";
 
 
 const AdminExercises = () => {
 
     const exercises = useSelector(state=>state.exercises)
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(()=>{
         dispatch(getAllExercises())
@@ -33,12 +27,12 @@ const AdminExercises = () => {
 
     return (
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
-            <AdminTitle title="Exercises"/>
+            <AdminTitle title="Упражнения"/>
             <div className="exercises_table">
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
                         <LinkContainer to='/admin/exercise/add'>
-                            <Button variant="secondary">Add exercise</Button>
+                            <Button variant="secondary">Добави упражнение</Button>
                         </LinkContainer>
                     </ButtonGroup>
                 </ButtonToolbar>

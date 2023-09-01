@@ -11,9 +11,8 @@ import TextField from '@mui/material/TextField';
  
 import InputLabel from '@mui/material/InputLabel';
 import { addSpecialty, changeSpecialty, getAllDisciplines, getAllSpecialties } from "../../../../store/actions/specialties";
-// import makeAnimated from 'react-select/animated';
+
 import { Autocomplete, Card, Select } from "@mui/material";
-import makeAnimated from 'react-select/animated';
 
 const AddSpecialty = () => {
 
@@ -22,7 +21,6 @@ const AddSpecialty = () => {
 
     const [specialty, setSpecialty] = useState({id: 0, name: '', disciplines: []});
     const [semester, setSemester] = useState('1');
-    const animatedComponents = makeAnimated();
     
     const [selectedDisciplines, setSelectedDisciplines] = useState([]);
     
@@ -41,9 +39,9 @@ const AddSpecialty = () => {
         initialValues: {name: ''},
         validationSchema: Yup.object({
             name: Yup.string()
-            .required('The specialty name field is required')
-            .min(2, "Specialty name should be minimum 2 characters")
-            .max(100, "Specialty name can't exceed 100 characters")
+            .required('Задължително поле')
+            .min(2, "Полето не може да бъде под 2 символа")
+            .max(100, "Полето не може да надвишава 100 символа")
         }),
         onSubmit: (value) => {
             dispatch(addSpecialty(value))
@@ -56,9 +54,9 @@ const AddSpecialty = () => {
         initialValues: {specialty: specialty.id, specialtyName: specialty.name, semester: semester, disciplines: selectedDisciplines},
         validationSchema: Yup.object({
             specialtyName: Yup.string()
-            .required('The specialty name field is required')
-            .min(2, "Specialty name should be minimum 2 characters")
-            .max(100, "Specialty name can't exceed 100 characters")
+            .required('Задължително поле')
+            .min(2, "Полето не може да бъде под 2 символа")
+            .max(100, "Полето не може да надвишава 100 символа")
         }),
         onSubmit: (values) => {
             dispatch(changeSpecialty(values))
@@ -73,26 +71,6 @@ const AddSpecialty = () => {
     function setDisciplines(specialty, semester) {
         setSelectedDisciplines(specialty.disciplines.filter(item => item.semester === semester).map(item => item = {id: item.id, name: item.name}))
     }
-    
-    const editSpecialtyChanged = event => {
-        specialtyEditFormik.setFieldValue("specialtyName", event.target.value)
-    }
-
-    function disciplineNames(arr) {
-        let res = arr.map(item => item.name);
-        console.log(res);
-        return res;
-    }
-
-    function allDisciplinesSemester() {
-        return specialty.disciplines.filter(item => item.semester === semester)
-        // return specialties.all.map(specialty => specialty.specialtyName === specialty ? 
-        //     specialty.disciplines.map(discipline => discipline.semester === semester ? {id: discipline.id, label: discipline.name} : null) : null)//.filter(item => item != null)
-    }
-
-    function getSpecialty(specialty) {
-        return specialties.all.map(specialty => specialty.specialtyName === specialty)
-    }
 
     function allSpecialties() {
         return specialties.all.map(item=>({id: item.specialtyId, name: item.specialtyName, disciplines: item.disciplines}   
@@ -101,7 +79,7 @@ const AddSpecialty = () => {
     
     return (
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
-            <AdminTitle title="Add new specialty"/>
+            <AdminTitle title="Добавяне на нова специалност"/>
             <form 
                 className="m5-3 article_form"
                 onSubmit={specialtyAddFormik.handleSubmit}>
@@ -109,7 +87,7 @@ const AddSpecialty = () => {
                     <TextField
                         style={{width: '50%'}}
                         name="specialtyName"
-                        label="New specialty to add"
+                        label="Име на нова специалност"
                         variant="outlined"
                         {...specialtyAddFormik.getFieldProps('name')}
                         {...errorHelper(specialtyAddFormik, 'name')}
@@ -118,13 +96,13 @@ const AddSpecialty = () => {
                     <div className="mt-2">
                         <Button variant="contained" color="primary" type="submit"
                         size="large" disabled={!specialtyAddFormik.isValid}>
-                            Add specialty
+                            Добави
                         </Button>
                     </div>
                 </div>
 
             </form>
-            <AdminTitle title="Edit specialty"/>
+            <AdminTitle title="Промяна на специалност"/>
                 <form
                  className="m5-3 article_form"
                  onSubmit={specialtyEditFormik.handleSubmit}
@@ -137,7 +115,7 @@ const AddSpecialty = () => {
                             disablePortal
                             options={allSpecialties()}
                             isOptionEqualToValue={(option, value)=> option.name === value.name}
-                            renderInput={(params) => <TextField {...params} label="Specialty" />}
+                            renderInput={(params) => <TextField {...params} label="Специалност" />}
                             
                         />
                     </div>
@@ -145,7 +123,7 @@ const AddSpecialty = () => {
                         <TextField
                             style={{width: '50%'}}
                             name="specialtyName"
-                            label="Edit specialty name"
+                            label="Промяна на името на специалност"
                             variant="outlined"
                             value={specialty.name}
                             {...specialtyEditFormik.getFieldProps('specialtyName')}
@@ -154,7 +132,7 @@ const AddSpecialty = () => {
                     </div>
                     
                     <div  className="form-group">
-                        <InputLabel>Semester</InputLabel>
+                        <InputLabel>Семестър</InputLabel>
                         <Select defaultValue="1" onChange={(event) => setSemester(event.target.value)}
                         name="semester"
                         label="semester"
@@ -171,7 +149,6 @@ const AddSpecialty = () => {
                     </div>
 
                     <div  className="form-group">
-                        <InputLabel>Disciplines</InputLabel>
                         <Autocomplete
                             style={{maxWidth: '50%'}}
                             multiple
@@ -187,8 +164,7 @@ const AddSpecialty = () => {
                             renderInput={(params) => (
                             <TextField
                                 {...params}
-                                label="Select discipline"
-                                // placeholder="Favorites"
+                                label="Дисциплини"
                             />
                             )}
                         />
@@ -197,7 +173,7 @@ const AddSpecialty = () => {
                     <div className="mt-2">
                         <Button variant="contained" color="primary" type="submit"
                         size="large" disabled={!specialtyEditFormik.isValid}>
-                            Change specialty
+                            Промени
                         </Button>
                     </div>
                 </form>
