@@ -44,8 +44,8 @@ const AddExercise = ({isUser, edit, exercise}) => {
     const [selectedRoom, setSelectedRoom] = useState(edit === true ? {name: exercise.room} : {});
 
     const [autoRoom, setAutoRoom] = useState(false);
-    const [dateTime, setDateTime] = useState();
-    const [duration, setDuration] = useState();
+    const [dateTime, setDateTime] = useState(edit === true ? exercise.time : {});
+    const [duration, setDuration] = useState(edit === true ? exercise.duration : {});
 
     const actorsValue = useRef('');
     let navigate = useNavigate();
