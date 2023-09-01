@@ -67,7 +67,7 @@ const Login = () => {
 
                         <TextField
                             name="потребител"
-                            label="Въведи потребителско име"
+                            label="Потребителско име"
                             variant='outlined'
                             {...formik.getFieldProps('username')}
                             {...errorHelper(formik, 'username')}
@@ -75,7 +75,7 @@ const Login = () => {
 
                         <TextField
                             name="парола"
-                            label="Въведи парола"
+                            label="Парола"
                             type="password"
                             variant='outlined'
                             {...formik.getFieldProps('password')}

@@ -36,33 +36,18 @@ const AdminProfiles = () => {
     return (
         <>
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
-            <AdminTitle title="Profiles"/>
+            <AdminTitle title="Профили"/>
 
             <div className="exercises_table">
                 <ButtonToolbar className="mb-3">
                     <ButtonGroup className="me-2">
                         <LinkContainer to='/admin/profiles/add'>
-                            <Button variant="secondary">Add new profile</Button>
+                            <Button variant="secondary">Добави нов профил</Button>
                         </LinkContainer>
-                        
-                        {/* <Dropdown className="">
-                            <Dropdown.Toggle variant="info" id="dropdown-basic">
-                                Dropdown Button
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown> */}
                     </ButtonGroup>
-                    
                 </ButtonToolbar>
                 
-                <>
-                    <PaginateProfile specialtiesMap={getSpecialtiesMap()}/>
-                </>
+                <PaginateProfile specialtiesMap={getSpecialtiesMap()}/>
             </div>
         </Card>
         </>

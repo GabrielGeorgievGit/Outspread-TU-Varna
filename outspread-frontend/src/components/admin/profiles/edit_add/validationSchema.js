@@ -13,37 +13,24 @@ export const formValues = {
 export const validation = () => (
     Yup.object({
         username:Yup.string()
-        .required('The username is required')
-        .max(30, "The username can't exceed 30 characters"),
+        .required('Задължително поле')
+        .max(30, "Полето не може да превишава 30 знака"),
         password:Yup.string()
-        .required('Password is required')
-        .max(50,"The password can't exceed 50 characters"),
+        .required('Задължително поле')
+        .max(50,"Полето не може да превишава 50 знака"),
         fullname:Yup.string()
-        .required('Full name is required')
-        .max(50,"Full name can't exceed 50 characters"),
+        .required('Задължително поле')
+        .max(50,"Полето не може да превишава 50 знака"),
         fn:Yup.string()
-        .required('Student number is required')
-        .min(8,"The student number can't be less than 8 characters")
-        .max(8,"The student number can't exceed 8 characters"),
+        .required('Задължително поле')
+        .min(8,"Дължината на полето трябва да бъде 8 символа")
+        .max(8,"Дължината на полето трябва да бъде 8 символа"),
         specialtyId:Yup.string()
-        .required('Specialty is required')
-        .max(100, "The specialty can't exceed 100 characters"),
+        .required('Задължително поле')
+        .max(100, "Дължината на полето не може да надвишава 100 символа"),
         semester:Yup.number()
-        .required('Semester is required')
-        .max(1, "The semester starts from 1")
-        .max(8, "The semester can't exceed 8")
-        /*
-        score: Yup.number()
-        .required('Sorry the score is required')
-        .min(0,'0 is the minimum')
-        .max(100,'100 is the max'),
-        director:Yup.string()
-        .required('Sorry the director is required'),
-        actors:Yup.array()
-        .required('Must have actors')
-        .min(3,'Minimum is 3'),
-        status:Yup.string()
-        .required('Sorry the status is required'),
-        */
+        .required('Задължително поле')
+        .min(1, "Семестъра започва от 1")
+        .max(8, "Семесъра не надвишава 8")
     })
 )

@@ -15,8 +15,6 @@ import { loginAdmin } from "../../store/actions/admins";
 import { Card } from "@mui/material";
 
 const AdminLogin = () => {
-    
-    // const [register, setRegister] = useState(true);
     let navigate = useNavigate()
     //redux
     const users = useSelector(state => state.users);
@@ -27,9 +25,9 @@ const AdminLogin = () => {
         initialValues: {username: 'pesho', password: 'pesho'},
         validationSchema: Yup.object({
             username: Yup.string()
-            .required('The username field is required'),
+            .required('Задължително поле'),
             password: Yup.string()
-            .required('The password field is required')
+            .required('Задължително поле')
             .min(3)
             .max(10)
             
@@ -52,7 +50,7 @@ const AdminLogin = () => {
     return (
         <SignGuard users={users}>
             <div className="auth_container">
-                <h1>Login</h1>
+                <h1>Вход</h1>
                 { users.loading ? 
                     <Loader/>
                     :
@@ -66,7 +64,7 @@ const AdminLogin = () => {
 
                         <TextField
                             name="username"
-                            label="Enter your username"
+                            label="Потребителско име"
                             variant='outlined'
                             {...formik.getFieldProps('username')}
                             {...errorHelper(formik, 'username')}
@@ -74,7 +72,7 @@ const AdminLogin = () => {
 
                         <TextField
                             name="password"
-                            label="Enter your password"
+                            label="Парола"
                             type="password"
                             variant='outlined'
                             {...formik.getFieldProps('password')}
@@ -84,7 +82,7 @@ const AdminLogin = () => {
                         <div className="mt-2">
                             <Button variant="contained" color="primary" type="submit"
                             size="large" disabled={!formik.isValid}>
-                                {'Login'}
+                                Вход
                             </Button>
                         </div>
 

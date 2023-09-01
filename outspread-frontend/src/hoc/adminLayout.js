@@ -10,15 +10,15 @@ const AdminLayout = (props) => {
                     <div>
                         <List>
                             <ListItemButton component={RouterLink} to="/admin/profiles">
-                                <ListItemText primary="Profiles"/>
+                                <ListItemText primary="Профили"/>
                             </ListItemButton>
 
                             <ListItemButton component={RouterLink} to="/admin/exercises">
-                                <ListItemText primary="Exercises"/>
+                                <ListItemText primary="Упражнения"/>
                             </ListItemButton>
 
                             <ListItemButton component={RouterLink} to="/admin/specialties">
-                                <ListItemText primary="Specialties"/>
+                                <ListItemText primary="Специалности"/>
                             </ListItemButton>
                         </List>
                     </div>

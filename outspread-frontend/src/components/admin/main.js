@@ -14,8 +14,8 @@ const AdminMain = () => {
 
     return (
         <>
-            <AdminTitle title="Admin"/>
-            Hello {admin.data.username}
+            <AdminTitle title="Администратриране"/>
+            Здравейте, {admin.data.username}
         </>
     )
 }

@@ -1,11 +1,10 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Button, FormControl, InputGroup, Table } from "react-bootstrap";
+import { FormControl, InputGroup, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpecialties } from "../../../store/actions/specialties";
 import { deleteUser, getUserSpecialtiesSemester } from "../../../store/actions/users";
 import { Loader } from "../../../utils/tools";
-import Popup from 'reactjs-popup';
 import ModalDialog from "../../popup/modal";
 
 const PaginateProfile = ({
@@ -23,7 +22,6 @@ const PaginateProfile = ({
     
     const [specialtySemester, setSpecialtySemester] = useState({specialty: 1, semester: '1'})
     const [searchText, setSearchText] = useState('');
-    const [popup, setPopup] = useState(false);
 
     useEffect(()=>{
         dispatch(getAllSpecialties())
@@ -39,21 +37,6 @@ const PaginateProfile = ({
     useEffect(()=>{
         setTableData(usersGet.data.filter(item => objContains(item, searchText)))
     },[searchText])
-
-    function filteredData(arr, text) {
-        return text ?
-        arr.filter(item => objContains(item, text))
-        :
-        []
-    }
-
-    function searching(text) {
-        if(String.toString(text).length === 0) {
-            setTableData(usersGet.data);
-            return;
-        }
-        else setTableData(filteredData(usersGet.data))
-    }
 
     function objContains(obj, text) {
         const values = Object.values(obj);
@@ -75,25 +58,30 @@ const PaginateProfile = ({
     }
 
     function remove(user) {
-        ModalDialog("Do you want to remove user '" + user.username + "'(" + user.fullname + ") " + user.fn, 
+        ModalDialog("Искате ли да изтриете профила '" + user.username + "'(" + user.fullname + ") " + user.fn, 
         deleteUserF, user.id)
+    }
+
+    function roleBg(role) {
+        if(role === 'teacher') return 'преподавател';
+        return 'студент';
     }
 
     return(
         <>
-            <h3>Filters</h3>
+            <h3>Филтри</h3>
             <InputGroup  className="search">
                 <InputGroup.Text id="btngrp1" >@</InputGroup.Text>
                     <FormControl className="bg"
                     onChange={(event) => setSearchText(event.target.value)}
                     type="text"
-                    placeholder="Search"
+                    placeholder="Търси"
                 />
             </InputGroup>
             
             <div class="filters">
                 <div class="filterElement">
-                    <InputLabel class="filterLabel" id="specialty">Specialty</InputLabel>
+                    <InputLabel class="filterLabel" id="specialty">Специалност</InputLabel>
                     <Select 
                     class="filterSelect"
                     defaultValue="1"
@@ -110,7 +98,7 @@ const PaginateProfile = ({
                     </Select>
                 </div>
                 <div class="filterElement">
-                    <InputLabel class="filterLabel" id="semester">Semester</InputLabel>
+                    <InputLabel class="filterLabel" id="semester">Семестър</InputLabel>
                     <Select 
                     class="filterSelect"
                     defaultValue="1" 
@@ -136,12 +124,12 @@ const PaginateProfile = ({
                     style={{marginTop: "20px"}} >
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Student number</th>
-                                <th>Specialty</th>
-                                <th>Semester</th>
-                                <th>User type</th>
-                                <th colSpan={2}>Actions</th>
+                                <th>Име</th>
+                                <th>Номер на студент</th>
+                                <th>Специалност</th>
+                                <th>Семестър</th>
+                                <th>Тип на акаунт</th>
+                                <th colSpan={2}>Функции</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -151,67 +139,28 @@ const PaginateProfile = ({
                                     <td>{item.fn ? item.fn : "none"}</td>
                                     <td>{specialtiesMap.get(item.specialtyId)}</td>
                                     <td>{item.semester}</td>
-                                    <td>{String(item.role).toLowerCase()}</td>
+                                    <td>{roleBg(String(item.role).toLowerCase())}</td>
 
                                     <td className='bg-success text-white click'
                                         hidden
                                         onClick={()=> goToEdit(item.id)}
                                     >
-                                        Edit
+                                        Редактиране
                                     </td>
                                     <td
                                         className="bg-danger text-white click"
                                         onClick={()=> remove(item) }
                                     >
-                                     Remove   
+                                     Изтриване
                                     </td>
-                                    {/* <td className='action_btn status_btn'
-                                        onClick={()=> handleStatusChange(item.status,item.id)}
-                                    >
-                                        {item.status}
-                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
-                    
-                    {/*
-                    <Pagination>
-                        { exercises.hasPrevPage ?
-                            <>
-                                <Pagination.Prev 
-                                    onClick={()=> goToPrevPage(exercises.prevPage)}
-                                />
-                                <Pagination.Item
-                                    onClick={()=> goToPrevPage(exercises.prevPage)}
-                                >
-                                    {exercises.prevPage}
-                                </Pagination.Item>
-                            </>
-                            :null
-                        }
-                        <Pagination.Item active>{exercises.page}</Pagination.Item>
-                        { exercises.hasNextPage ?
-                            <>
-                                <Pagination.Item
-                                    onClick={()=> goToNextPage(exercises.nextPage)}
-                                >
-                                    {exercises.nextPage}
-                                </Pagination.Item>
-                                <Pagination.Next
-                                    onClick={()=> goToNextPage(exercises.nextPage)}
-                                />
-                            </>
-                        :null
-                        }
-
-                    </Pagination>*/}
                 </>
             :
                 <Loader/>
             }
-
-
         </>
     )
 

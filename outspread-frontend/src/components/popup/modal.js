@@ -6,8 +6,8 @@ export default function ModalDialog(title, yes, param) {
     title: title,
     showDenyButton: true,
     showCancelButton: false,
-    confirmButtonText: 'Yes',
-    denyButtonText: `No`,
+    confirmButtonText: 'Да',
+    denyButtonText: `Не`,
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {

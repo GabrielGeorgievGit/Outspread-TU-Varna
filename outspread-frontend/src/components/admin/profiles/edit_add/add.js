@@ -1,33 +1,23 @@
-import { useState, useRef, useEffect } from "react";
-import { useFormik, FieldArray, FormikProvider } from "formik";
+import { useFormik } from "formik";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AdminTitle } from "../../../../utils/tools"
-import { errorHelper, Loader } from "../../../../utils/tools";
-import { validation, formValues } from "./validationSchema";
+import { AdminTitle, errorHelper } from "../../../../utils/tools";
+import { formValues, validation } from "./validationSchema";
 
 import { useDispatch, useSelector } from "react-redux";
 // MUI
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button' 
-import Divider from '@mui/material/Divider' 
-import Chip from '@mui/material/Chip'
-import Paper from '@mui/material/Paper'
-import InputBase from '@mui/material/InputBase'
-import IconButton from '@mui/material/IconButton'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
  
-import InputLabel from '@mui/material/InputLabel';
-import AddIcon from '@mui/icons-material/Add';
-import { visuallyHidden } from '@mui/utils';
-import { addExercise } from "../../../../store/actions/exercises";
-import { Dropdown } from "react-bootstrap";
-import { addUser } from "../../../../store/actions/users";
-import { getAllSpecialties } from "../../../../store/actions/specialties";
 import { Card } from "@mui/material";
+import InputLabel from '@mui/material/InputLabel';
+import { getAllSpecialties } from "../../../../store/actions/specialties";
+import { addUser } from "../../../../store/actions/users";
 
 const AddProfile = () => {
 
@@ -60,14 +50,14 @@ const AddProfile = () => {
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
             <AdminTitle title="Add profile"/>
             <FormControl fullWidth>
-                <InputLabel>Select user type</InputLabel>
+                <InputLabel>Избери тип на профил</InputLabel>
                 <Select defaultValue="student" onChange={(event) => setRole(event.target.value)}
                 name="profile"
                 label="Select profile"
                 error={formik.errors.status && formik.touched.status ? true : false}
                 >
-                    <MenuItem value="student">Student</MenuItem>
-                    <MenuItem value="teacher">Teacher</MenuItem>
+                    <MenuItem value="student">Студент</MenuItem>
+                    <MenuItem value="teacher">Преподавател</MenuItem>
                 </Select>
                 {formik.errors.status && formik.touched.status ?
                 
@@ -83,7 +73,7 @@ const AddProfile = () => {
                     <TextField
                         style={{width: '30%'}}
                         name="username"
-                        label="Enter a username"
+                        label="Потребителско име"
                         variant="outlined"
                         {...formik.getFieldProps('username')}
                         {...errorHelper(formik, 'username')}/>
@@ -94,7 +84,7 @@ const AddProfile = () => {
                             type="password"
                             style={{width: '30%'}}
                             name="password"
-                            label="Enter a password"
+                            label="Парола"
                             variant="outlined"
                             {...formik.getFieldProps('password')}
                             {...errorHelper(formik, 'password')}/>
@@ -104,7 +94,7 @@ const AddProfile = () => {
                     <TextField
                         style={{width: '30%'}}
                         name="fullname"
-                        label="Enter user's full name"
+                        label="Пълно име на студент"
                         variant="outlined"
                         {...formik.getFieldProps('fullname')}
                         {...errorHelper(formik, 'fullname')}/>
@@ -114,7 +104,7 @@ const AddProfile = () => {
                     <TextField
                         style={{width: '30%'}}
                         name="fn"
-                        label="Enter student number"
+                        label="Студентски номер"
                         variant="outlined"
                         {...formik.getFieldProps('fn')}
                         {...errorHelper(formik, 'fn')}/>
@@ -122,10 +112,10 @@ const AddProfile = () => {
                 
                 <div className="form-group">
                     <FormControl style={{width: '30%'}}>
-                        <InputLabel>Select specialty</InputLabel>
+                        <InputLabel>Специалност</InputLabel>
                         <Select
                         name="specialtyId"
-                        label="Select specialty"
+                        label="Специалност"
                         {...formik.getFieldProps('specialtyId')}
                         error={formik.errors.status && formik.touched.status ? true : false}
                         >
@@ -148,7 +138,7 @@ const AddProfile = () => {
                     <TextField
                         style={{width: '30%'}}
                         name="semester"
-                        label="Enter semester"
+                        label="Семестър"
                         variant="outlined"
                         {...formik.getFieldProps('semester')}
                         {...errorHelper(formik, 'semester')}/>
@@ -157,7 +147,7 @@ const AddProfile = () => {
                 <div className="mt-4">
                         <Button variant="contained" color="primary" type="submit"
                         size="large" disabled={!formik.isValid}>
-                            Add profile
+                            Добави
                         </Button>
                     </div>
 

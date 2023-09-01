@@ -3,7 +3,6 @@ import { errorGlobal, successGlobal } from '../reducers/notifications'
 import axios from 'axios'
 import { getAuthHeader, removeTokenCookie } from '../../utils/tools'
 import cookie from 'react-cookies'
-import { useNavigate } from 'react-router-dom'
 
 export const loginUser = createAsyncThunk(
     'user/login',
@@ -14,13 +13,13 @@ export const loginUser = createAsyncThunk(
                 password: password
             })
             removeTokenCookie()
-            dispatch(successGlobal('Welcome!!'))
+            dispatch(successGlobal('Добре дошли!'))
             const jwtToken = request.headers["authorization"];
             cookie.save("final-access-token", jwtToken);
             
             return { data: request.data, auth: true}
         } catch(error) {
-            dispatch(errorGlobal("Wrong username or password"))
+            dispatch(errorGlobal("Грешно име и парола"))
             throw error;
         }
     }
@@ -107,10 +106,10 @@ export const addUser = createAsyncThunk(
     async(user, {dispatch})=>{
         try{
             const request = await axios.post(`/user/create`, user, getAuthHeader());
-            dispatch(successGlobal("User added"));
+            dispatch(successGlobal("Профила е добавен"));
             return request.data;
         }catch(error){
-            dispatch(errorGlobal("Couldn't add user"));
+            dispatch(errorGlobal("Профила не е добавен"));
             throw error
         }
     }
@@ -122,29 +121,13 @@ export const deleteUser = createAsyncThunk(
         try{
             const request = await axios.delete(`/user/delete?id=${id}`, getAuthHeader());
             
-            dispatch(successGlobal("User deleted"));
+            dispatch(successGlobal("Профила е изтрит"));
 
             return request.data;
         }catch(error){
-            dispatch(errorGlobal("Couldn't delete the user"));
+            dispatch(errorGlobal("Профила не е изтрит"));
             throw error
         }
     }
 )
-
-/*
-export const loginGet = createAsyncThunk(
-    'get/login',
-    async()=>{
-        try {
-            const request = await axios.get(`http://localhost:8080/login`)
-            // dispatch(successGlobal('Welcome!!'))
-            console.log("you made get request in login")
-            console.log( request.data)
-        } catch(error) {
-            // dispatch(errorGlobal(error.response.data.message))
-            throw error;
-        }
-    }
-)*/
 
