@@ -28,9 +28,9 @@ const Login = () => {
         initialValues: {username: 'ivan', password: 'ivan'},
         validationSchema: Yup.object({
             username: Yup.string()
-            .required('The username field is required'),
+            .required('Задължително поле'),
             password: Yup.string()
-            .required('The password field is required')
+            .required('Задължително поле')
             .min(3)
             .max(100)
             
@@ -53,7 +53,7 @@ const Login = () => {
     return (
         <SignGuard users={users}>
             <div className="auth_container">
-                <h1>Login</h1>
+                <h1>Вход</h1>
                 { users.loading ? 
                     <Loader/>
                     :
@@ -66,16 +66,16 @@ const Login = () => {
                     >
 
                         <TextField
-                            name="username"
-                            label="Enter your username"
+                            name="потребител"
+                            label="Въведи потребителско име"
                             variant='outlined'
                             {...formik.getFieldProps('username')}
                             {...errorHelper(formik, 'username')}
                         />
 
                         <TextField
-                            name="password"
-                            label="Enter your password"
+                            name="парола"
+                            label="Въведи парола"
                             type="password"
                             variant='outlined'
                             {...formik.getFieldProps('password')}
@@ -85,7 +85,7 @@ const Login = () => {
                         <div className="mt-2">
                             <Button variant="contained" color="primary" type="submit"
                             size="large" disabled={!formik.isValid}>
-                                {'Login'}
+                                Вход
                             </Button>
                         </div>
 

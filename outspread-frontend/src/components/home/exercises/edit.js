@@ -6,6 +6,7 @@ import AddExercise from "../../admin/exercises/edit_add/add"
 import { getExercise } from "../../../store/actions/exercises";
 import { Loader } from "../../../utils/tools";
 import { Button } from "react-bootstrap";
+import { Card } from "@mui/material";
 
 const EditExercise = () => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const EditExercise = () => {
     },[exercises.current])
 
     return (
-        <>
+        <Card className="Card " style={{backgroundColor: '#44348b35'}}>
             <div className="navigation">
                 <Button className="trans ml-5" onClick={() => navigate('/')}>Back to home page</Button>
                 <Button className="trans ml-5" onClick={() => navigate('/exercise/' + params.id)}>View exercise</Button>
@@ -33,7 +34,7 @@ const EditExercise = () => {
                 :
                 <Loader/>
             }
-        </>
+        </Card>
     )
 }
 export default EditExercise

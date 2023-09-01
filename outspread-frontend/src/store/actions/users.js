@@ -107,9 +107,10 @@ export const addUser = createAsyncThunk(
     async(user, {dispatch})=>{
         try{
             const request = await axios.post(`/user/create`, user, getAuthHeader());
-            
+            dispatch(successGlobal("User added"));
             return request.data;
         }catch(error){
+            dispatch(errorGlobal("Couldn't add user"));
             throw error
         }
     }

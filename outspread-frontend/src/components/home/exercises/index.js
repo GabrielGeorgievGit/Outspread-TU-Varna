@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { deleteOwnerExercise, getExercise, userSignExercise, userSignOutExercise } from "../../../store/actions/exercises";
 import { isAuth } from "../../../store/actions/users";
 import { Loader } from "../../../utils/tools";
-import { Box, Card } from "@mui/material";
+import { Card } from "@mui/material";
 
 const ViewExercise = () => {
 
@@ -37,15 +37,6 @@ const ViewExercise = () => {
     useEffect(() => {
         if(exercise) setSigned(alreadySigned());
     },[exercise, user])
-
-    // useEffect(() => {
-    //     if(user && exercise) setOwned(user.id === exercise.ownerId)
-    //     if(user && user.exercisesOwned && user.exercisesSigned) {
-    //         setSigned(alreadySigned())
-    //         console.log(signed)
-    //     }
-            
-    // },[user.exercisesSigned, user.exercisesOwned])
 
     function convertTime(time) {
         time = time.split(':');
@@ -115,14 +106,13 @@ const ViewExercise = () => {
     }
 
     return (
-        <>
+        <Card className="Card" style={{backgroundColor: '#44348b35'}}>
             <div className="navigation">
                 <Button className="trans" onClick={() => navigate('/')}>Back to home page</Button>
             </div>
             {
                 exercise ?
-                <Card className="Card" style={{backgroundColor: '#44348b35'}}>
-                    {/* <h2>View Exercise</h2> */}
+                <>
                     <div className="exerciseInfos">
                         <h2 className="exerciseTitle">{exercise.owner}'s exercise</h2>
                         
@@ -134,7 +124,6 @@ const ViewExercise = () => {
                         <h4 className="exerciseInfo">Room: {exercise.room}</h4>
                         <h4 className="exerciseInfo">Signed number: {exercise.signed}</h4>
                     </div>
-                    {/* {console.log(signed, owned)} */}
                     {
                         signed ? owned ? 
                         <>
@@ -148,14 +137,11 @@ const ViewExercise = () => {
                         <Button className="trans ml-5" onClick={() => signExercise()}>Sign for</Button>
                     }
                     
-                </Card>
+                </>
                 :
                 <Loader/>
             }
-            
-            
-
-        </>
+        </Card>
     )
 }
 export default ViewExercise;
