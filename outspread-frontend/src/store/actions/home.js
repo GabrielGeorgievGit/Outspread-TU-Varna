@@ -12,7 +12,7 @@ export const homeExcercises = createAsyncThunk(
         try {
             const request = await axios.get("http://localhost:8080", getAuthHeader());
             
-            console.log(request.data);
+            // console.log(request.data);
         } catch(error) {
             
             navigate("/login")

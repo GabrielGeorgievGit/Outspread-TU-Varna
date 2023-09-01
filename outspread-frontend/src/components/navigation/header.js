@@ -59,7 +59,7 @@ const Header = () => {
             { users.auth || admins.auth ? 
                 <>
                     <h4 style={{ float: 'right', display: 'flex'}}>{users.data.fullname}</h4>
-                    <button className="button-28" style={{marginRight: '20px'}} onClick={()=>signOutUser()}>Излез</button>
+                    <button className="button-28" style={{marginRight: '20px'}} onClick={()=>signOutUser()}>Изход</button>
                 </>
                 :
                 null

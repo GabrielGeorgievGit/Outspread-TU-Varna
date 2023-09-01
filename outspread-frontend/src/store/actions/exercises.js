@@ -23,10 +23,10 @@ export const editExercise = createAsyncThunk(
         try{
             const request = await axios.put(`/exercise/edit`, exercise, getAuthHeader());
             
-            dispatch(successGlobal('Exercise updated'))
+            dispatch(successGlobal('Упражнението е променено'))
             return request.data;
         }catch(error){
-            dispatch(errorGlobal('Exercise not updated'))
+            dispatch(errorGlobal('Упражнението не бе променено'))
             throw error
         }
     }
@@ -79,11 +79,11 @@ export const userSignExercise = createAsyncThunk(
     async(sign, {dispatch})=>{
         try{
             const request = await axios.post(`/exercise/sign/user`, sign, getAuthHeader());
-            dispatch(successGlobal("Signed for exercise"));
+            dispatch(successGlobal("Записахте се за упражнението"));
             
             return {...request.data, error: false};
         }catch(error){
-            dispatch(errorGlobal("Unsuccessful sign for exercise"));
+            dispatch(errorGlobal("Не успяхте да се запишете за упражнението"));
             return {error: true}
         }
     }
@@ -95,11 +95,11 @@ export const userSignOutExercise = createAsyncThunk(
         try{
             const request = await axios.post(`/exercise/signOut/user`, sign, getAuthHeader())
             
-            dispatch(successGlobal("Signed out of the exercise"));
+            dispatch(successGlobal("Отписахте се от упражнението"));
             
             return {...request.data, error: false};
         }catch(error){
-            dispatch(errorGlobal("Unsuccessful sign out of exercise"));
+            dispatch(errorGlobal("Не успяхте да се отпишете от упражнението"));
             return {error: true}
         }
     }
@@ -108,19 +108,19 @@ export const userSignOutExercise = createAsyncThunk(
 export const deleteOwnerExercise = createAsyncThunk(
     'exercises/deleteOwnerExercise',
     async(remove, {dispatch})=>{
-        try{console.log(remove)
+        try{
             const request = await axios.delete(`/exercise/own/delete?ownerId=${remove.ownerId}&exerciseId=${remove.exerciseId}`, getAuthHeader())
             .then(response => {
                 if(response.status === 200) {
                     dispatch({error: false})
                 }
             });
-            dispatch(successGlobal("Exercise deleted"));
+            dispatch(successGlobal("Упражнението е изтрито"));
 
             return request.data;
         }catch(error){
             dispatch({error: true})
-            dispatch(errorGlobal("Couldn't delete the exercise"));
+            dispatch(errorGlobal("Упражнението не е изтрито"));
         }
     }
 )
@@ -131,11 +131,11 @@ export const deleteExercise = createAsyncThunk(
         try{
             const request = await axios.delete(`/exercise/delete?id=${id}`, getAuthHeader());
             
-            dispatch(successGlobal("Exercise deleted"));
+            dispatch(successGlobal("Упражнението е изтрито"));
 
             return request.data;
         }catch(error){
-            dispatch(errorGlobal("Couldn't delete the exercise"));
+            dispatch(errorGlobal("Упражнението не е изтрито"));
         }
     }
 )

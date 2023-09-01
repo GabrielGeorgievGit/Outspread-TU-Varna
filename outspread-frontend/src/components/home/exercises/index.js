@@ -108,33 +108,33 @@ const ViewExercise = () => {
     return (
         <Card className="Card" style={{backgroundColor: '#44348b35'}}>
             <div className="navigation">
-                <Button className="trans" onClick={() => navigate('/')}>Back to home page</Button>
+                <Button className="trans" onClick={() => navigate('/')}>Обратно към началната страница</Button>
             </div>
             {
                 exercise ?
                 <>
                     <div className="exerciseInfos">
-                        <h2 className="exerciseTitle">{exercise.owner}'s exercise</h2>
+                        <h2 className="exerciseTitle">Упражнение на {exercise.owner}</h2>
                         
-                        <h4 className="exerciseInfo">Title: {exercise.title}</h4>
-                        <h4 className="exerciseInfo">Discipline: {exercise.discipline}</h4>
-                        <h4 className="exerciseInfo">Description: {exercise.info}</h4>
-                        <h4 className="exerciseInfo">Start: {getDateTime(exercise.time)}</h4>
-                        <h4 className="exerciseInfo">Duration: {convertTime(exercise.duration)}</h4>
-                        <h4 className="exerciseInfo">Room: {exercise.room}</h4>
-                        <h4 className="exerciseInfo">Signed number: {exercise.signed}</h4>
+                        <h4 className="exerciseInfo">Заглавие: {exercise.title}</h4>
+                        <h4 className="exerciseInfo">Дисциплина: {exercise.discipline}</h4>
+                        <h4 className="exerciseInfo">Описание: {exercise.info}</h4>
+                        <h4 className="exerciseInfo">Начало: {getDateTime(exercise.time)}</h4>
+                        <h4 className="exerciseInfo">Продължителност: {convertTime(exercise.duration)}</h4>
+                        <h4 className="exerciseInfo">Стая: {exercise.room}</h4>
+                        <h4 className="exerciseInfo">Брой записали се: {exercise.signed}</h4>
                     </div>
                     {
                         signed ? owned ? 
                         <>
-                            <Button className="trans ml-5" disabled>Your exercise</Button>
-                            <Button className="trans ml-5" style={{backgroundColor: 'green'}} onClick={() => editExercise()}>Edit exercise</Button>
-                            <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => deleteExercise()}>Delete exercise</Button>
+                            <Button className="trans ml-5" disabled>Това е твое упражнение</Button>
+                            <Button className="trans ml-5" style={{backgroundColor: 'green'}} onClick={() => editExercise()}>Редактиране</Button>
+                            <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => deleteExercise()}>Изтриване</Button>
                         </>
                         :
-                        <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => signOutExercise()}>Sign out</Button>
+                        <Button className="trans ml-5" style={{backgroundColor: 'red'}} onClick={() => signOutExercise()}>Отписване от упражнение</Button>
                         :
-                        <Button className="trans ml-5" onClick={() => signExercise()}>Sign for</Button>
+                        <Button className="trans ml-5" onClick={() => signExercise()}>Записване за упражнение</Button>
                     }
                     
                 </>

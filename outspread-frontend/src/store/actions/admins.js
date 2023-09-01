@@ -13,13 +13,13 @@ export const loginAdmin = createAsyncThunk(
                 password: password
             })
             removeTokenCookie()
-            dispatch(successGlobal('Welcome!!'))
+            dispatch(successGlobal('Добре дошли!'))
             const jwtToken = request.headers["authorization"];
             cookie.save("final-access-token", jwtToken);
             
             return { data: request.data, auth: true}
         } catch(error) {
-            dispatch(errorGlobal("Wrong username or password"))
+            dispatch(errorGlobal("Грешно потребителско име или парола"))
             throw error;
         }
     }

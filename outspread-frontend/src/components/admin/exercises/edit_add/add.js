@@ -128,7 +128,7 @@ const AddExercise = ({isUser, edit, exercise}) => {
             <div className="navigation" hidden={edit === true || isUser === false}>
                 <Buttonb className="trans ml-5" onClick={() => navigate('/')}>Обратно в началната страница</Buttonb>
             </div>
-            <AdminTitle title= {edit === true ? "Edit exercise" : "Add exercise"}/>
+            <AdminTitle title= {edit === true ? "Промени упражнение" : "Добави упражнение"}/>
             
             <form className="m5-3 article_form" onSubmit={formik.handleSubmit}>
                 <div className="form-group">
