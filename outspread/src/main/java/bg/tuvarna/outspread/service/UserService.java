@@ -10,7 +10,6 @@ import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.mapper.UserMapper;
 
 public interface UserService extends UserDetailsService {
-//	LoginResponseDto authenticate(LoginDto user);
 	User createUser(UserDto user);
 	User editUser(UserEditDto user);
 	void deleteUser(int id);
