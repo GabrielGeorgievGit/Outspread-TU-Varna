@@ -5,7 +5,11 @@ import bg.tuvarna.outspread.dto.UserDto;
 public class UserValidation {
 	public static UserDto validateUserDto(UserDto user) {
 		if(user.getRole().toUpperCase() == "STUDENT") user.setRole("STUDENT");
-		if(user.getRole().toUpperCase() == "TEACHER") user.setRole("TEACHER");
+		if(user.getRole().toUpperCase() == "TEACHER") {
+			user.setRole("TEACHER");
+			user.setFn(null);
+		}
+		
 		return user;
 	}
 	

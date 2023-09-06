@@ -47,6 +47,13 @@ public class UserRepositoryImpl implements UserRepository {
 //		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 //		String encryptedPwd = bcrypt.encode(password);
 		
+		if(role != "STUDENT") {
+			User user = new User(username, password, fullname, null, specialty, null, role, List.of(), List.of());
+			
+			em.persist(user);
+			
+			return Optional.of(user);
+		}
 		
 		User user = new User(username, password, fullname, fn, specialty, semester, role, List.of(), List.of());
 		

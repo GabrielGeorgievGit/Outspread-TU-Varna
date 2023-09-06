@@ -44,7 +44,7 @@ const AddProfile = () => {
         }
     })
 
-    const [role, setRole] = useState("STUDENT");
+    const [role, setRole] = useState("student");
 
     return (
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
@@ -94,13 +94,13 @@ const AddProfile = () => {
                     <TextField
                         style={{width: '30%'}}
                         name="fullname"
-                        label="Пълно име на студент"
+                        label="Пълно име"
                         variant="outlined"
                         {...formik.getFieldProps('fullname')}
                         {...errorHelper(formik, 'fullname')}/>
                         
                 </div>
-                <div className="form-group">
+                <div className="form-group" hidden = {role === 'student' ? false : true}>
                     <TextField
                         style={{width: '30%'}}
                         name="fn"
@@ -134,7 +134,7 @@ const AddProfile = () => {
                     </FormControl>
                 </div>
                 
-                <div className="form-group">
+                <div className="form-group" hidden = {role === 'student' ? false : true}>
                     <TextField
                         style={{width: '30%'}}
                         name="semester"
