@@ -37,7 +37,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `fn_UNIQUE` (`fn`),
   KEY `specialty_user_id_idx` (`specialty_id`),
   CONSTRAINT `specialty_user_id` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`specialty_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'ivan','ivan','Ivan Ivanov',NULL,1,'1','STUDENT'),(2,'georgi','georgi','Georgi Georgiev',NULL,2,'2','STUDENT'),(3,'teacher1','teacher1','inz Pavel Hristov',NULL,NULL,NULL,'TEACHER'),(4,'galin','galin','Galin Petrov','19281929',1,'6','STUDENT'),(6,'john','john','john john john','12312312',2,'1',''),(7,'john1','john','john john john','12312313',2,'1',''),(8,'georgito','1234','georgi georgie','19293912',2,'1',''),(9,'joro','joro','Jorkata Jordanov','19281983',1,'1',''),(10,'joro1','joro1','Joro jorkov','19281928',1,'1',''),(11,'joro3','joro3','joro3 jorka','19281920',1,'1',''),(12,'jorka34','jorka34','jorkakakka','19283494',1,'1',''),(13,'jorkaks','jorka','jorkasd','19281736',1,'1',''),(14,'jorojoro','jorojoro','joro joro','19121341',1,'2','STUDENT');
+INSERT INTO `user` VALUES (1,'ivan','ivan','Иван Иванов','19281926',1,'1','STUDENT'),(2,'georgi','georgi','Георги Георгиев','19293934',2,'2','STUDENT'),(4,'galin','galin','Галин Петров','19281929',1,'6','STUDENT'),(6,'john','john','Джон Андерсън','12312312',2,'1','STUDENT'),(7,'john1','john','Мартин Едуардс','12312313',2,'1','STUDENT'),(8,'georgito','1234','Георги Петров','19293912',2,'1','STUDENT'),(9,'joro','joro','Йордан Йорданов','19281983',1,'1','STUDENT'),(10,'joro1','joro1','Кирил Йорданов','19281928',1,'1','STUDENT'),(12,'jorka34','jorka34','Стефан Димитров','19283494',1,'1','STUDENT'),(13,'jorkaks','jorkaks','Емил Асенов','19281736',1,'1','STUDENT'),(14,'jorojoro','jorojoro','Христо Каменов','19121341',1,'2','STUDENT'),(17,'hriszivkova','hriszivkova','Христина Живкова',NULL,1,'','TEACHER'),(18,'ivant','ivant','Иван Иванов','19281919',1,'1','STUDENT'),(26,'prep1','prep1','prep1',NULL,1,NULL,'teacher'),(27,'prep2','prep2','prep2',NULL,1,NULL,'teacher');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-21 18:00:43
+-- Dump completed on 2023-09-08 18:05:26

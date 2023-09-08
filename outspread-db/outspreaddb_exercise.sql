@@ -40,7 +40,7 @@ CREATE TABLE `exercise` (
   CONSTRAINT `discipline_exercise_id` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`discipline_id`),
   CONSTRAINT `exercise_room_id` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`),
   CONSTRAINT `owner_user_id` FOREIGN KEY (`owner_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `exercise` (
 
 LOCK TABLES `exercise` WRITE;
 /*!40000 ALTER TABLE `exercise` DISABLE KEYS */;
-INSERT INTO `exercise` VALUES (1,1,'Exercise for studying on discipline 1',1,'info1','2023-05-03 10:30:22','10:30:00',1,2),(2,3,'Exercise for studying on discipline Web design and creating beautiful websites',3,'sdfsdf','2023-08-29 13:20:00','02:10:00',2,1),(17,2,'dsfds',2,'dsf','2023-08-13 14:00:00','03:00:00',13,1),(18,2,'fgdg',5,'bfdbefgdfg','2023-08-13 12:00:00','11:00:00',18,1),(19,4,'Second exercise',8,'Math exercise part 2','2023-08-31 15:00:00','03:00:00',8,0);
+INSERT INTO `exercise` VALUES (1,1,'Упражнение за обучаване по математика първа част',2,'Добре дошли да се упражняваме по математика','2023-09-27 17:10:00','02:20:00',3,2),(17,2,'Изучаване на математика 1 част',2,'Тук ще изучаваме математика','2023-08-13 14:00:00','03:00:00',13,3),(19,4,'Упражнение по математика втора част',8,'Упражнения помагащи на студентите за начални знания по дисциплината','2023-09-26 15:00:00','01:30:00',8,1),(20,1,'Упражнение по първите упражнения по математиак',8,'Упражнение по първите упражнения от 1 до 8','2023-08-01 00:00:00','02:00:00',13,0),(24,9,'Упражнение по базово програмиране',4,'Предлагам упражняване на взетия материал до момента по базово програмиране.','2023-09-25 13:15:00','02:00:00',15,0);
 /*!40000 ALTER TABLE `exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-21 18:00:43
+-- Dump completed on 2023-09-08 18:05:26
