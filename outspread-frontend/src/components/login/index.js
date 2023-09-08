@@ -25,7 +25,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const formik = useFormik({
-        initialValues: {username: 'ivan', password: 'ivan'},
+        initialValues: {username: '', password: ''},
         validationSchema: Yup.object({
             username: Yup.string()
             .required('Задължително поле'),
