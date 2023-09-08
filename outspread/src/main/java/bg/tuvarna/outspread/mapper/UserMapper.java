@@ -44,8 +44,6 @@ public class UserMapper {
 	}
 
 	public static UserMapper userMapper(User user) {
-		//ExerciseMapper.mapExercises(user.getExercisesOwned()), ExerciseMapper.mapUserSignExercisesToExercises(user.getExercisesSigned()
-//		user.getExercisesSigned().stream().forEach(s -> System.out.println(s.getExercise().getTitle()));
 		return new UserMapper(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getFn(),
 				user.getSpecialty() == null ? null : user.getSpecialty().getId(), user.getSemester(), user.getRole(),
 				ExerciseMapper.mapExercises(user.getExercisesOwned()), ExerciseMapper.mapUserSignExercisesToExercises(user.getExercisesSigned()));
