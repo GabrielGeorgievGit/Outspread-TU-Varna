@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import bg.tuvarna.outspread.dto.UserDto;
+import bg.tuvarna.outspread.dto.UserEditDto;
 import bg.tuvarna.outspread.entity.User;
 import bg.tuvarna.outspread.mapper.UserMapper;
 import bg.tuvarna.outspread.service.UserService;
@@ -47,4 +48,19 @@ public class UserServiceTest {
 		
 		 assertThrows(NoSuchElementException.class, () -> us.findUser("testcreatedetele"));
 	  }
+	 
+	 @Test
+	  void createEditDelete() throws Exception {
+		 User created = us.createUser(new UserDto("testcreatedetele", "testcreatedetele", "Tania Doncheva", "11111111", 1, '1', "STUDENT"));
+		 
+		 us.editUser(new UserEditDto(created.getId(), "testcreatedetele", "testcreatedetele", "Tania Doncheva", "11111112", 1, '1', "STUDENT"));
+		 
+		 UserMapper find = us.findUser("testcreatedetele");
+		 assertTrue(find.getFn().equals("11111112"));
+		 us.deleteUser(created.getId());
+		
+		 assertThrows(NoSuchElementException.class, () -> us.findUser("testcreatedetele"));
+	  }
+	 
+	 
 }
