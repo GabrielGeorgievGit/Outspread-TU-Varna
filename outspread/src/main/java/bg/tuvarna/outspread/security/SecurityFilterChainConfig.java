@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import bg.tuvarna.outspread.jwt.JWTAuthenticationFilter;
 @Configuration
 @EnableWebSecurity
-// IMB: added this to allow role authorization
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityFilterChainConfig {
 

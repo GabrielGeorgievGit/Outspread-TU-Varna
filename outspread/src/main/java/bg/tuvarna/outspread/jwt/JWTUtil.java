@@ -4,9 +4,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 
 import org.springframework.stereotype.Service;
 
@@ -56,15 +53,12 @@ public class JWTUtil {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    // IMB: Added function to validate the token
     public boolean validateAccessToken(String token) {
         try {
             getClaims(token);
 
             return true;
         } catch (Exception ex) {
-            // Typically here is the place where you will implement some logging mechanism
-            // or logic to handle invalid tokens
             System.out.println("Token is not valid!");
             System.out.println(ex.getMessage());
         }
