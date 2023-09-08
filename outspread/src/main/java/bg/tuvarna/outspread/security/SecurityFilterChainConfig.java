@@ -72,56 +72,7 @@ public class SecurityFilterChainConfig {
                 		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/**"
                 		).permitAll()
-//                .requestMatchers(HttpMethod.PUT, "/specialty/change"
-//                		).hasAnyRole("ROLE_ADMIN_PRIME", "ADMIN")
-                
-                
-                /*
-                //admin
-                .requestMatchers(
-                		HttpMethod.POST, "/admin/**"
-                		).hasAnyRole("ADMIN_PRIME")
-                .requestMatchers(
-                		HttpMethod.PUT, "/admin/**"
-                		).hasAnyRole("ADMIN_PRIME")
-                .requestMatchers(
-                		HttpMethod.DELETE, "/admin/**"
-                		).hasAnyRole("ADMIN_PRIME")
-                .requestMatchers(
-                		HttpMethod.POST, "/user/**"
-                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                .requestMatchers(
-                		HttpMethod.POST, "/user/*"
-                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                .requestMatchers(
-                		HttpMethod.POST, "/specialty/add"
-                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
-//                .requestMatchers(
-//                		HttpMethod.GET, "/user/findSemester"
-//                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                //user
-                .requestMatchers(
-                		HttpMethod.POST, "/user/create"
-                		).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                .requestMatchers(
-                        HttpMethod.PUT, "/user/edit"
-                ).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                .requestMatchers(
-                        HttpMethod.DELETE, "/user/delete"
-                ).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                //specialty
-                .requestMatchers(
-                        HttpMethod.POST, "/specialty/create"
-                ).hasAnyRole("ADMIN_PRIME", "ADMIN")
-                .requestMatchers(
-                        HttpMethod.GET, "/**"
-                )
-                .permitAll()
-                */
-//                .requestMatchers(
-//                        HttpMethod.POST, "/**"
-//                )
-//                .permitAll()
+
                 .anyRequest()
                 .authenticated()
                 .and()
