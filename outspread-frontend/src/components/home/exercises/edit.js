@@ -26,8 +26,8 @@ const EditExercise = () => {
     return (
         <Card className="Card " style={{backgroundColor: '#44348b35'}}>
             <div className="navigation">
-                <Button className="trans ml-5" onClick={() => navigate('/')}>Back to home page</Button>
-                <Button className="trans ml-5" onClick={() => navigate('/exercise/' + params.id)}>View exercise</Button>
+                <Button className="trans ml-5" onClick={() => navigate('/')}>Към началната страница</Button>
+                <Button className="trans ml-5" onClick={() => navigate('/exercise/' + params.id)}>Отвори упражнение</Button>
             </div>
             { current ? 
                 <AddExercise isUser={true} edit={true} exercise={current}/>

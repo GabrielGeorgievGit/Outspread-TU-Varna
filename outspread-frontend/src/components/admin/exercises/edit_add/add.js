@@ -126,7 +126,7 @@ const AddExercise = ({isUser, edit, exercise}) => {
     return (
         <>
             <div className="navigation" hidden={edit === true || isUser === false}>
-                <Buttonb className="trans ml-5" onClick={() => navigate('/')}>Обратно в началната страница</Buttonb>
+                <Buttonb className="trans ml-5" onClick={() => navigate('/')}>Обратно към началната страница</Buttonb>
             </div>
             <AdminTitle title= {edit === true ? "Промени упражнение" : "Добави упражнение"}/>
             
