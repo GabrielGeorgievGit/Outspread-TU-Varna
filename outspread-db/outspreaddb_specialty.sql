@@ -37,7 +37,7 @@ CREATE TABLE `specialty` (
 
 LOCK TABLES `specialty` WRITE;
 /*!40000 ALTER TABLE `specialty` DISABLE KEYS */;
-INSERT INTO `specialty` VALUES (2,'KST'),(1,'SIT'),(3,'TTT'),(5,'ИД'),(4,'ТИП');
+INSERT INTO `specialty` VALUES (3,'TTT'),(5,'ИД'),(2,'КСТ'),(1,'СИТ'),(4,'ТИП');
 /*!40000 ALTER TABLE `specialty` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-08 18:05:26
+-- Dump completed on 2023-09-11 23:03:09

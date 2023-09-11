@@ -31,7 +31,7 @@ CREATE TABLE `user_sign_exercise` (
   KEY `user_sign_exercise_exercise_idx` (`exercise_id`),
   CONSTRAINT `user_sign_exercise_exercise` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`exercise_id`),
   CONSTRAINT `user_sign_exercise_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `user_sign_exercise` (
 
 LOCK TABLES `user_sign_exercise` WRITE;
 /*!40000 ALTER TABLE `user_sign_exercise` DISABLE KEYS */;
-INSERT INTO `user_sign_exercise` VALUES (8,12,17),(68,1,17),(73,1,19);
+INSERT INTO `user_sign_exercise` VALUES (8,12,17),(68,1,17),(73,1,19),(75,1,24);
 /*!40000 ALTER TABLE `user_sign_exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-08 18:05:25
+-- Dump completed on 2023-09-11 23:03:10
