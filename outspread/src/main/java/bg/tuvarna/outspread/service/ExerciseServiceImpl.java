@@ -34,7 +34,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 	
 	@Override
 	public ExerciseDto findExercise(int id) {
-		return ExerciseMapper.mapExercise(er.findExercise(id).get());//.orElseThrow(NotFoundException::new);
+		return ExerciseMapper.mapExercise(er.findExercise(id).get());
 	}
 	
 	@Override
@@ -93,10 +93,4 @@ public class ExerciseServiceImpl implements ExerciseService {
 		}
 		throw new NotFoundException();
 	}
-
-	
-//	@Override
-//	public Exercise paginateExercises(ExerciseDto dto) {
-//		return er.createExercise(dto.getOwnerId(), dto.getTitle(), dto.getDisciplineId(), dto.getInfo(), dto.getTime(), dto.getDuration(), dto.getRoom(), dto.getSigned()).get();
-//	}
 }

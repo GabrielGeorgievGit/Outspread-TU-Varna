@@ -44,8 +44,6 @@ public class UserRepositoryImpl implements UserRepository {
 	@Transactional
 	public Optional<User> createUser(String username, String password, String fullname, String fn, int specialtyId, Character semester, String role) {
 		Specialty specialty = em.find(Specialty.class, specialtyId);
-//		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-//		String encryptedPwd = bcrypt.encode(password);
 		
 		if(role != "STUDENT") {
 			User user = new User(username, password, fullname, null, specialty, null, role, List.of(), List.of());

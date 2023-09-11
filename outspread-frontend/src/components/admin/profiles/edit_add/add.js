@@ -48,7 +48,7 @@ const AddProfile = () => {
 
     return (
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
-            <AdminTitle title="Add profile"/>
+            <AdminTitle title="Добави профил"/>
             <FormControl fullWidth>
                 <InputLabel>Избери тип на профил</InputLabel>
                 <Select defaultValue="student" onChange={(event) => setRole(event.target.value)}

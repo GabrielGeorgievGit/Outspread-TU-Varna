@@ -17,7 +17,7 @@ const AdminSpecialties = () => {
 
     return (
         <Card className="Card " style={{backgroundColor: '#A1BDE333'}}>
-            <AdminTitle title="Specialties"/>
+            <AdminTitle title="Специалности"/>
 
 
             <div className="exercises_table">

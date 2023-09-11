@@ -44,7 +44,6 @@ public class UserController {
 	public ResponseEntity<?> createUser(@RequestBody UserDto request) {
 		us.createUser(request);
 		return null;
-//		return new ResponseEntity<User>(us.createUser(request), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/edit")
